@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Income System™ — 6 Modelos de Rendimento com IA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+:root {
+  --bg: #05050a;
+  --s1: #0a0a12;
+  --s2: #0f0f1c;
+  --s3: #161626;
+  --bd: #1e1e30;
+  --bd2: #282840;
+  --a:  #6366f1;
+  --al: #818cf8;
+  --ag: rgba(99,102,241,.08);
+  --ab: rgba(99,102,241,.18);
+  --ah: rgba(99,102,241,.25);
+  --w:  #f59e0b;
+  --wg: rgba(245,158,11,.07);
+  --wh: #f5f2eb;
+  --tx: #b8b4ac;
+  --mu: #56546a;
+  --mu2: #1c1c2e;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--tx);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── NOISE OVERLAY ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .6;
+}
+
+/* ── NAV ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(5,5,10,.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--bd);
+  padding: 0 5%;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px;
+}
+.nav-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 800;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--wh);
+}
+.nav-brand span { color: var(--al); }
+.nav-cta {
+  background: var(--a);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  letter-spacing: .02em;
+  transition: background .2s, transform .15s;
+  text-decoration: none;
+  display: inline-block;
+}
+.nav-cta:hover { background: var(--al); transform: translateY(-1px); }
+
+/* ── SECTIONS ── */
+section { position: relative; z-index: 1; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 120px 5% 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  top: 10%; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 400px;
+  background: radial-gradient(ellipse, rgba(99,102,241,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--bd) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bd) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: .3;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent);
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ag);
+  border: 1px solid var(--ab);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--al);
+  margin-bottom: 28px;
+  animation: fadeUp .6s ease both;
+}
+.hero-dot { width: 6px; height: 6px; background: var(--al); border-radius: 50%; }
+
+.hero h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--wh);
+  letter-spacing: -.02em;
+  margin-bottom: 12px;
+  max-width: 900px;
+  animation: fadeUp .6s .1s ease both;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--al) 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--mu);
+  font-weight: 300;
+  max-width: 560px;
+  line-height: 1.65;
+  margin-bottom: 40px;
+  animation: fadeUp .6s .2s ease both;
+}
+
+.hero-cta-group {
+  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  margin-bottom: 56px;
+  animation: fadeUp .6s .3s ease both;
+}
+.btn-primary {
+  background: var(--a);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 32px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 600;
+  cursor: pointer;
+  display: inline-flex; align-items: center; gap: 8px;
+  transition: all .2s;
+  text-decoration: none;
+  box-shadow: 0 0 32px rgba(99,102,241,.3);
+}
+.btn-primary:hover { background: var(--al); transform: translateY(-2px); box-shadow: 0 0 48px rgba(99,102,241,.4); }
+.btn-price {
+  font-size: 12px; font-weight: 400; opacity: .75;
+  background: rgba(255,255,255,.1);
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+.hero-proof {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;
+  font-size: 13px; color: var(--mu);
+  animation: fadeUp .6s .4s ease both;
+}
+.hero-proof-item { display: flex; align-items: center; gap: 6px; }
+.hero-proof-icon { color: var(--al); font-size: 14px; }
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  background: var(--s1);
+  border-top: 1px solid var(--bd);
+  border-bottom: 1px solid var(--bd);
+  padding: 32px 5%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+.strip-item {
+  text-align: center;
+  padding: 0 20px;
+  border-right: 1px solid var(--bd);
+}
+.strip-item:last-child { border-right: none; }
+.strip-v {
+  font-family: 'Syne', sans-serif;
+  font-size: 36px; font-weight: 800;
+  color: var(--al); line-height: 1;
+  margin-bottom: 6px;
+}
+.strip-l { font-size: 13px; color: var(--mu); }
+
+/* ── SECTION LAYOUT ── */
+.section-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 96px 5%;
+}
+.section-label {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: var(--al); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-label::before {
+  content: '';
+  width: 24px; height: 1.5px;
+  background: var(--a);
+}
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  color: var(--wh);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 17px; color: var(--mu);
+  font-weight: 300; line-height: 1.65;
+  max-width: 600px;
+  margin-bottom: 56px;
+}
+
+/* ── PROBLEM SECTION ── */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.problem-card {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: 12px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+}
+.problem-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(248,113,113,.4), transparent);
+}
+.problem-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 48px; font-weight: 800;
+  color: rgba(248,113,113,.12);
+  line-height: 1;
+  margin-bottom: 12px;
+}
+.problem-title { font-size: 16px; font-weight: 600; color: var(--wh); margin-bottom: 8px; }
+.problem-desc { font-size: 14px; color: var(--mu); line-height: 1.6; }
+
+/* ── SOLUTION REVEAL ── */
+.solution-reveal {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  padding: 56px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  margin-top: 56px;
+}
+.solution-reveal::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,.12), transparent 60%);
+  pointer-events: none;
+}
+.solution-kicker {
+  font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--al); margin-bottom: 20px;
+}
+.solution-headline {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(24px, 3vw, 40px);
+  font-weight: 800;
+  color: var(--wh);
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  margin-bottom: 20px;
+}
+.solution-body {
+  font-size: 16px; color: var(--mu); font-weight: 300;
+  line-height: 1.7; max-width: 600px; margin: 0 auto 32px;
+}
+
+/* ── MODULES ── */
+.modules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.mod-card {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 28px;
+  transition: border-color .2s, transform .2s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.mod-card:hover {
+  border-color: var(--ab);
+  transform: translateY(-3px);
+}
+.mod-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--a), var(--al));
+  opacity: 0;
+  transition: opacity .2s;
+}
+.mod-card:hover::before { opacity: 1; }
+.mod-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--al); margin-bottom: 12px;
+}
+.mod-icon {
+  font-size: 28px; margin-bottom: 14px;
+  display: block;
+}
+.mod-name {
+  font-family: 'Syne', sans-serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--wh); margin-bottom: 10px;
+  line-height: 1.25;
+}
+.mod-desc { font-size: 13px; color: var(--mu); line-height: 1.6; margin-bottom: 16px; }
+.mod-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.mod-tag {
+  background: var(--ag);
+  border: 1px solid var(--ab);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px; font-weight: 500;
+  color: var(--al);
+}
+
+/* ── INCLUDES ── */
+.includes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+.includes-list { display: flex; flex-direction: column; gap: 10px; }
+.inc-item {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 16px 20px;
+  transition: border-color .2s;
+}
+.inc-item:hover { border-color: var(--ab); }
+.inc-check {
+  width: 20px; height: 20px;
+  background: var(--ag);
+  border: 1px solid var(--ab);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; margin-top: 2px;
+  font-size: 10px; color: var(--al); font-weight: 700;
+}
+.inc-info { flex: 1; }
+.inc-title { font-size: 14px; font-weight: 600; color: var(--wh); margin-bottom: 3px; }
+.inc-desc { font-size: 13px; color: var(--mu); line-height: 1.5; }
+.inc-val { font-size: 11px; font-weight: 700; color: var(--al); margin-top: 4px; }
+
+/* PRICE CARD */
+.price-card {
+  background: var(--s2);
+  border: 1px solid var(--ab);
+  border-radius: 20px;
+  padding: 40px;
+  position: sticky;
+  top: 84px;
+}
+.price-badge {
+  background: var(--ag);
+  border: 1px solid var(--ab);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  color: var(--al); display: inline-block;
+  margin-bottom: 20px;
+}
+.price-amount {
+  font-family: 'Syne', sans-serif;
+  font-size: 64px; font-weight: 800;
+  color: var(--wh); line-height: 1;
+  margin-bottom: 4px;
+}
+.price-amount small {
+  font-size: 20px; color: var(--mu);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+}
+.price-note { font-size: 13px; color: var(--mu); margin-bottom: 28px; }
+.price-cta {
+  display: block; width: 100%;
+  background: var(--a);
+  color: #fff; border: none;
+  border-radius: 10px;
+  padding: 18px;
+  font-family: 'Syne', sans-serif;
+  font-size: 15px; font-weight: 700;
+  letter-spacing: .04em; text-transform: uppercase;
+  cursor: pointer;
+  transition: all .2s;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 0 32px rgba(99,102,241,.3);
+  margin-bottom: 16px;
+}
+.price-cta:hover { background: var(--al); transform: translateY(-2px); box-shadow: 0 0 48px rgba(99,102,241,.4); }
+.price-guarantee {
+  text-align: center;
+  font-size: 12px; color: var(--mu);
+  display: flex; align-items: center; gap: 6px; justify-content: center;
+}
+.price-divider { border: none; border-top: 1px solid var(--bd); margin: 24px 0; }
+.price-includes-title { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mu); margin-bottom: 14px; }
+.price-inc-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 13px; color: var(--tx);
+  padding: 6px 0;
+  border-bottom: 1px solid var(--bd);
+}
+.price-inc-item:last-child { border-bottom: none; }
+.pii { color: var(--al); flex-shrink: 0; font-size: 13px; }
+.price-total {
+  margin-top: 16px;
+  display: flex; justify-content: space-between;
+  font-size: 13px;
+}
+.price-total-label { color: var(--mu); }
+.price-total-val { font-weight: 700; color: var(--wh); }
+
+/* ── FOR WHO ── */
+.forwho-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.forwho-card {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.forwho-header {
+  padding: 16px 24px;
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .1em;
+  border-bottom: 1px solid var(--bd);
+}
+.forwho-header.yes { color: var(--al); background: var(--ag); }
+.forwho-header.no { color: #f87171; background: rgba(248,113,113,.06); }
+.forwho-list { padding: 20px 24px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.forwho-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  font-size: 14px; color: var(--tx); line-height: 1.5;
+}
+.forwho-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; gap: 10px; }
+.faq-item {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.faq-q {
+  padding: 20px 24px;
+  font-size: 15px; font-weight: 600;
+  color: var(--wh);
+  display: flex; justify-content: space-between; align-items: center;
+  cursor: pointer;
+  gap: 16px;
+  user-select: none;
+}
+.faq-q:hover { color: var(--al); }
+.faq-toggle { font-size: 20px; color: var(--al); flex-shrink: 0; transition: transform .2s; }
+.faq-a {
+  padding: 0 24px 20px;
+  font-size: 14px; color: var(--mu); line-height: 1.7;
+  display: none;
+}
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+/* ── FINAL CTA ── */
+.final-cta {
+  background: var(--s1);
+  border-top: 1px solid var(--bd);
+  border-bottom: 1px solid var(--bd);
+}
+.final-cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 96px 5%;
+  text-align: center;
+}
+.final-cta-title {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  color: var(--wh);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  margin-bottom: 16px;
+}
+.final-cta-sub {
+  font-size: 17px; color: var(--mu);
+  font-weight: 300; line-height: 1.65;
+  margin-bottom: 40px;
+}
+.guarantee-box {
+  background: var(--s2);
+  border: 1px solid var(--bd);
+  border-radius: 10px;
+  padding: 16px 24px;
+  display: flex; gap: 12px; align-items: center;
+  text-align: left; margin-top: 24px;
+  font-size: 13px;
+}
+.guarantee-icon { font-size: 24px; flex-shrink: 0; }
+.guarantee-text strong { display: block; color: var(--wh); font-size: 14px; margin-bottom: 2px; }
+.guarantee-text span { color: var(--mu); }
+
+/* ── FOOTER ── */
+footer {
+  padding: 40px 5%;
+  text-align: center;
+  font-size: 12px; color: var(--mu);
+  border-top: 1px solid var(--bd);
+}
+footer .footer-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  color: var(--wh); margin-bottom: 8px;
+}
+footer .footer-brand span { color: var(--al); }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .modules-grid { grid-template-columns: 1fr 1fr; }
+  .includes-grid { grid-template-columns: 1fr; }
+  .forwho-grid { grid-template-columns: 1fr; }
+  .stats-strip { grid-template-columns: 1fr 1fr; }
+  .strip-item { border-right: none; border-bottom: 1px solid var(--bd); padding: 16px; }
+  .strip-item:last-child { border-bottom: none; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .solution-reveal { padding: 36px 24px; }
+  .price-card { position: static; }
+}
+@media (max-width: 600px) {
+  .modules-grid { grid-template-columns: 1fr; }
+  .nav-brand { font-size: 12px; }
+  .hero h1 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">AI INCOME <span>SYSTEM™</span></div>
+  <a href="#oferta" class="nav-cta">Obter Acesso — €37</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-eyebrow">
+    <div class="hero-dot"></div>
+    Founding Edition &nbsp;·&nbsp; Europa 2026
+  </div>
+
+  <h1>
+    Daqui a 5 dias podes ter<br>
+    <em>rendimento online com IA</em><br>
+    sem aparecer uma vez.
+  </h1>
+
+  <p class="hero-sub">
+    6 modelos de negocio reais com inteligencia artificial. Sem camara, sem experiencia previa, sem investimento significativo. Escolhes o modelo certo para o teu perfil e lanças em 5 dias.
+  </p>
+
+  <div class="hero-cta-group">
+    <a href="#oferta" class="btn-primary">
+      Quero o Sistema Agora
+      <span class="btn-price">€37</span>
+    </a>
+  </div>
+
+  <div class="hero-proof">
+    <div class="hero-proof-item">
+      <span class="hero-proof-icon">✓</span>
+      Acesso imediato
+    </div>
+    <div class="hero-proof-item">
+      <span class="hero-proof-icon">✓</span>
+      Garantia de 7 dias
+    </div>
+    <div class="hero-proof-item">
+      <span class="hero-proof-icon">✓</span>
+      Ferramentas maioritariamente gratuitas
+    </div>
+    <div class="hero-proof-item">
+      <span class="hero-proof-icon">✓</span>
+      Funciona na Europa
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip reveal">
+  <div class="strip-item">
+    <div class="strip-v">6</div>
+    <div class="strip-l">Modelos de negocio incluidos</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-v">42</div>
+    <div class="strip-l">Prompts prontos para Claude</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-v">€0</div>
+    <div class="strip-l">Investimento inicial em 5 dos 6 modelos</div>
+  </div>
+  <div class="strip-item">
+    <div class="strip-v">5</div>
+    <div class="strip-l">Dias para lancar o primeiro modelo</div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section>
+  <div class="section-wrap">
+    <div class="section-label reveal">O problema real</div>
+    <h2 class="section-title reveal">Ja tentaste comecar.<br>Sabes como terminou.</h2>
+    <p class="section-sub reveal">Nao e falta de vontade. E falta de um sistema claro, com passos definidos, construido para o mercado europeu em 2026.</p>
+
+    <div class="problem-grid reveal">
+      <div class="problem-card">
+        <div class="problem-num">01</div>
+        <div class="problem-title">Demasiada informacao, zero direccao</div>
+        <div class="problem-desc">Vídeos no YouTube que se contradizem. Cursos de €500 que ensinam o que existia em 2019. Sem saber por onde comecar, nao se comeca.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">02</div>
+        <div class="problem-title">O modelo antigo exige aparecer</div>
+        <div class="problem-desc">Gravar videos todos os dias, mostrar o rosto, construir uma "marca pessoal". A maioria das pessoas nao quer isso — e com razao. Mas ninguem ensinou uma alternativa real.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">03</div>
+        <div class="problem-title">Sem provas de que funciona na Europa</div>
+        <div class="problem-desc">Todos os sistemas sao americanos. CPMs diferentes, mercados diferentes, leis diferentes. O que funciona nos EUA falha na Europa sem adaptacao especifica.</div>
+      </div>
+      <div class="problem-card">
+        <div class="problem-num">04</div>
+        <div class="problem-title">Um unico modelo que pode nao servir</div>
+        <div class="problem-desc">Cada pessoa tem um perfil diferente. Quem nao se identifica com dropshipping desiste. Mas podia ter encontrado o seu modelo em produtos digitais, freelancing ou afiliados.</div>
+      </div>
+    </div>
+
+    <div class="solution-reveal reveal">
+      <div class="solution-kicker">A solucao</div>
+      <div class="solution-headline">Nao e um curso.<br>E um sistema de execucao com IA.</div>
+      <div class="solution-body">O AI Income System™ reune 6 modelos de negocio reais, cada um com um plano de 5 dias, ferramentas gratuitas e 42 prompts para Claude — para que encontres o modelo certo para o teu perfil e executes sem adivinhar.</div>
+      <a href="#oferta" class="btn-primary" style="display:inline-flex">Ver o que esta incluido →</a>
+    </div>
+  </div>
+</section>
+
+<!-- MODULOS -->
+<section style="background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);">
+  <div class="section-wrap">
+    <div class="section-label reveal">Os 6 modelos</div>
+    <h2 class="section-title reveal">Um sistema. Seis formas de gerar rendimento.</h2>
+    <p class="section-sub reveal">Escolhes o que serve o teu perfil — ou experimentas ate encontrar. Todos os modelos sao executaveis sem aparecer em camara.</p>
+
+    <div class="modules-grid reveal">
+      <div class="mod-card">
+        <div class="mod-num">Modulo 01</div>
+        <span class="mod-icon">📱</span>
+        <div class="mod-name">Faceless Content Creator</div>
+        <div class="mod-desc">Canal TikTok, YouTube ou Instagram 100% com IA. Voz, video e roteiros automatizados. Monetizacao por views, afiliados e produtos proprios.</div>
+        <div class="mod-tags">
+          <span class="mod-tag">€0 inicio</span>
+          <span class="mod-tag">Alto potencial</span>
+          <span class="mod-tag">Passivo</span>
+        </div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">Modulo 02</div>
+        <span class="mod-icon">📄</span>
+        <div class="mod-name">Produtos Digitais com IA</div>
+        <div class="mod-desc">Templates, presets, guias PDF e pacotes de prompts. Claude cria o conteudo, tu vendes no Etsy e Gumroad. 100% de margem.</div>
+        <div class="mod-tags">
+          <span class="mod-tag">€0 inicio</span>
+          <span class="mod-tag">1a venda em 1-7 dias</span>
+          <span class="mod-tag">100% margem</span>
+        </div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">Modulo 03</div>
+        <span class="mod-icon">👕</span>
+        <div class="mod-name">Print on Demand com IA</div>
+        <div class="mod-desc">Designs criados com Ideogram AI, aplicados em t-shirts e posters, vendidos no Redbubble e Etsy. Producao e envio automaticos.</div>
+        <div class="mod-tags">
+          <span class="mod-tag">€0 inicio</span>
+          <span class="mod-tag">Zero inventario</span>
+          <span class="mod-tag">Evergreen</span>
+        </div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">Modulo 04</div>
+        <span class="mod-icon">🛍️</span>
+        <div class="mod-name">Dropshipping com IA</div>
+        <div class="mod-desc">Produto escolhido pelo Claude, video criado pelo Kling AI, loja no Shopify com DSers. Margens de 3x sem tocar no produto.</div>
+        <div class="mod-tags">
+          <span class="mod-tag">€1/mes</span>
+          <span class="mod-tag">Margem 3x</span>
+          <span class="mod-tag">Escalavel</span>
+        </div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">Modulo 05</div>
+        <span class="mod-icon">💼</span>
+        <div class="mod-name">Freelancing com IA</div>
+        <div class="mod-desc">Copywriting, videos, gestao de redes sociais com IA como alavanca. No Fiverr e Upwork. Primeira receita possivel em 1-5 dias.</div>
+        <div class="mod-tags">
+          <span class="mod-tag">€0 inicio</span>
+          <span class="mod-tag">1-5 dias</span>
+          <span class="mod-tag">Mais rapido</span>
+        </div>
+      </div>
+      <div class="mod-card">
+        <div class="mod-num">Modulo 06</div>
+        <span class="mod-icon">🔗</span>
+        <div class="mod-name">Affiliate Marketing com IA</div>
+        <div class="mod-desc">Artigos e newsletters criados com Claude que geram comissoes automaticas. Publicado uma vez, rende indefinidamente.</div>
+        <div class="mod-tags">
+          <span class="mod-tag">€0 inicio</span>
+          <span class="mod-tag">Mais passivo</span>
+          <span class="mod-tag">Longo prazo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFERTA -->
+<section id="oferta">
+  <div class="section-wrap">
+    <div class="section-label reveal">O que esta incluido</div>
+    <h2 class="section-title reveal">Tudo o que precisas.<br>Nada do que nao precisas.</h2>
+
+    <div class="includes-grid reveal">
+      <div class="includes-list">
+        <div class="inc-item">
+          <div class="inc-check">✓</div>
+          <div class="inc-info">
+            <div class="inc-title">Guia Principal — 6 Modulos Completos</div>
+            <div class="inc-desc">19 paginas estruturadas com explicacao do modelo, ferramentas e plano de 5 dias para cada um dos 6 modelos de negocio.</div>
+            <div class="inc-val">Valor percebido: €79</div>
+          </div>
+        </div>
+        <div class="inc-item">
+          <div class="inc-check">✓</div>
+          <div class="inc-info">
+            <div class="inc-title">42 Prompts para Claude — por Modulo</div>
+            <div class="inc-desc">7 prompts especificos para cada modelo + prompts universais. Copia, cola e executa — sem ter de pensar no que perguntar.</div>
+            <div class="inc-val">Valor percebido: €49</div>
+          </div>
+        </div>
+        <div class="inc-item">
+          <div class="inc-check">✓</div>
+          <div class="inc-info">
+            <div class="inc-title">Stack Universal de 8 Ferramentas</div>
+            <div class="inc-desc">Guia de configuracao das 8 ferramentas base com custo total de €0-1. Claude, Kling AI, ElevenLabs, CapCut, Ideogram, Canva, Gumroad e Pixabay.</div>
+            <div class="inc-val">Valor percebido: €29</div>
+          </div>
+        </div>
+        <div class="inc-item">
+          <div class="inc-check">✓</div>
+          <div class="inc-info">
+            <div class="inc-title">Bonus A — Ferramentas por Modulo</div>
+            <div class="inc-desc">Stack especifico de cada modelo para alem do base — Shopify, DSers, Printify, Fiverr, Beehiiv, Awin e mais.</div>
+            <div class="inc-val">Incluido</div>
+          </div>
+        </div>
+        <div class="inc-item">
+          <div class="inc-check">✓</div>
+          <div class="inc-info">
+            <div class="inc-title">Bonus B — Checklist Universal</div>
+            <div class="inc-desc">Lista de verificacao antes e depois de cada lancamento ou publicacao. Nunca esqueces um passo critico.</div>
+            <div class="inc-val">Incluido</div>
+          </div>
+        </div>
+        <div class="inc-item">
+          <div class="inc-check">✓</div>
+          <div class="inc-info">
+            <div class="inc-title">Bonus C — Trafego Organico Europa</div>
+            <div class="inc-desc">Os canais certos para cada modelo e mercado europeu. TikTok, YouTube, Instagram, Pinterest, SEO e Etsy — quando e como usar cada um.</div>
+            <div class="inc-val">Incluido</div>
+          </div>
+        </div>
+        <div class="inc-item">
+          <div class="inc-check">✓</div>
+          <div class="inc-info">
+            <div class="inc-title">Bonus D — 10 Erros Mais Comuns</div>
+            <div class="inc-desc">Os erros que 90% dos iniciantes cometem e que custam meses de progresso. Les antes de comecar e poupas semanas.</div>
+            <div class="inc-val">Incluido</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRICE CARD -->
+      <div>
+        <div class="price-card reveal">
+          <div class="price-badge">Founding Edition</div>
+          <div class="price-amount">€37 <small>pagamento unico</small></div>
+          <div class="price-note">Preco sobe apos as primeiras 100 vendas.</div>
+
+          <a href="https://gumroad.com" class="price-cta" target="_blank">
+            Obter Acesso Agora →
+          </a>
+          <div class="price-guarantee">
+            <span>🛡️</span>
+            Garantia de devolucao integral — 7 dias, sem condicoes
+          </div>
+
+          <div class="price-divider"></div>
+          <div class="price-includes-title">O que recebes hoje</div>
+
+          <div class="price-inc-item"><span class="pii">✓</span>Guia completo — 6 modelos de negocio com IA</div>
+          <div class="price-inc-item"><span class="pii">✓</span>6 planos de 5 dias (um por modelo)</div>
+          <div class="price-inc-item"><span class="pii">✓</span>42 prompts para Claude organizados por modulo</div>
+          <div class="price-inc-item"><span class="pii">✓</span>Stack de 8 ferramentas configuradas</div>
+          <div class="price-inc-item"><span class="pii">✓</span>Bonus A, B, C e D incluidos</div>
+          <div class="price-inc-item"><span class="pii">✓</span>Acesso imediato apos pagamento</div>
+          <div class="price-inc-item"><span class="pii">✓</span>Actualizacoes futuras incluidas</div>
+
+          <div class="price-divider"></div>
+          <div class="price-total">
+            <span class="price-total-label">Valor total percebido</span>
+            <span class="price-total-val">€157+</span>
+          </div>
+          <div class="price-total" style="margin-top:6px;">
+            <span class="price-total-label" style="font-weight:600;color:var(--wh)">Teu preco hoje</span>
+            <span class="price-total-val" style="color:var(--al);font-size:18px;">€37</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROVA LOGICA -->
+<section style="background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);">
+  <div class="section-wrap" style="padding-bottom:72px;">
+    <div class="section-label reveal">Prova logica</div>
+    <h2 class="section-title reveal">Porque e que isto funciona agora.</h2>
+    <p class="section-sub reveal">Sem resultados pessoais para mostrar — sem inventar. A logica e publica e verificavel.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="reveal">
+      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:28px;">
+        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--al);margin-bottom:8px;">200M+</div>
+        <div style="font-size:14px;color:var(--wh);font-weight:600;margin-bottom:6px;">Utilizadores TikTok na Europa</div>
+        <div style="font-size:13px;color:var(--mu);">O mercado de atencao existe e esta activo. A saturacao de conteudo faceless IA ainda e muito baixa comparada com os EUA.</div>
+      </div>
+      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:28px;">
+        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--al);margin-bottom:8px;">67%</div>
+        <div style="font-size:14px;color:var(--wh);font-weight:600;margin-bottom:6px;">Compram produtos vistos no TikTok</div>
+        <div style="font-size:13px;color:var(--mu);">A intencao de compra a partir de conteudo social esta comprovada. O canal funciona — falta o sistema para o usar correctamente.</div>
+      </div>
+      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:28px;">
+        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--al);margin-bottom:8px;">€0-1</div>
+        <div style="font-size:14px;color:var(--wh);font-weight:600;margin-bottom:6px;">Para comecar 5 dos 6 modelos</div>
+        <div style="font-size:13px;color:var(--mu);">Todas as ferramentas core tem planos gratuitos. O risco financeiro e proximo de zero — o que elimina a maior desculpa para nao comecar.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM E -->
+<section>
+  <div class="section-wrap">
+    <div class="section-label reveal">Para quem e</div>
+    <h2 class="section-title reveal">Sê honesto contigo mesmo.</h2>
+
+    <div class="forwho-grid reveal">
+      <div class="forwho-card">
+        <div class="forwho-header yes">✓ Este sistema e para ti se...</div>
+        <ul class="forwho-list">
+          <li class="forwho-item"><span class="forwho-icon">✅</span>Queres rendimento online mas nao queres aparecer em camara</li>
+          <li class="forwho-item"><span class="forwho-icon">✅</span>Tentaste antes sem sistema e nao sabes por onde comecar correctamente</li>
+          <li class="forwho-item"><span class="forwho-icon">✅</span>Tens 45-90 minutos por dia durante 5 dias para executar</li>
+          <li class="forwho-item"><span class="forwho-icon">✅</span>Vives ou vendes para o mercado europeu</li>
+          <li class="forwho-item"><span class="forwho-icon">✅</span>Queres explorar varios modelos e escolher o que funciona para ti</li>
+          <li class="forwho-item"><span class="forwho-icon">✅</span>Entendes que resultados reais levam semanas ou meses — nao dias</li>
+        </ul>
+      </div>
+      <div class="forwho-card">
+        <div class="forwho-header no">✗ Este sistema NAO e para ti se...</div>
+        <ul class="forwho-list">
+          <li class="forwho-item"><span class="forwho-icon">❌</span>Esperas ganhar dinheiro sem qualquer esforco ou aprendizagem</li>
+          <li class="forwho-item"><span class="forwho-icon">❌</span>Queres resultados garantidos e especificos de rendimento</li>
+          <li class="forwho-item"><span class="forwho-icon">❌</span>Nao tens acesso a internet ou a um computador basico</li>
+          <li class="forwho-item"><span class="forwho-icon">❌</span>Ja tens experiencia avancada em todos estes modelos</li>
+          <li class="forwho-item"><span class="forwho-icon">❌</span>Procuras uma mentoria personalizada com acompanhamento individual</li>
+          <li class="forwho-item"><span class="forwho-icon">❌</span>Queres um negocio 100% automatizado sem aprender nada</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--s1);border-top:1px solid var(--bd);">
+  <div class="section-wrap">
+    <div class="section-label reveal">Perguntas frequentes</div>
+    <h2 class="section-title reveal">As objecoes reais<br>respondidas directamente.</h2>
+
+    <div class="faq-list reveal" style="max-width:800px;">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Isto funciona na Europa? Os prazos de entrega nao sao muito longos?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">O guia cobre especificamente fornecedores com armazens na Europa — CJ Dropshipping EU e Spocket — com entregas de 5 a 10 dias. O sistema foi construido para o mercado europeu, nao adaptado de um modelo americano. E dos 6 modelos, apenas 1 (Dropshipping) envolve envios fisicos. Os outros 5 sao completamente digitais.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          As ferramentas de IA sao mesmo gratuitas ou ha custos escondidos?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Todas as ferramentas core tem planos gratuitos suficientes para comecar: Claude (gratis), Kling AI (66 creditos/dia gratis), ElevenLabs (10.000 caracteres/mes gratis), CapCut (gratis), Ideogram AI (25 geracoes/dia gratis), Canva (gratis). O unico custo obrigatorio para comecar e o trial Shopify de €1/mes — e apenas para o Modulo 04. O guia especifica exactamente o que e gratis, o que tem limite e quando faz sentido actualizar.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Nao tenho experiencia nenhuma. Consigo mesmo assim?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">O sistema foi construido exactamente para iniciantes. Cada ferramenta tem um guia de configuracao em 5 minutos. Os 42 prompts para Claude funcionam com copy-paste — nao precisas de saber escrever prompts. Os planos de 5 dias sao tarefas especificas, nao teorias vagas. Se consegues usar um telemovel e ter uma conta de email, consegues executar qualquer um dos 6 modelos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Porque e que custa €37 se ha informacao gratis no YouTube?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">A informacao existe, sim. O que pagas e pela curadoria especifica para a Europa em 2026, a organizacao em planos executaveis de 5 dias, os 42 prompts testados, e a decisao sobre o que e relevante e o que e ruido. Poupas horas de conteudo desorganizado, contradictions entre criadores e a frustracao de nao saber por onde comecar. O teu tempo vale mais do que €37.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Preciso de empresa ou NIF para comecar?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Para comecar a testar e validar, nao — na maioria dos paises europeus ha regimes de isencao para pequenos rendimentos. O guia inclui uma seccao sobre requisitos legais resumidos para os principais mercados europeus, com links para os recursos oficiais. A recomendacao: comecas, validas, legalizas quando o volume justifica.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          E se nao funcionar para mim?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a">Tens 7 dias de garantia de devolucao sem perguntas. Se abrires o guia e nao for o que esperavas, devolves e recuperas os €37 na totalidade. O risco e completamente do nosso lado. A unica condicao e que estejas disposto a tentar — o resultado depende sempre da execucao.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <div class="section-label reveal" style="justify-content:center;">Ultima chamada</div>
+    <h2 class="final-cta-title reveal">
+      Daqui a 5 dias, ou tens<br>algo lancado — ou tens €37 de volta.
+    </h2>
+    <p class="final-cta-sub reveal">
+      Este e o momento mais simples de decidir. O produto custa menos do que um jantar fora. O risco e zero. E o que aprendes fica contigo independentemente do resultado.
+    </p>
+
+    <div class="reveal">
+      <a href="https://gumroad.com" class="btn-primary" target="_blank" style="display:inline-flex;padding:18px 40px;font-size:16px;">
+        Quero o AI Income System™
+        <span class="btn-price">€37 — Acesso Imediato</span>
+      </a>
+    </div>
+
+    <div class="guarantee-box reveal" style="margin-top:32px;">
+      <div class="guarantee-icon">🛡️</div>
+      <div class="guarantee-text">
+        <strong>Garantia de 7 dias — sem condicoes</strong>
+        <span>Se por qualquer razao nao ficares satisfeito, devolves e recuperas o valor total. Sem perguntas, sem burocracia.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">AI INCOME <span>SYSTEM™</span></div>
+  <p>Founding Edition &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Todos os direitos reservados</p>
+  <p style="margin-top:8px;">Este produto e de caracter educativo e informativo. Os resultados dependem da execucao individual e variam de pessoa para pessoa. Nao sao garantidos resultados especificos de rendimento.</p>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
