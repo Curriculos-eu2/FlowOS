@@ -1,1084 +1,1779 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Income System™ — 6 Modelos de Rendimento com IA</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlowOS™ — AI Workflow Monetization Framework</title>
+  <meta name="description" content="6 stacks operacionais. 42 workflows prontos para Claude AI. Infraestrutura configurada. Construído para operadores europeus que preferem sistemas a gurus." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-:root {
-  --bg: #05050a;
-  --s1: #0a0a12;
-  --s2: #0f0f1c;
-  --s3: #161626;
-  --bd: #1e1e30;
-  --bd2: #282840;
-  --a:  #6366f1;
-  --al: #818cf8;
-  --ag: rgba(99,102,241,.08);
-  --ab: rgba(99,102,241,.18);
-  --ah: rgba(99,102,241,.25);
-  --w:  #f59e0b;
-  --wg: rgba(245,158,11,.07);
-  --wh: #f5f2eb;
-  --tx: #b8b4ac;
-  --mu: #56546a;
-  --mu2: #1c1c2e;
-}
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+    :root {
+      --bg-0: #07070D;
+      --bg-1: #0D0D1A;
+      --bg-2: #12121F;
+      --bg-3: #1A1A2E;
+      --border: #1E1E35;
+      --border-glow: rgba(99,102,241,0.25);
+      --accent: #6366F1;
+      --accent-2: #8B5CF6;
+      --accent-3: #A78BFA;
+      --text-0: #F4F4FA;
+      --text-1: #A0A0C0;
+      --text-2: #5C5C80;
+      --green: #10B981;
+      --red: #F43F5E;
+      --amber: #F59E0B;
+      --radius: 10px;
+      --radius-lg: 16px;
+    }
 
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--bg);
-  color: var(--tx);
-  font-size: 16px;
-  line-height: 1.65;
-  overflow-x: hidden;
-}
+    html { scroll-behavior: smooth; }
 
-/* ── NOISE OVERLAY ── */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 0;
-  opacity: .6;
-}
+    body {
+      background: var(--bg-0);
+      color: var(--text-0);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
 
-/* ── NAV ── */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(5,5,10,.85);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--bd);
-  padding: 0 5%;
-  display: flex; align-items: center; justify-content: space-between;
-  height: 64px;
-}
-.nav-brand {
-  font-family: 'Syne', sans-serif;
-  font-size: 15px; font-weight: 800;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--wh);
-}
-.nav-brand span { color: var(--al); }
-.nav-cta {
-  background: var(--a);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 9px 20px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 13px; font-weight: 600;
-  cursor: pointer;
-  letter-spacing: .02em;
-  transition: background .2s, transform .15s;
-  text-decoration: none;
-  display: inline-block;
-}
-.nav-cta:hover { background: var(--al); transform: translateY(-1px); }
+    /* ──────────── NOISE OVERLAY ──────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
 
-/* ── SECTIONS ── */
-section { position: relative; z-index: 1; }
+    /* ──────────── TOP BAR ──────────── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7,7,13,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .topbar-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text-0);
+      letter-spacing: -0.02em;
+    }
+    .topbar-logo span { color: var(--accent); }
+    .topbar-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent-3);
+      background: rgba(99,102,241,0.1);
+      border: 1px solid rgba(99,102,241,0.2);
+      border-radius: 100px;
+      padding: 3px 10px;
+      letter-spacing: 0.04em;
+    }
+    .topbar-cta {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      border: none;
+      border-radius: var(--radius);
+      padding: 8px 18px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .topbar-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 
-/* ── HERO ── */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center;
-  padding: 120px 5% 80px;
-  position: relative;
-  overflow: hidden;
-}
-.hero-glow {
-  position: absolute;
-  top: 10%; left: 50%;
-  transform: translateX(-50%);
-  width: 700px; height: 400px;
-  background: radial-gradient(ellipse, rgba(99,102,241,.18) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-grid {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(var(--bd) 1px, transparent 1px),
-    linear-gradient(90deg, var(--bd) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity: .3;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black, transparent);
-}
+    /* ──────────── CONTAINERS ──────────── */
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+    section { padding: 100px 0; }
 
-.hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--ag);
-  border: 1px solid var(--ab);
-  border-radius: 100px;
-  padding: 6px 16px;
-  font-size: 12px; font-weight: 500;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--al);
-  margin-bottom: 28px;
-  animation: fadeUp .6s ease both;
-}
-.hero-dot { width: 6px; height: 6px; background: var(--al); border-radius: 50%; }
+    /* ──────────── HERO ──────────── */
+    .hero {
+      padding: 120px 0 100px;
+      text-align: center;
+      position: relative;
+    }
+    .hero-glow {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 500px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent-3);
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.18);
+      border-radius: 100px;
+      padding: 6px 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:0.4; transform:scale(0.7); }
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(36px, 6vw, 68px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      color: var(--text-0);
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, #818CF8, #C084FC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--text-1);
+      max-width: 620px;
+      margin: 0 auto 40px;
+      line-height: 1.65;
+    }
+    .hero-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      border: none;
+      border-radius: var(--radius);
+      padding: 16px 32px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 60px rgba(99,102,241,0.3);
+      transition: all 0.25s ease;
+      letter-spacing: -0.01em;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 80px rgba(99,102,241,0.45);
+    }
+    .btn-primary svg { width:16px; height:16px; }
+    .hero-trust {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 20px;
+      font-size: 13px;
+      color: var(--text-2);
+    }
+    .hero-trust span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .hero-trust svg { color: var(--green); flex-shrink: 0; }
 
-.hero h1 {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(36px, 6vw, 72px);
-  font-weight: 800;
-  line-height: 1.05;
-  color: var(--wh);
-  letter-spacing: -.02em;
-  margin-bottom: 12px;
-  max-width: 900px;
-  animation: fadeUp .6s .1s ease both;
-}
-.hero h1 em {
-  font-style: normal;
-  background: linear-gradient(135deg, var(--al) 0%, #a5b4fc 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+    /* ──────────── METRICS ──────────── */
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: 72px;
+    }
+    .metric {
+      background: var(--bg-1);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .metric-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 36px;
+      letter-spacing: -0.03em;
+      color: var(--text-0);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .metric-value span {
+      background: linear-gradient(135deg, #818CF8, #C084FC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-2);
+      font-family: 'DM Mono', monospace;
+      letter-spacing: 0.03em;
+    }
 
-.hero-sub {
-  font-size: 18px;
-  color: var(--mu);
-  font-weight: 300;
-  max-width: 560px;
-  line-height: 1.65;
-  margin-bottom: 40px;
-  animation: fadeUp .6s .2s ease both;
-}
+    /* ──────────── SECTION HEADERS ──────────── */
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: block;
+    }
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      color: var(--text-0);
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 17px;
+      color: var(--text-1);
+      line-height: 1.65;
+      max-width: 580px;
+    }
+    .section-header { margin-bottom: 56px; }
 
-.hero-cta-group {
-  display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
-  margin-bottom: 56px;
-  animation: fadeUp .6s .3s ease both;
-}
-.btn-primary {
-  background: var(--a);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 16px 32px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px; font-weight: 600;
-  cursor: pointer;
-  display: inline-flex; align-items: center; gap: 8px;
-  transition: all .2s;
-  text-decoration: none;
-  box-shadow: 0 0 32px rgba(99,102,241,.3);
-}
-.btn-primary:hover { background: var(--al); transform: translateY(-2px); box-shadow: 0 0 48px rgba(99,102,241,.4); }
-.btn-price {
-  font-size: 12px; font-weight: 400; opacity: .75;
-  background: rgba(255,255,255,.1);
-  border-radius: 4px;
-  padding: 2px 8px;
-}
+    /* ──────────── DIVIDER ──────────── */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
 
-.hero-proof {
-  display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;
-  font-size: 13px; color: var(--mu);
-  animation: fadeUp .6s .4s ease both;
-}
-.hero-proof-item { display: flex; align-items: center; gap: 6px; }
-.hero-proof-icon { color: var(--al); font-size: 14px; }
+    /* ──────────── CONTEXT SECTION ──────────── */
+    .context-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .context-body {
+      font-size: 16px;
+      color: var(--text-1);
+      line-height: 1.75;
+    }
+    .context-body p + p { margin-top: 16px; }
+    .context-highlight {
+      color: var(--text-0);
+      font-weight: 500;
+    }
+    .context-pillars {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .pillar {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .pillar:hover { border-color: var(--border-glow); }
+    .pillar-icon {
+      width: 36px; height: 36px;
+      background: rgba(99,102,241,0.1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pillar-icon svg { width:18px; height:18px; color: var(--accent-3); }
+    .pillar-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-0);
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+    .pillar-body { font-size: 13px; color: var(--text-2); line-height: 1.55; }
 
-/* ── STATS STRIP ── */
-.stats-strip {
-  background: var(--s1);
-  border-top: 1px solid var(--bd);
-  border-bottom: 1px solid var(--bd);
-  padding: 32px 5%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0;
-}
-.strip-item {
-  text-align: center;
-  padding: 0 20px;
-  border-right: 1px solid var(--bd);
-}
-.strip-item:last-child { border-right: none; }
-.strip-v {
-  font-family: 'Syne', sans-serif;
-  font-size: 36px; font-weight: 800;
-  color: var(--al); line-height: 1;
-  margin-bottom: 6px;
-}
-.strip-l { font-size: 13px; color: var(--mu); }
+    /* ──────────── PROBLEM SECTION ──────────── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .problem-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .problem-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+      opacity: 0.5;
+    }
+    .problem-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+    .problem-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-0);
+      margin-bottom: 10px;
+      letter-spacing: -0.015em;
+    }
+    .problem-body { font-size: 14px; color: var(--text-2); line-height: 1.6; }
 
-/* ── SECTION LAYOUT ── */
-.section-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 96px 5%;
-}
-.section-label {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: .2em; text-transform: uppercase;
-  color: var(--al); margin-bottom: 16px;
-  display: flex; align-items: center; gap: 10px;
-}
-.section-label::before {
-  content: '';
-  width: 24px; height: 1.5px;
-  background: var(--a);
-}
-.section-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
-  color: var(--wh);
-  line-height: 1.1;
-  letter-spacing: -.02em;
-  margin-bottom: 16px;
-}
-.section-sub {
-  font-size: 17px; color: var(--mu);
-  font-weight: 300; line-height: 1.65;
-  max-width: 600px;
-  margin-bottom: 56px;
-}
+    /* ──────────── SYSTEM SECTION ──────────── */
+    .system-wrap {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .system-top {
+      padding: 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .system-top h2 { margin-bottom: 16px; }
+    .system-pillars {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 0;
+    }
+    .sys-pillar {
+      padding: 36px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .sys-pillar:last-child { border-right: none; }
+    .sys-pillar-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 16px;
+    }
+    .sys-pillar-icon {
+      width: 44px; height: 44px;
+      background: rgba(99,102,241,0.08);
+      border: 1px solid rgba(99,102,241,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    .sys-pillar-icon svg { width:20px; height:20px; color: var(--accent-3); }
+    .sys-pillar-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-0);
+      margin-bottom: 8px;
+      letter-spacing: -0.015em;
+    }
+    .sys-pillar-body { font-size: 13px; color: var(--text-2); line-height: 1.6; }
 
-/* ── PROBLEM SECTION ── */
-.problem-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.problem-card {
-  background: var(--s2);
-  border: 1px solid var(--bd);
-  border-radius: 12px;
-  padding: 28px;
-  position: relative;
-  overflow: hidden;
-}
-.problem-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(248,113,113,.4), transparent);
-}
-.problem-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 48px; font-weight: 800;
-  color: rgba(248,113,113,.12);
-  line-height: 1;
-  margin-bottom: 12px;
-}
-.problem-title { font-size: 16px; font-weight: 600; color: var(--wh); margin-bottom: 8px; }
-.problem-desc { font-size: 14px; color: var(--mu); line-height: 1.6; }
+    /* ──────────── STACKS ──────────── */
+    .stacks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .stack-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      transition: all 0.25s ease;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .stack-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 100% 0%, rgba(99,102,241,0.06) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .stack-card:hover {
+      border-color: var(--border-glow);
+      transform: translateY(-2px);
+    }
+    .stack-card:hover::after { opacity: 1; }
+    .stack-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .stack-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-2);
+      letter-spacing: 0.08em;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 9px;
+    }
+    .stack-cost {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      background: rgba(16,185,129,0.08);
+      border: 1px solid rgba(16,185,129,0.15);
+      border-radius: 100px;
+      padding: 3px 9px;
+    }
+    .stack-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      font-size: 22px;
+    }
+    .stack-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-0);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .stack-desc {
+      font-size: 13px;
+      color: var(--text-2);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .stack-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .stack-meta-row {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+    }
+    .stack-meta-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-2);
+      letter-spacing: 0.06em;
+      min-width: 70px;
+      padding-top: 2px;
+    }
+    .stack-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .tag {
+      font-size: 11px;
+      color: var(--text-1);
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 2px 8px;
+      font-family: 'DM Mono', monospace;
+    }
 
-/* ── SOLUTION REVEAL ── */
-.solution-reveal {
-  background: var(--s2);
-  border: 1px solid var(--bd);
-  border-radius: 20px;
-  padding: 56px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-  margin-top: 56px;
-}
-.solution-reveal::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,.12), transparent 60%);
-  pointer-events: none;
-}
-.solution-kicker {
-  font-size: 12px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--al); margin-bottom: 20px;
-}
-.solution-headline {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(24px, 3vw, 40px);
-  font-weight: 800;
-  color: var(--wh);
-  line-height: 1.15;
-  letter-spacing: -.02em;
-  margin-bottom: 20px;
-}
-.solution-body {
-  font-size: 16px; color: var(--mu); font-weight: 300;
-  line-height: 1.7; max-width: 600px; margin: 0 auto 32px;
-}
+    /* ──────────── TOOLS STRIP ──────────── */
+    .tools-strip {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-1);
+    }
+    .tools-label {
+      text-align: center;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--text-2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .tools-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .tool-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 7px 16px;
+      font-size: 13px;
+      color: var(--text-1);
+      font-weight: 500;
+      transition: border-color 0.2s;
+    }
+    .tool-pill:hover { border-color: var(--border-glow); color: var(--text-0); }
+    .tool-pill-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.7;
+    }
 
-/* ── MODULES ── */
-.modules-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-}
-.mod-card {
-  background: var(--s2);
-  border: 1px solid var(--bd);
-  border-radius: 14px;
-  padding: 28px;
-  transition: border-color .2s, transform .2s;
-  cursor: default;
-  position: relative;
-  overflow: hidden;
-}
-.mod-card:hover {
-  border-color: var(--ab);
-  transform: translateY(-3px);
-}
-.mod-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, var(--a), var(--al));
-  opacity: 0;
-  transition: opacity .2s;
-}
-.mod-card:hover::before { opacity: 1; }
-.mod-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 11px; font-weight: 700;
-  letter-spacing: .16em; text-transform: uppercase;
-  color: var(--al); margin-bottom: 12px;
-}
-.mod-icon {
-  font-size: 28px; margin-bottom: 14px;
-  display: block;
-}
-.mod-name {
-  font-family: 'Syne', sans-serif;
-  font-size: 17px; font-weight: 700;
-  color: var(--wh); margin-bottom: 10px;
-  line-height: 1.25;
-}
-.mod-desc { font-size: 13px; color: var(--mu); line-height: 1.6; margin-bottom: 16px; }
-.mod-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.mod-tag {
-  background: var(--ag);
-  border: 1px solid var(--ab);
-  border-radius: 4px;
-  padding: 3px 8px;
-  font-size: 11px; font-weight: 500;
-  color: var(--al);
-}
+    /* ──────────── INCLUDED ──────────── */
+    .included-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .included-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .included-check {
+      width: 22px; height: 22px;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .included-check svg { width:12px; height:12px; color: var(--green); }
+    .included-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-0);
+      margin-bottom: 5px;
+      letter-spacing: -0.01em;
+    }
+    .included-body { font-size: 13px; color: var(--text-2); line-height: 1.55; }
+    .included-ref {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--accent);
+      margin-top: 6px;
+      letter-spacing: 0.04em;
+    }
 
-/* ── INCLUDES ── */
-.includes-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  align-items: start;
-}
-.includes-list { display: flex; flex-direction: column; gap: 10px; }
-.inc-item {
-  display: flex; gap: 14px; align-items: flex-start;
-  background: var(--s2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  padding: 16px 20px;
-  transition: border-color .2s;
-}
-.inc-item:hover { border-color: var(--ab); }
-.inc-check {
-  width: 20px; height: 20px;
-  background: var(--ag);
-  border: 1px solid var(--ab);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; margin-top: 2px;
-  font-size: 10px; color: var(--al); font-weight: 700;
-}
-.inc-info { flex: 1; }
-.inc-title { font-size: 14px; font-weight: 600; color: var(--wh); margin-bottom: 3px; }
-.inc-desc { font-size: 13px; color: var(--mu); line-height: 1.5; }
-.inc-val { font-size: 11px; font-weight: 700; color: var(--al); margin-top: 4px; }
+    /* ──────────── PRICING ──────────── */
+    .pricing-wrap {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 32px;
+      align-items: start;
+    }
+    .pricing-list { display: flex; flex-direction: column; gap: 10px; }
+    .pricing-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      color: var(--text-1);
+    }
+    .pricing-item svg { width:16px; height:16px; color: var(--green); flex-shrink:0; }
+    .pricing-item strong { color: var(--text-0); font-weight:600; }
+    .pricing-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      position: sticky;
+      top: 80px;
+      box-shadow: 0 0 80px rgba(99,102,241,0.08);
+    }
+    .pricing-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent-3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .price-ref {
+      font-size: 13px;
+      color: var(--text-2);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .price-ref s { color: var(--text-2); }
+    .price-main {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 52px;
+      color: var(--text-0);
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .price-main span { font-size: 24px; color: var(--text-1); }
+    .price-note {
+      font-size: 12px;
+      color: var(--text-2);
+      font-family: 'DM Mono', monospace;
+      margin-bottom: 28px;
+      letter-spacing: 0.03em;
+    }
+    .price-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+    .guarantee {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(16,185,129,0.05);
+      border: 1px solid rgba(16,185,129,0.12);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-top: 16px;
+    }
+    .guarantee-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
+    .guarantee-text { font-size: 12px; color: var(--text-1); line-height:1.55; }
+    .guarantee-text strong { color: var(--green); font-weight:600; }
 
-/* PRICE CARD */
-.price-card {
-  background: var(--s2);
-  border: 1px solid var(--ab);
-  border-radius: 20px;
-  padding: 40px;
-  position: sticky;
-  top: 84px;
-}
-.price-badge {
-  background: var(--ag);
-  border: 1px solid var(--ab);
-  border-radius: 6px;
-  padding: 5px 12px;
-  font-size: 11px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .1em;
-  color: var(--al); display: inline-block;
-  margin-bottom: 20px;
-}
-.price-amount {
-  font-family: 'Syne', sans-serif;
-  font-size: 64px; font-weight: 800;
-  color: var(--wh); line-height: 1;
-  margin-bottom: 4px;
-}
-.price-amount small {
-  font-size: 20px; color: var(--mu);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-}
-.price-note { font-size: 13px; color: var(--mu); margin-bottom: 28px; }
-.price-cta {
-  display: block; width: 100%;
-  background: var(--a);
-  color: #fff; border: none;
-  border-radius: 10px;
-  padding: 18px;
-  font-family: 'Syne', sans-serif;
-  font-size: 15px; font-weight: 700;
-  letter-spacing: .04em; text-transform: uppercase;
-  cursor: pointer;
-  transition: all .2s;
-  text-decoration: none;
-  text-align: center;
-  box-shadow: 0 0 32px rgba(99,102,241,.3);
-  margin-bottom: 16px;
-}
-.price-cta:hover { background: var(--al); transform: translateY(-2px); box-shadow: 0 0 48px rgba(99,102,241,.4); }
-.price-guarantee {
-  text-align: center;
-  font-size: 12px; color: var(--mu);
-  display: flex; align-items: center; gap: 6px; justify-content: center;
-}
-.price-divider { border: none; border-top: 1px solid var(--bd); margin: 24px 0; }
-.price-includes-title { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--mu); margin-bottom: 14px; }
-.price-inc-item {
-  display: flex; gap: 10px; align-items: flex-start;
-  font-size: 13px; color: var(--tx);
-  padding: 6px 0;
-  border-bottom: 1px solid var(--bd);
-}
-.price-inc-item:last-child { border-bottom: none; }
-.pii { color: var(--al); flex-shrink: 0; font-size: 13px; }
-.price-total {
-  margin-top: 16px;
-  display: flex; justify-content: space-between;
-  font-size: 13px;
-}
-.price-total-label { color: var(--mu); }
-.price-total-val { font-weight: 700; color: var(--wh); }
+    /* ──────────── MARKET LOGIC ──────────── */
+    .logic-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 16px;
+    }
+    .logic-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .logic-value {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 36px;
+      letter-spacing: -0.04em;
+      color: var(--text-0);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .logic-value span {
+      background: linear-gradient(135deg, #818CF8, #C084FC);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .logic-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-0);
+      margin-bottom: 10px;
+    }
+    .logic-body { font-size: 13px; color: var(--text-2); line-height: 1.6; }
+    .logic-source {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      color: var(--text-2);
+      margin-top: 12px;
+      opacity: 0.6;
+    }
 
-/* ── FOR WHO ── */
-.forwho-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-}
-.forwho-card {
-  background: var(--s2);
-  border: 1px solid var(--bd);
-  border-radius: 14px;
-  overflow: hidden;
-}
-.forwho-header {
-  padding: 16px 24px;
-  font-size: 13px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: .1em;
-  border-bottom: 1px solid var(--bd);
-}
-.forwho-header.yes { color: var(--al); background: var(--ag); }
-.forwho-header.no { color: #f87171; background: rgba(248,113,113,.06); }
-.forwho-list { padding: 20px 24px; list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.forwho-item {
-  display: flex; gap: 10px; align-items: flex-start;
-  font-size: 14px; color: var(--tx); line-height: 1.5;
-}
-.forwho-icon { font-size: 14px; flex-shrink: 0; margin-top: 2px; }
+    /* ──────────── FIT ──────────── */
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .fit-card {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+    .fit-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .fit-title svg { width:16px; height:16px; }
+    .fit-card.yes .fit-title { color: var(--green); }
+    .fit-card.no .fit-title { color: var(--red); }
+    .fit-list { display:flex; flex-direction:column; gap:10px; }
+    .fit-item {
+      display: flex;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--text-1);
+      line-height: 1.5;
+      align-items: flex-start;
+    }
+    .fit-item-dot { width:16px; height:16px; flex-shrink:0; margin-top:1px; }
+    .fit-item-dot.yes { color: var(--green); }
+    .fit-item-dot.no { color: var(--red); }
 
-/* ── FAQ ── */
-.faq-list { display: flex; flex-direction: column; gap: 10px; }
-.faq-item {
-  background: var(--s2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.faq-q {
-  padding: 20px 24px;
-  font-size: 15px; font-weight: 600;
-  color: var(--wh);
-  display: flex; justify-content: space-between; align-items: center;
-  cursor: pointer;
-  gap: 16px;
-  user-select: none;
-}
-.faq-q:hover { color: var(--al); }
-.faq-toggle { font-size: 20px; color: var(--al); flex-shrink: 0; transition: transform .2s; }
-.faq-a {
-  padding: 0 24px 20px;
-  font-size: 14px; color: var(--mu); line-height: 1.7;
-  display: none;
-}
-.faq-item.open .faq-a { display: block; }
-.faq-item.open .faq-toggle { transform: rotate(45deg); }
+    /* ──────────── FAQ ──────────── */
+    .faq-list { display:flex; flex-direction:column; gap:8px; }
+    .faq-item {
+      background: var(--bg-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-q {
+      padding: 20px 24px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--text-0);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: -0.01em;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .faq-q:hover { color: var(--accent-3); }
+    .faq-q svg { width:16px; height:16px; color:var(--text-2); transition:transform 0.3s; flex-shrink:0; }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      font-size: 14px;
+      color: var(--text-2);
+      line-height: 1.7;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-a {
+      max-height: 400px;
+      padding: 0 24px 20px;
+    }
+    .faq-item.open .faq-q svg { transform: rotate(45deg); }
+    .faq-item.open .faq-q { color: var(--accent-3); }
+    .faq-a ul { padding-left: 18px; margin-top: 8px; }
+    .faq-a li { margin-bottom: 4px; }
 
-/* ── FINAL CTA ── */
-.final-cta {
-  background: var(--s1);
-  border-top: 1px solid var(--bd);
-  border-bottom: 1px solid var(--bd);
-}
-.final-cta-inner {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 96px 5%;
-  text-align: center;
-}
-.final-cta-title {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(28px, 4vw, 48px);
-  font-weight: 800;
-  color: var(--wh);
-  line-height: 1.1;
-  letter-spacing: -.02em;
-  margin-bottom: 16px;
-}
-.final-cta-sub {
-  font-size: 17px; color: var(--mu);
-  font-weight: 300; line-height: 1.65;
-  margin-bottom: 40px;
-}
-.guarantee-box {
-  background: var(--s2);
-  border: 1px solid var(--bd);
-  border-radius: 10px;
-  padding: 16px 24px;
-  display: flex; gap: 12px; align-items: center;
-  text-align: left; margin-top: 24px;
-  font-size: 13px;
-}
-.guarantee-icon { font-size: 24px; flex-shrink: 0; }
-.guarantee-text strong { display: block; color: var(--wh); font-size: 14px; margin-bottom: 2px; }
-.guarantee-text span { color: var(--mu); }
+    /* ──────────── CLOSE ──────────── */
+    .close-section {
+      text-align: center;
+      position: relative;
+    }
+    .close-section::before {
+      content:'';
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.12) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .close-section h2 { max-width: 640px; margin: 0 auto 16px; }
+    .close-section .section-desc { margin: 0 auto 40px; }
 
-/* ── FOOTER ── */
-footer {
-  padding: 40px 5%;
-  text-align: center;
-  font-size: 12px; color: var(--mu);
-  border-top: 1px solid var(--bd);
-}
-footer .footer-brand {
-  font-family: 'Syne', sans-serif;
-  font-size: 14px; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: var(--wh); margin-bottom: 8px;
-}
-footer .footer-brand span { color: var(--al); }
+    /* ──────────── FOOTER ──────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .footer-brand { max-width: 320px; }
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--text-0);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-disclaimer {
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+    .footer-right {
+      text-align: right;
+      font-size: 12px;
+      color: var(--text-2);
+      line-height: 1.8;
+    }
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
+    /* ──────────── SCROLL ANIMATIONS ──────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* ── SCROLL REVEAL ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity .6s ease, transform .6s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
-  .modules-grid { grid-template-columns: 1fr 1fr; }
-  .includes-grid { grid-template-columns: 1fr; }
-  .forwho-grid { grid-template-columns: 1fr; }
-  .stats-strip { grid-template-columns: 1fr 1fr; }
-  .strip-item { border-right: none; border-bottom: 1px solid var(--bd); padding: 16px; }
-  .strip-item:last-child { border-bottom: none; }
-  .problem-grid { grid-template-columns: 1fr; }
-  .solution-reveal { padding: 36px 24px; }
-  .price-card { position: static; }
-}
-@media (max-width: 600px) {
-  .modules-grid { grid-template-columns: 1fr; }
-  .nav-brand { font-size: 12px; }
-  .hero h1 { font-size: 32px; }
-}
-</style>
+    /* ──────────── RESPONSIVE ──────────── */
+    @media (max-width: 768px) {
+      section { padding: 64px 0; }
+      .hero { padding: 80px 0 64px; }
+      .metrics { grid-template-columns: repeat(2,1fr); }
+      .context-grid,
+      .problem-grid,
+      .stacks-grid,
+      .included-grid,
+      .pricing-wrap,
+      .logic-grid,
+      .fit-grid,
+      .system-pillars { grid-template-columns: 1fr; }
+      .sys-pillar { border-right: none; border-bottom: 1px solid var(--border); }
+      .sys-pillar:last-child { border-bottom: none; }
+      .pricing-card { position: static; }
+      .footer-inner { flex-direction: column; }
+      .footer-right { text-align: left; }
+      .topbar-badge { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav">
-  <div class="nav-brand">AI INCOME <span>SYSTEM™</span></div>
-  <a href="#oferta" class="nav-cta">Obter Acesso — €37</a>
-</nav>
+  <!-- TOP BAR -->
+  <nav class="topbar">
+    <div class="topbar-logo">Flow<span>OS</span>™</div>
+    <div class="topbar-badge">FOUNDING ACCESS</div>
+    <a href="#oferta" class="topbar-cta">Activar — €37</a>
+  </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-glow"></div>
-  <div class="hero-grid"></div>
-
-  <div class="hero-eyebrow">
-    <div class="hero-dot"></div>
-    Founding Edition &nbsp;·&nbsp; Europa 2026
-  </div>
-
-  <h1>
-    Daqui a 5 dias podes ter<br>
-    <em>rendimento online com IA</em><br>
-    sem aparecer uma vez.
-  </h1>
-
-  <p class="hero-sub">
-    6 modelos de negocio reais com inteligencia artificial. Sem camara, sem experiencia previa, sem investimento significativo. Escolhes o modelo certo para o teu perfil e lanças em 5 dias.
-  </p>
-
-  <div class="hero-cta-group">
-    <a href="#oferta" class="btn-primary">
-      Quero o Sistema Agora
-      <span class="btn-price">€37</span>
-    </a>
-  </div>
-
-  <div class="hero-proof">
-    <div class="hero-proof-item">
-      <span class="hero-proof-icon">✓</span>
-      Acesso imediato
-    </div>
-    <div class="hero-proof-item">
-      <span class="hero-proof-icon">✓</span>
-      Garantia de 7 dias
-    </div>
-    <div class="hero-proof-item">
-      <span class="hero-proof-icon">✓</span>
-      Ferramentas maioritariamente gratuitas
-    </div>
-    <div class="hero-proof-item">
-      <span class="hero-proof-icon">✓</span>
-      Funciona na Europa
-    </div>
-  </div>
-</section>
-
-<!-- STATS -->
-<div class="stats-strip reveal">
-  <div class="strip-item">
-    <div class="strip-v">6</div>
-    <div class="strip-l">Modelos de negocio incluidos</div>
-  </div>
-  <div class="strip-item">
-    <div class="strip-v">42</div>
-    <div class="strip-l">Prompts prontos para Claude</div>
-  </div>
-  <div class="strip-item">
-    <div class="strip-v">€0</div>
-    <div class="strip-l">Investimento inicial em 5 dos 6 modelos</div>
-  </div>
-  <div class="strip-item">
-    <div class="strip-v">5</div>
-    <div class="strip-l">Dias para lancar o primeiro modelo</div>
-  </div>
-</div>
-
-<!-- PROBLEMA -->
-<section>
-  <div class="section-wrap">
-    <div class="section-label reveal">O problema real</div>
-    <h2 class="section-title reveal">Ja tentaste comecar.<br>Sabes como terminou.</h2>
-    <p class="section-sub reveal">Nao e falta de vontade. E falta de um sistema claro, com passos definidos, construido para o mercado europeu em 2026.</p>
-
-    <div class="problem-grid reveal">
-      <div class="problem-card">
-        <div class="problem-num">01</div>
-        <div class="problem-title">Demasiada informacao, zero direccao</div>
-        <div class="problem-desc">Vídeos no YouTube que se contradizem. Cursos de €500 que ensinam o que existia em 2019. Sem saber por onde comecar, nao se comeca.</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-glow"></div>
+      <div class="eyebrow fade-up">
+        <span class="eyebrow-dot"></span>
+        AI Workflow Monetization Framework · Europa 2026
       </div>
-      <div class="problem-card">
-        <div class="problem-num">02</div>
-        <div class="problem-title">O modelo antigo exige aparecer</div>
-        <div class="problem-desc">Gravar videos todos os dias, mostrar o rosto, construir uma "marca pessoal". A maioria das pessoas nao quer isso — e com razao. Mas ninguem ensinou uma alternativa real.</div>
-      </div>
-      <div class="problem-card">
-        <div class="problem-num">03</div>
-        <div class="problem-title">Sem provas de que funciona na Europa</div>
-        <div class="problem-desc">Todos os sistemas sao americanos. CPMs diferentes, mercados diferentes, leis diferentes. O que funciona nos EUA falha na Europa sem adaptacao especifica.</div>
-      </div>
-      <div class="problem-card">
-        <div class="problem-num">04</div>
-        <div class="problem-title">Um unico modelo que pode nao servir</div>
-        <div class="problem-desc">Cada pessoa tem um perfil diferente. Quem nao se identifica com dropshipping desiste. Mas podia ter encontrado o seu modelo em produtos digitais, freelancing ou afiliados.</div>
-      </div>
-    </div>
-
-    <div class="solution-reveal reveal">
-      <div class="solution-kicker">A solucao</div>
-      <div class="solution-headline">Nao e um curso.<br>E um sistema de execucao com IA.</div>
-      <div class="solution-body">O AI Income System™ reune 6 modelos de negocio reais, cada um com um plano de 5 dias, ferramentas gratuitas e 42 prompts para Claude — para que encontres o modelo certo para o teu perfil e executes sem adivinhar.</div>
-      <a href="#oferta" class="btn-primary" style="display:inline-flex">Ver o que esta incluido →</a>
-    </div>
-  </div>
-</section>
-
-<!-- MODULOS -->
-<section style="background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);">
-  <div class="section-wrap">
-    <div class="section-label reveal">Os 6 modelos</div>
-    <h2 class="section-title reveal">Um sistema. Seis formas de gerar rendimento.</h2>
-    <p class="section-sub reveal">Escolhes o que serve o teu perfil — ou experimentas ate encontrar. Todos os modelos sao executaveis sem aparecer em camara.</p>
-
-    <div class="modules-grid reveal">
-      <div class="mod-card">
-        <div class="mod-num">Modulo 01</div>
-        <span class="mod-icon">📱</span>
-        <div class="mod-name">Faceless Content Creator</div>
-        <div class="mod-desc">Canal TikTok, YouTube ou Instagram 100% com IA. Voz, video e roteiros automatizados. Monetizacao por views, afiliados e produtos proprios.</div>
-        <div class="mod-tags">
-          <span class="mod-tag">€0 inicio</span>
-          <span class="mod-tag">Alto potencial</span>
-          <span class="mod-tag">Passivo</span>
+      <h1 class="fade-up">O sistema operacional que transforma<br><em>workflows de IA</em> em receita recorrente.</h1>
+      <p class="hero-sub fade-up">6 stacks operacionais. 42 workflows prontos para Claude AI. Infraestrutura configurada. Construído para operadores europeus que preferem sistemas a gurus.</p>
+      <div class="hero-actions fade-up">
+        <a href="#oferta" class="btn-primary">
+          Activar FlowOS™ — €37
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 8h10M9 4l4 4-4 4"/>
+          </svg>
+        </a>
+        <div class="hero-trust">
+          <span>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            Acesso imediato
+          </span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            Garantia de 7 dias
+          </span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            Stack com €0–1 de infraestrutura
+          </span>
+          <span>
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            Mercado europeu
+          </span>
         </div>
       </div>
-      <div class="mod-card">
-        <div class="mod-num">Modulo 02</div>
-        <span class="mod-icon">📄</span>
-        <div class="mod-name">Produtos Digitais com IA</div>
-        <div class="mod-desc">Templates, presets, guias PDF e pacotes de prompts. Claude cria o conteudo, tu vendes no Etsy e Gumroad. 100% de margem.</div>
-        <div class="mod-tags">
-          <span class="mod-tag">€0 inicio</span>
-          <span class="mod-tag">1a venda em 1-7 dias</span>
-          <span class="mod-tag">100% margem</span>
+
+      <div class="metrics fade-up">
+        <div class="metric">
+          <div class="metric-value"><span>6</span></div>
+          <div class="metric-label">Stacks operacionais</div>
         </div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-num">Modulo 03</div>
-        <span class="mod-icon">👕</span>
-        <div class="mod-name">Print on Demand com IA</div>
-        <div class="mod-desc">Designs criados com Ideogram AI, aplicados em t-shirts e posters, vendidos no Redbubble e Etsy. Producao e envio automaticos.</div>
-        <div class="mod-tags">
-          <span class="mod-tag">€0 inicio</span>
-          <span class="mod-tag">Zero inventario</span>
-          <span class="mod-tag">Evergreen</span>
+        <div class="metric">
+          <div class="metric-value"><span>42</span></div>
+          <div class="metric-label">Workflows para Claude AI</div>
         </div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-num">Modulo 04</div>
-        <span class="mod-icon">🛍️</span>
-        <div class="mod-name">Dropshipping com IA</div>
-        <div class="mod-desc">Produto escolhido pelo Claude, video criado pelo Kling AI, loja no Shopify com DSers. Margens de 3x sem tocar no produto.</div>
-        <div class="mod-tags">
-          <span class="mod-tag">€1/mes</span>
-          <span class="mod-tag">Margem 3x</span>
-          <span class="mod-tag">Escalavel</span>
+        <div class="metric">
+          <div class="metric-value"><span>€0</span></div>
+          <div class="metric-label">Infraestrutura base (5/6)</div>
         </div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-num">Modulo 05</div>
-        <span class="mod-icon">💼</span>
-        <div class="mod-name">Freelancing com IA</div>
-        <div class="mod-desc">Copywriting, videos, gestao de redes sociais com IA como alavanca. No Fiverr e Upwork. Primeira receita possivel em 1-5 dias.</div>
-        <div class="mod-tags">
-          <span class="mod-tag">€0 inicio</span>
-          <span class="mod-tag">1-5 dias</span>
-          <span class="mod-tag">Mais rapido</span>
-        </div>
-      </div>
-      <div class="mod-card">
-        <div class="mod-num">Modulo 06</div>
-        <span class="mod-icon">🔗</span>
-        <div class="mod-name">Affiliate Marketing com IA</div>
-        <div class="mod-desc">Artigos e newsletters criados com Claude que geram comissoes automaticas. Publicado uma vez, rende indefinidamente.</div>
-        <div class="mod-tags">
-          <span class="mod-tag">€0 inicio</span>
-          <span class="mod-tag">Mais passivo</span>
-          <span class="mod-tag">Longo prazo</span>
+        <div class="metric">
+          <div class="metric-value"><span>5</span></div>
+          <div class="metric-label">Dias por stack de activação</div>
         </div>
       </div>
     </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- TOOLS STRIP -->
+  <div class="tools-strip">
+    <div class="wrap">
+      <p class="tools-label">Stack de ferramentas incluído</p>
+      <div class="tools-row">
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Claude AI</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Kling AI</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>ElevenLabs</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Ideogram AI</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>CapCut</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Canva</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Gumroad</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Shopify</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Printify</div>
+        <div class="tool-pill"><span class="tool-pill-dot"></span>Beehiiv</div>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- OFERTA -->
-<section id="oferta">
-  <div class="section-wrap">
-    <div class="section-label reveal">O que esta incluido</div>
-    <h2 class="section-title reveal">Tudo o que precisas.<br>Nada do que nao precisas.</h2>
+  <div class="divider"></div>
 
-    <div class="includes-grid reveal">
-      <div class="includes-list">
-        <div class="inc-item">
-          <div class="inc-check">✓</div>
-          <div class="inc-info">
-            <div class="inc-title">Guia Principal — 6 Modulos Completos</div>
-            <div class="inc-desc">19 paginas estruturadas com explicacao do modelo, ferramentas e plano de 5 dias para cada um dos 6 modelos de negocio.</div>
-            <div class="inc-val">Valor percebido: €79</div>
+  <!-- CONTEXT -->
+  <section>
+    <div class="wrap">
+      <div class="context-grid">
+        <div>
+          <span class="section-label">Contexto de mercado</span>
+          <h2>O mercado mudou.<br>A maioria dos sistemas não.</h2>
+          <div class="context-body fade-up">
+            <p>Em 2024, Claude AI, Kling AI, ElevenLabs e Ideogram democratizaram capacidades que antes exigiam equipas inteiras. Um operador individual consegue agora produzir conteúdo, gerir audiências, criar produtos digitais e escalar serviços <span class="context-highlight">sem expor a identidade pessoal e sem infraestrutura cara.</span></p>
+            <p>O problema não é falta de ferramentas. É falta de arquitectura.</p>
+            <p><span class="context-highlight">FlowOS™ é o framework que define essa arquitectura.</span> Seis stacks operacionais, cada um com ferramentas configuradas, workflows documentados e plano de execução de 5 dias.</p>
           </div>
         </div>
-        <div class="inc-item">
-          <div class="inc-check">✓</div>
-          <div class="inc-info">
-            <div class="inc-title">42 Prompts para Claude — por Modulo</div>
-            <div class="inc-desc">7 prompts especificos para cada modelo + prompts universais. Copia, cola e executa — sem ter de pensar no que perguntar.</div>
-            <div class="inc-val">Valor percebido: €49</div>
+        <div class="context-pillars fade-up">
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Stack Documentado</div>
+              <div class="pillar-body">Cada ferramenta, integração e configuração especificada. Sem decisões em aberto que bloqueiem a execução.</div>
+            </div>
           </div>
-        </div>
-        <div class="inc-item">
-          <div class="inc-check">✓</div>
-          <div class="inc-info">
-            <div class="inc-title">Stack Universal de 8 Ferramentas</div>
-            <div class="inc-desc">Guia de configuracao das 8 ferramentas base com custo total de €0-1. Claude, Kling AI, ElevenLabs, CapCut, Ideogram, Canva, Gumroad e Pixabay.</div>
-            <div class="inc-val">Valor percebido: €29</div>
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Workflow Library</div>
+              <div class="pillar-body">42 workflows prontos para Claude AI, organizados por stack. Copy-paste e executa. Sem engenharia de prompts.</div>
+            </div>
           </div>
-        </div>
-        <div class="inc-item">
-          <div class="inc-check">✓</div>
-          <div class="inc-info">
-            <div class="inc-title">Bonus A — Ferramentas por Modulo</div>
-            <div class="inc-desc">Stack especifico de cada modelo para alem do base — Shopify, DSers, Printify, Fiverr, Beehiiv, Awin e mais.</div>
-            <div class="inc-val">Incluido</div>
-          </div>
-        </div>
-        <div class="inc-item">
-          <div class="inc-check">✓</div>
-          <div class="inc-info">
-            <div class="inc-title">Bonus B — Checklist Universal</div>
-            <div class="inc-desc">Lista de verificacao antes e depois de cada lancamento ou publicacao. Nunca esqueces um passo critico.</div>
-            <div class="inc-val">Incluido</div>
-          </div>
-        </div>
-        <div class="inc-item">
-          <div class="inc-check">✓</div>
-          <div class="inc-info">
-            <div class="inc-title">Bonus C — Trafego Organico Europa</div>
-            <div class="inc-desc">Os canais certos para cada modelo e mercado europeu. TikTok, YouTube, Instagram, Pinterest, SEO e Etsy — quando e como usar cada um.</div>
-            <div class="inc-val">Incluido</div>
-          </div>
-        </div>
-        <div class="inc-item">
-          <div class="inc-check">✓</div>
-          <div class="inc-info">
-            <div class="inc-title">Bonus D — 10 Erros Mais Comuns</div>
-            <div class="inc-desc">Os erros que 90% dos iniciantes cometem e que custam meses de progresso. Les antes de comecar e poupas semanas.</div>
-            <div class="inc-val">Incluido</div>
+          <div class="pillar">
+            <div class="pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div>
+              <div class="pillar-title">Execution Blueprint</div>
+              <div class="pillar-body">Plano de 5 dias por stack. Tarefas específicas, não teorias. Do setup ao primeiro output monetizável.</div>
+            </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- PRICE CARD -->
-      <div>
-        <div class="price-card reveal">
-          <div class="price-badge">Founding Edition</div>
-          <div class="price-amount">€37 <small>pagamento unico</small></div>
-          <div class="price-note">Preco sobe apos as primeiras 100 vendas.</div>
+  <div class="divider"></div>
 
-          <a href="https://gumroad.com" class="price-cta" target="_blank">
-            Obter Acesso Agora →
+  <!-- PROBLEM -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label">Diagnóstico</span>
+        <h2>Porque a maioria das tentativas<br>falha antes de começar.</h2>
+      </div>
+      <div class="problem-grid fade-up">
+        <div class="problem-card">
+          <div class="problem-num">01 · STACK DISORDER</div>
+          <div class="problem-title">Dezenas de ferramentas. Zero framework.</div>
+          <div class="problem-body">Cada tutorial usa um stack diferente, numa ordem diferente, para um mercado diferente. O resultado é paralisia operacional disfarçada de investigação.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">02 · SINGLE-MODEL RISK</div>
+          <div class="problem-title">Um modelo único é um ponto de falha único.</div>
+          <div class="problem-body">Se não funciona para o teu perfil, desistes. FlowOS™ oferece 6 stacks distintos — encontras o que ressoa com o teu perfil operacional.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">03 · CONTEXT MISMATCH</div>
+          <div class="problem-title">Todos os frameworks são americanos.</div>
+          <div class="problem-body">CPMs, plataformas de pagamento, requisitos legais e canais de distribuição funcionam de forma diferente na Europa. Um sistema dos EUA precisa de reconstrução — não de adaptação.</div>
+        </div>
+        <div class="problem-card">
+          <div class="problem-num">04 · IDENTITY DEPENDENCY</div>
+          <div class="problem-title">O modelo dominante exige presença pessoal.</div>
+          <div class="problem-body">Rosto, nome, história, exposição contínua. FlowOS™ é arquitectado para operação 100% assíncrona — sem câmara, sem identidade pública, sem dependência pessoal.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- SYSTEM -->
+  <section>
+    <div class="wrap">
+      <div class="system-wrap fade-up">
+        <div class="system-top">
+          <span class="section-label">O framework</span>
+          <h2>FlowOS™ não é um curso.<br>É infraestrutura de execução.</h2>
+          <p class="section-desc">Um curso diz-te o que fazer. FlowOS™ dá-te o sistema completo para o fazer: workflows documentados, stack de ferramentas configurado, biblioteca de prompts para Claude AI e plano de execução por fases. A diferença entre saber e executar é arquitectura.</p>
+        </div>
+        <div class="system-pillars">
+          <div class="sys-pillar">
+            <div class="sys-pillar-num">01 / FOUNDATION</div>
+            <div class="sys-pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <div class="sys-pillar-title">Stack Documentado</div>
+            <div class="sys-pillar-body">Cada ferramenta e integração especificada, configurada e testada. Custo total: €0–1. Sem surpresas, sem custos ocultos.</div>
+          </div>
+          <div class="sys-pillar">
+            <div class="sys-pillar-num">02 / EXECUTION</div>
+            <div class="sys-pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            </div>
+            <div class="sys-pillar-title">Workflow Library</div>
+            <div class="sys-pillar-body">42 workflows para Claude AI organizados por stack. Copia, cola e executa. Sem saber escrever prompts — o sistema faz isso por ti.</div>
+          </div>
+          <div class="sys-pillar">
+            <div class="sys-pillar-num">03 / DEPLOYMENT</div>
+            <div class="sys-pillar-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            </div>
+            <div class="sys-pillar-title">Execution Blueprint</div>
+            <div class="sys-pillar-body">Plano de 5 dias por stack com tarefas diárias específicas. Do setup ao primeiro output publicado. Sem adivinhar o próximo passo.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- STACKS -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label">Os 6 stacks</span>
+        <h2>Seis arquitecturas de monetização.<br>Uma escolha.</h2>
+        <p class="section-desc">Cada stack é um sistema completo — ferramentas, workflows, plano de execução e canais de distribuição. Escolhes o que alinha com o teu perfil operacional.</p>
+      </div>
+      <div class="stacks-grid">
+
+        <div class="stack-card fade-up">
+          <div class="stack-header">
+            <div class="stack-num">STACK · 01</div>
+            <div class="stack-cost">€0 infra</div>
+          </div>
+          <div class="stack-icon" style="background:rgba(99,102,241,0.1)">📡</div>
+          <div class="stack-name">Faceless Content Infrastructure</div>
+          <div class="stack-desc">Canal de conteúdo 100% assíncrono — sem câmara, sem voz, sem identidade pública. Vídeo, áudio e roteiro gerados com IA e distribuídos em múltiplos canais.</div>
+          <div class="stack-meta">
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">STACK</div>
+              <div class="stack-tags">
+                <span class="tag">Claude AI</span><span class="tag">Kling AI</span><span class="tag">ElevenLabs</span><span class="tag">CapCut</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">CANAIS</div>
+              <div class="stack-tags">
+                <span class="tag">TikTok</span><span class="tag">YouTube</span><span class="tag">Instagram</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">RECEITA</div>
+              <div class="stack-tags">
+                <span class="tag">CPM</span><span class="tag">Afiliados</span><span class="tag">Produtos próprios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card fade-up">
+          <div class="stack-header">
+            <div class="stack-num">STACK · 02</div>
+            <div class="stack-cost">€0 infra</div>
+          </div>
+          <div class="stack-icon" style="background:rgba(139,92,246,0.1)">⚡</div>
+          <div class="stack-name">Digital Product Engine</div>
+          <div class="stack-desc">Criação e distribuição de produtos digitais com Claude AI — templates, guias, pacotes de prompts e presets. Publicação em marketplaces com tráfego orgânico incorporado.</div>
+          <div class="stack-meta">
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">STACK</div>
+              <div class="stack-tags">
+                <span class="tag">Claude AI</span><span class="tag">Canva</span><span class="tag">Gumroad</span><span class="tag">Etsy</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">CANAIS</div>
+              <div class="stack-tags">
+                <span class="tag">Etsy</span><span class="tag">Gumroad</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">RECEITA</div>
+              <div class="stack-tags">
+                <span class="tag">Venda directa</span><span class="tag">100% margem</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card fade-up">
+          <div class="stack-header">
+            <div class="stack-num">STACK · 03</div>
+            <div class="stack-cost">€0 infra</div>
+          </div>
+          <div class="stack-icon" style="background:rgba(16,185,129,0.1)">🎨</div>
+          <div class="stack-name">AI Print Studio</div>
+          <div class="stack-desc">Design gerado com Ideogram AI. Aplicado em produtos físicos. Produção, inventário e envio totalmente automatizados — sem tocar num único produto.</div>
+          <div class="stack-meta">
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">STACK</div>
+              <div class="stack-tags">
+                <span class="tag">Ideogram AI</span><span class="tag">Canva</span><span class="tag">Printify</span><span class="tag">Redbubble</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">CANAIS</div>
+              <div class="stack-tags">
+                <span class="tag">Etsy</span><span class="tag">Redbubble</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">RECEITA</div>
+              <div class="stack-tags">
+                <span class="tag">Margem por venda</span><span class="tag">Royalties</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card fade-up">
+          <div class="stack-header">
+            <div class="stack-num">STACK · 04</div>
+            <div class="stack-cost">€1/mês</div>
+          </div>
+          <div class="stack-icon" style="background:rgba(245,158,11,0.1)">🏪</div>
+          <div class="stack-name">AI Commerce Stack</div>
+          <div class="stack-desc">Produto seleccionado por análise de dados. Vídeo gerado com Kling AI. Loja automatizada com DSers e Shopify. Margens 2–4x sem gestão de inventário.</div>
+          <div class="stack-meta">
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">STACK</div>
+              <div class="stack-tags">
+                <span class="tag">Claude AI</span><span class="tag">Kling AI</span><span class="tag">Shopify</span><span class="tag">DSers</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">CANAIS</div>
+              <div class="stack-tags">
+                <span class="tag">TikTok Shop</span><span class="tag">Instagram</span><span class="tag">Shopify</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">RECEITA</div>
+              <div class="stack-tags">
+                <span class="tag">Margem por transacção</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card fade-up">
+          <div class="stack-header">
+            <div class="stack-num">STACK · 05</div>
+            <div class="stack-cost">€0 infra</div>
+          </div>
+          <div class="stack-icon" style="background:rgba(244,63,94,0.1)">🔧</div>
+          <div class="stack-name">AI-Augmented Services</div>
+          <div class="stack-desc">Serviços de copywriting, produção de conteúdo e gestão de redes sociais com IA como alavanca operacional. Entrega mais rápida, margem superior, capacidade escalável.</div>
+          <div class="stack-meta">
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">STACK</div>
+              <div class="stack-tags">
+                <span class="tag">Claude AI</span><span class="tag">CapCut</span><span class="tag">Canva</span><span class="tag">Fiverr</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">CANAIS</div>
+              <div class="stack-tags">
+                <span class="tag">Fiverr</span><span class="tag">Upwork</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">RECEITA</div>
+              <div class="stack-tags">
+                <span class="tag">Por projecto</span><span class="tag">Retainer mensal</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-card fade-up">
+          <div class="stack-header">
+            <div class="stack-num">STACK · 06</div>
+            <div class="stack-cost">€0 infra</div>
+          </div>
+          <div class="stack-icon" style="background:rgba(99,102,241,0.1)">∞</div>
+          <div class="stack-name">Evergreen Affiliate System</div>
+          <div class="stack-desc">Conteúdo editorial e newsletters criados com Claude AI que geram comissões de forma assíncrona. Publicado uma vez. Distribui indefinidamente.</div>
+          <div class="stack-meta">
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">STACK</div>
+              <div class="stack-tags">
+                <span class="tag">Claude AI</span><span class="tag">Beehiiv</span><span class="tag">Awin</span><span class="tag">WordPress</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">CANAIS</div>
+              <div class="stack-tags">
+                <span class="tag">SEO</span><span class="tag">Newsletter</span><span class="tag">Social</span>
+              </div>
+            </div>
+            <div class="stack-meta-row">
+              <div class="stack-meta-label">RECEITA</div>
+              <div class="stack-tags">
+                <span class="tag">Comissões afiliadas</span><span class="tag">Patrocínios</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- INCLUDED -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label">Conteúdo completo</span>
+        <h2>FlowOS™ Founding Access.<br>Tudo incluído.</h2>
+      </div>
+      <div class="included-grid fade-up">
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">Sistema Principal — 6 Stacks Operacionais</div>
+            <div class="included-body">Documentação completa de cada stack: arquitectura, ferramentas, integrações e plano de execução de 5 dias. 19 páginas estruturadas.</div>
+            <div class="included-ref">REF. €79</div>
+          </div>
+        </div>
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">Workflow Library — 42 Prompts para Claude AI</div>
+            <div class="included-body">7 workflows específicos por stack + prompts universais de produção. Testados e organizados para execução directa por copy-paste.</div>
+            <div class="included-ref">REF. €49</div>
+          </div>
+        </div>
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">Infrastructure Setup Guide — 8 Ferramentas</div>
+            <div class="included-body">Guia de configuração das 8 ferramentas base. Setup em menos de 30 minutos. Custo total: €0–1.</div>
+            <div class="included-ref">REF. €29</div>
+          </div>
+        </div>
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">Stack Expansion Guide</div>
+            <div class="included-body">Ferramentas secundárias de cada stack — Shopify, DSers, Printify, Fiverr, Beehiiv, Awin e mais. Integração e configuração documentadas.</div>
+            <div class="included-ref">BÓNUS A · REF. €19</div>
+          </div>
+        </div>
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">Pre-Launch Checklist</div>
+            <div class="included-body">Lista de verificação antes de cada activação ou publicação. Elimina os erros de setup mais comuns que custam dias de progresso.</div>
+            <div class="included-ref">BÓNUS B · REF. €9</div>
+          </div>
+        </div>
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">European Traffic Playbook</div>
+            <div class="included-body">Canais de distribuição orgânica para o mercado europeu. TikTok, YouTube, Instagram, Pinterest, SEO, Etsy — quando e como usar cada canal por stack.</div>
+            <div class="included-ref">BÓNUS C · REF. €19</div>
+          </div>
+        </div>
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">Critical Failure Analysis</div>
+            <div class="included-body">Os 10 erros operacionais que consomem meses de progresso. Lê antes de activar qualquer stack — poupa semanas de tentativa e erro.</div>
+            <div class="included-ref">BÓNUS D · REF. €9</div>
+          </div>
+        </div>
+        <div class="included-card">
+          <div class="included-check">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+          </div>
+          <div>
+            <div class="included-title">Actualizações Futuras Incluídas</div>
+            <div class="included-body">Acesso a todas as actualizações do sistema sem custo adicional. O framework evolui com as ferramentas — o teu acesso não expira.</div>
+            <div class="included-ref">ACESSO PERMANENTE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PRICING -->
+  <section id="oferta">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label">Founding Access</span>
+        <h2>Acesso único. Sem recorrência.</h2>
+        <p class="section-desc">Pagamento único de €37. Acesso permanente ao sistema completo, incluindo actualizações futuras.</p>
+      </div>
+      <div class="pricing-wrap fade-up">
+        <div class="pricing-list">
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span><strong>Sistema principal</strong> — 6 stacks documentados</span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span><strong>42 workflows</strong> para Claude AI organizados por stack</span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span><strong>Infrastructure setup guide</strong> — 8 ferramentas configuradas</span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span>Stack Expansion Guide <strong>(Bónus A)</strong></span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span>Pre-Launch Checklist <strong>(Bónus B)</strong></span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span>European Traffic Playbook <strong>(Bónus C)</strong></span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span>Critical Failure Analysis <strong>(Bónus D)</strong></span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span><strong>Actualizações futuras</strong> incluídas — acesso permanente</span>
+          </div>
+          <div class="pricing-item">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            <span><strong>Acesso imediato</strong> após pagamento</span>
+          </div>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-eyebrow">FlowOS™ · Founding Access</div>
+          <div class="price-ref">
+            <s>Valor de referência: €213+</s>
+          </div>
+          <div class="price-main"><span>€</span>37</div>
+          <div class="price-note">PAGAMENTO ÚNICO · SEM MENSALIDADE</div>
+          <a href="https://gumroad.com" class="btn-primary" style="width:100%;justify-content:center;font-size:15px;">
+            Activar FlowOS™ Agora
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
           </a>
-          <div class="price-guarantee">
-            <span>🛡️</span>
-            Garantia de devolucao integral — 7 dias, sem condicoes
-          </div>
-
           <div class="price-divider"></div>
-          <div class="price-includes-title">O que recebes hoje</div>
-
-          <div class="price-inc-item"><span class="pii">✓</span>Guia completo — 6 modelos de negocio com IA</div>
-          <div class="price-inc-item"><span class="pii">✓</span>6 planos de 5 dias (um por modelo)</div>
-          <div class="price-inc-item"><span class="pii">✓</span>42 prompts para Claude organizados por modulo</div>
-          <div class="price-inc-item"><span class="pii">✓</span>Stack de 8 ferramentas configuradas</div>
-          <div class="price-inc-item"><span class="pii">✓</span>Bonus A, B, C e D incluidos</div>
-          <div class="price-inc-item"><span class="pii">✓</span>Acesso imediato apos pagamento</div>
-          <div class="price-inc-item"><span class="pii">✓</span>Actualizacoes futuras incluidas</div>
-
-          <div class="price-divider"></div>
-          <div class="price-total">
-            <span class="price-total-label">Valor total percebido</span>
-            <span class="price-total-val">€157+</span>
-          </div>
-          <div class="price-total" style="margin-top:6px;">
-            <span class="price-total-label" style="font-weight:600;color:var(--wh)">Teu preco hoje</span>
-            <span class="price-total-val" style="color:var(--al);font-size:18px;">€37</span>
+          <div class="guarantee">
+            <div class="guarantee-icon">🛡</div>
+            <div class="guarantee-text">
+              <strong>Garantia de 7 dias — devolução total, sem condições.</strong> Se por qualquer razão o sistema não corresponder às expectativas, recuperas €37 na totalidade. Processo directo, sem formulários.
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PROVA LOGICA -->
-<section style="background:var(--s1);border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);">
-  <div class="section-wrap" style="padding-bottom:72px;">
-    <div class="section-label reveal">Prova logica</div>
-    <h2 class="section-title reveal">Porque e que isto funciona agora.</h2>
-    <p class="section-sub reveal">Sem resultados pessoais para mostrar — sem inventar. A logica e publica e verificavel.</p>
+  <div class="divider"></div>
 
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;" class="reveal">
-      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:28px;">
-        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--al);margin-bottom:8px;">200M+</div>
-        <div style="font-size:14px;color:var(--wh);font-weight:600;margin-bottom:6px;">Utilizadores TikTok na Europa</div>
-        <div style="font-size:13px;color:var(--mu);">O mercado de atencao existe e esta activo. A saturacao de conteudo faceless IA ainda e muito baixa comparada com os EUA.</div>
+  <!-- MARKET LOGIC -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label">Lógica de mercado</span>
+        <h2>A lógica por trás do sistema.</h2>
+        <p class="section-desc">Sem resultados pessoais para mostrar — sem inventar. As condições de mercado são públicas e verificáveis.</p>
       </div>
-      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:28px;">
-        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--al);margin-bottom:8px;">67%</div>
-        <div style="font-size:14px;color:var(--wh);font-weight:600;margin-bottom:6px;">Compram produtos vistos no TikTok</div>
-        <div style="font-size:13px;color:var(--mu);">A intencao de compra a partir de conteudo social esta comprovada. O canal funciona — falta o sistema para o usar correctamente.</div>
-      </div>
-      <div style="background:var(--s2);border:1px solid var(--bd);border-radius:12px;padding:28px;">
-        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--al);margin-bottom:8px;">€0-1</div>
-        <div style="font-size:14px;color:var(--wh);font-weight:600;margin-bottom:6px;">Para comecar 5 dos 6 modelos</div>
-        <div style="font-size:13px;color:var(--mu);">Todas as ferramentas core tem planos gratuitos. O risco financeiro e proximo de zero — o que elimina a maior desculpa para nao comecar.</div>
+      <div class="logic-grid fade-up">
+        <div class="logic-card">
+          <div class="logic-value"><span>200M+</span></div>
+          <div class="logic-title">Utilizadores TikTok activos na Europa</div>
+          <div class="logic-body">O mercado de atenção existe e está activo. A saturação de conteúdo faceless com IA está ainda em fase inicial comparada com os EUA — a janela de oportunidade é real.</div>
+          <div class="logic-source">TikTok for Business Europe, 2024</div>
+        </div>
+        <div class="logic-card">
+          <div class="logic-value"><span>€0–1</span></div>
+          <div class="logic-title">Custo de infraestrutura base (5/6 stacks)</div>
+          <div class="logic-body">Claude AI, Kling AI (66 créditos/dia), ElevenLabs (10.000 chars/mês), Canva, Ideogram (25 gerações/dia) — todos com planos gratuitos suficientes para começar.</div>
+          <div class="logic-source">Verificável nos planos actuais de cada ferramenta</div>
+        </div>
+        <div class="logic-card">
+          <div class="logic-value"><span>5</span> <span style="font-size:18px;color:var(--text-2)">dias</span></div>
+          <div class="logic-title">Tempo médio de activação por stack</div>
+          <div class="logic-body">Não é uma promessa de resultado — é o tempo documentado para configurar o stack, produzir o primeiro output e publicar no canal certo. O resultado financeiro depende da execução.</div>
+          <div class="logic-source">Baseado no plano de execução de cada stack</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- PARA QUEM E -->
-<section>
-  <div class="section-wrap">
-    <div class="section-label reveal">Para quem e</div>
-    <h2 class="section-title reveal">Sê honesto contigo mesmo.</h2>
+  <div class="divider"></div>
 
-    <div class="forwho-grid reveal">
-      <div class="forwho-card">
-        <div class="forwho-header yes">✓ Este sistema e para ti se...</div>
-        <ul class="forwho-list">
-          <li class="forwho-item"><span class="forwho-icon">✅</span>Queres rendimento online mas nao queres aparecer em camara</li>
-          <li class="forwho-item"><span class="forwho-icon">✅</span>Tentaste antes sem sistema e nao sabes por onde comecar correctamente</li>
-          <li class="forwho-item"><span class="forwho-icon">✅</span>Tens 45-90 minutos por dia durante 5 dias para executar</li>
-          <li class="forwho-item"><span class="forwho-icon">✅</span>Vives ou vendes para o mercado europeu</li>
-          <li class="forwho-item"><span class="forwho-icon">✅</span>Queres explorar varios modelos e escolher o que funciona para ti</li>
-          <li class="forwho-item"><span class="forwho-icon">✅</span>Entendes que resultados reais levam semanas ou meses — nao dias</li>
-        </ul>
+  <!-- FIT -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label">Alinhamento de perfil</span>
+        <h2>Para quem é. Para quem não é.</h2>
       </div>
-      <div class="forwho-card">
-        <div class="forwho-header no">✗ Este sistema NAO e para ti se...</div>
-        <ul class="forwho-list">
-          <li class="forwho-item"><span class="forwho-icon">❌</span>Esperas ganhar dinheiro sem qualquer esforco ou aprendizagem</li>
-          <li class="forwho-item"><span class="forwho-icon">❌</span>Queres resultados garantidos e especificos de rendimento</li>
-          <li class="forwho-item"><span class="forwho-icon">❌</span>Nao tens acesso a internet ou a um computador basico</li>
-          <li class="forwho-item"><span class="forwho-icon">❌</span>Ja tens experiencia avancada em todos estes modelos</li>
-          <li class="forwho-item"><span class="forwho-icon">❌</span>Procuras uma mentoria personalizada com acompanhamento individual</li>
-          <li class="forwho-item"><span class="forwho-icon">❌</span>Queres um negocio 100% automatizado sem aprender nada</li>
-        </ul>
+      <div class="fit-grid fade-up">
+        <div class="fit-card yes">
+          <div class="fit-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+            FlowOS™ é adequado se...
+          </div>
+          <div class="fit-list">
+            <div class="fit-item">
+              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Queres operar online sem exposição de identidade pessoal
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Preferes sistemas documentados a tutoriais dispersos
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Tens 45–90 minutos diários para execução durante 5 dias
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Operas no mercado europeu ou para audiências europeias
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Queres explorar vários modelos antes de especializar
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
+              Entendes que retorno financeiro é função de execução, não de acesso à informação
+            </div>
+          </div>
+        </div>
+        <div class="fit-card no">
+          <div class="fit-title">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+            FlowOS™ não é adequado se...
+          </div>
+          <div class="fit-list">
+            <div class="fit-item">
+              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+              Esperas retorno financeiro sem execução consistente
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+              Queres resultados garantidos de rendimento específico
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+              Não tens acesso à internet ou a um computador básico
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+              Já tens operação avançada em todos os 6 modelos
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+              Procuras mentoria personalizada com acompanhamento individual
+            </div>
+            <div class="fit-item">
+              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
+              Queres automação total sem qualquer envolvimento operacional
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FAQ -->
-<section style="background:var(--s1);border-top:1px solid var(--bd);">
-  <div class="section-wrap">
-    <div class="section-label reveal">Perguntas frequentes</div>
-    <h2 class="section-title reveal">As objecoes reais<br>respondidas directamente.</h2>
+  <div class="divider"></div>
 
-    <div class="faq-list reveal" style="max-width:800px;">
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          Isto funciona na Europa? Os prazos de entrega nao sao muito longos?
-          <span class="faq-toggle">+</span>
-        </div>
-        <div class="faq-a">O guia cobre especificamente fornecedores com armazens na Europa — CJ Dropshipping EU e Spocket — com entregas de 5 a 10 dias. O sistema foi construido para o mercado europeu, nao adaptado de um modelo americano. E dos 6 modelos, apenas 1 (Dropshipping) envolve envios fisicos. Os outros 5 sao completamente digitais.</div>
+  <!-- FAQ -->
+  <section>
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label">Perguntas frequentes</span>
+        <h2>Perguntas directas.<br>Respostas directas.</h2>
       </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          As ferramentas de IA sao mesmo gratuitas ou ha custos escondidos?
-          <span class="faq-toggle">+</span>
+      <div class="faq-list fade-up">
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            O sistema funciona na Europa? Os prazos de entrega no dropshipping não são longos?
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+          </div>
+          <div class="faq-a">O stack de dropshipping (Stack 04) foi configurado especificamente com fornecedores com armazéns europeus — CJ Dropshipping EU e Spocket — com prazos de entrega de 5 a 10 dias úteis. O guia especifica os fornecedores, os critérios de selecção de produto e as configurações de DSers para o mercado europeu. Os outros 5 stacks são 100% digitais — sem envio, sem inventário, sem logística.</div>
         </div>
-        <div class="faq-a">Todas as ferramentas core tem planos gratuitos suficientes para comecar: Claude (gratis), Kling AI (66 creditos/dia gratis), ElevenLabs (10.000 caracteres/mes gratis), CapCut (gratis), Ideogram AI (25 geracoes/dia gratis), Canva (gratis). O unico custo obrigatorio para comecar e o trial Shopify de €1/mes — e apenas para o Modulo 04. O guia especifica exactamente o que e gratis, o que tem limite e quando faz sentido actualizar.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          Nao tenho experiencia nenhuma. Consigo mesmo assim?
-          <span class="faq-toggle">+</span>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            As ferramentas são realmente gratuitas ou há custos ocultos?
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+          </div>
+          <div class="faq-a">
+            Planos gratuitos suficientes para começar:
+            <ul>
+              <li>Claude AI — plano gratuito disponível</li>
+              <li>Kling AI — 66 créditos/dia no plano gratuito</li>
+              <li>ElevenLabs — 10.000 caracteres/mês gratuitos</li>
+              <li>CapCut — gratuito</li>
+              <li>Ideogram AI — 25 gerações/dia gratuitas</li>
+              <li>Canva — gratuito</li>
+              <li>Gumroad — gratuito (comissão por venda)</li>
+            </ul>
+            O único custo obrigatório é o trial Shopify de €1/mês — e apenas para o Stack 04. O guia especifica exactamente o que é gratuito, o que tem limite e quando faz sentido actualizar.
+          </div>
         </div>
-        <div class="faq-a">O sistema foi construido exactamente para iniciantes. Cada ferramenta tem um guia de configuracao em 5 minutos. Os 42 prompts para Claude funcionam com copy-paste — nao precisas de saber escrever prompts. Os planos de 5 dias sao tarefas especificas, nao teorias vagas. Se consegues usar um telemovel e ter uma conta de email, consegues executar qualquer um dos 6 modelos.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          Porque e que custa €37 se ha informacao gratis no YouTube?
-          <span class="faq-toggle">+</span>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Não tenho experiência nenhuma. Consigo executar?
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+          </div>
+          <div class="faq-a">O sistema foi construído para operadores sem experiência prévia. Cada ferramenta tem um guia de setup documentado. Os 42 workflows para Claude AI funcionam por copy-paste — não é necessário conhecimento de engenharia de prompts. Os planos de 5 dias são compostos por tarefas específicas e sequenciais, não por orientações genéricas. Se consegues usar um browser e uma conta de email, consegues executar qualquer um dos 6 stacks.</div>
         </div>
-        <div class="faq-a">A informacao existe, sim. O que pagas e pela curadoria especifica para a Europa em 2026, a organizacao em planos executaveis de 5 dias, os 42 prompts testados, e a decisao sobre o que e relevante e o que e ruido. Poupas horas de conteudo desorganizado, contradictions entre criadores e a frustracao de nao saber por onde comecar. O teu tempo vale mais do que €37.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          Preciso de empresa ou NIF para comecar?
-          <span class="faq-toggle">+</span>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Porque custa €37 se há informação gratuita no YouTube?
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+          </div>
+          <div class="faq-a">A informação existe. O que o FlowOS™ fornece é diferente: curadoria específica para o mercado europeu em 2026, organização em planos de execução de 5 dias com tarefas concretas (não teorias), 42 workflows testados para Claude AI, stack de ferramentas com custos €0–1 documentado e configurado, e filtragem do ruído — o que é relevante vs. o que está desactualizado. O teu tempo é o recurso mais escasso. €37 compra arquitectura — não informação.</div>
         </div>
-        <div class="faq-a">Para comecar a testar e validar, nao — na maioria dos paises europeus ha regimes de isencao para pequenos rendimentos. O guia inclui uma seccao sobre requisitos legais resumidos para os principais mercados europeus, com links para os recursos oficiais. A recomendacao: comecas, validas, legalizas quando o volume justifica.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-          E se nao funcionar para mim?
-          <span class="faq-toggle">+</span>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            Preciso de empresa ou NIF para começar?
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+          </div>
+          <div class="faq-a">Para fase de validação, não — na maioria dos países europeus existem regimes de isenção para rendimentos de baixo volume. O sistema inclui uma secção sobre enquadramento legal resumido para os principais mercados europeus, com referências para os recursos oficiais de cada país. A abordagem recomendada: activas, validas, legalizas quando o volume justifica.</div>
         </div>
-        <div class="faq-a">Tens 7 dias de garantia de devolucao sem perguntas. Se abrires o guia e nao for o que esperavas, devolves e recuperas os €37 na totalidade. O risco e completamente do nosso lado. A unica condicao e que estejas disposto a tentar — o resultado depende sempre da execucao.</div>
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            E se não for o que esperava?
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
+          </div>
+          <div class="faq-a">Tens 7 dias de garantia de devolução total. Se o sistema não corresponder às expectativas por qualquer razão, solicitas a devolução e recuperas €37 na totalidade. Processo directo, sem condições, sem formulários extensos. O risco é do nosso lado — a única condição é executares.</div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="final-cta-inner">
-    <div class="section-label reveal" style="justify-content:center;">Ultima chamada</div>
-    <h2 class="final-cta-title reveal">
-      Daqui a 5 dias, ou tens<br>algo lancado — ou tens €37 de volta.
-    </h2>
-    <p class="final-cta-sub reveal">
-      Este e o momento mais simples de decidir. O produto custa menos do que um jantar fora. O risco e zero. E o que aprendes fica contigo independentemente do resultado.
-    </p>
+  <div class="divider"></div>
 
-    <div class="reveal">
-      <a href="https://gumroad.com" class="btn-primary" target="_blank" style="display:inline-flex;padding:18px 40px;font-size:16px;">
-        Quero o AI Income System™
-        <span class="btn-price">€37 — Acesso Imediato</span>
+  <!-- CLOSE -->
+  <section class="close-section">
+    <div class="wrap">
+      <span class="section-label">Decisão final</span>
+      <h2 class="fade-up">Daqui a 5 dias, ou tens um stack activo — ou tens €37 de volta.</h2>
+      <p class="section-desc fade-up">A decisão é simples. O risco financeiro é €37. O risco operacional é 5 dias de execução. Se não funcionar, devolves e recuperas tudo. O que não podes recuperar é o tempo gasto à procura do sistema certo em vez de o executar.</p>
+      <br/><br/>
+      <a href="https://gumroad.com" class="btn-primary fade-up">
+        Activar FlowOS™ — €37 · Acesso Imediato
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 8h10M9 4l4 4-4 4"/>
+        </svg>
       </a>
-    </div>
-
-    <div class="guarantee-box reveal" style="margin-top:32px;">
-      <div class="guarantee-icon">🛡️</div>
-      <div class="guarantee-text">
-        <strong>Garantia de 7 dias — sem condicoes</strong>
-        <span>Se por qualquer razao nao ficares satisfeito, devolves e recuperas o valor total. Sem perguntas, sem burocracia.</span>
+      <br/><br/>
+      <div class="guarantee" style="max-width:420px;margin:24px auto 0;text-align:left;">
+        <div class="guarantee-icon">🛡</div>
+        <div class="guarantee-text">
+          <strong>Garantia de 7 dias — devolução total, sem condições.</strong> Recuperas €37 na totalidade se não ficares satisfeito. Sem perguntas, sem burocracia.
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">AI INCOME <span>SYSTEM™</span></div>
-  <p>Founding Edition &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; Todos os direitos reservados</p>
-  <p style="margin-top:8px;">Este produto e de caracter educativo e informativo. Os resultados dependem da execucao individual e variam de pessoa para pessoa. Nao sao garantidos resultados especificos de rendimento.</p>
-</footer>
+  <div class="divider"></div>
 
-<script>
-// Scroll reveal
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      observer.unobserve(e.target);
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="footer-logo">Flow<span>OS</span>™</div>
+          <div class="footer-disclaimer">Este produto é de natureza educativa e operacional. Os resultados financeiros dependem da execução individual e variam de operador para operador. Não são garantidos rendimentos específicos de qualquer montante.</div>
+        </div>
+        <div class="footer-right">
+          <div>FlowOS™ · AI Workflow Monetization Framework</div>
+          <div>Founding Edition · Europa 2026</div>
+          <div style="margin-top:8px;opacity:0.5">Todos os direitos reservados</div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ toggle
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
     }
-  });
-}, { threshold: 0.1 });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 60);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
 
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Animated counters in metrics
+    function animateCount(el, target, suffix='') {
+      let start = 0;
+      const isFloat = target.includes('.');
+      const num = parseFloat(target.replace(/[^0-9.]/g,''));
+      const prefix = target.match(/^[^0-9]*/)?.[0] || '';
+      const duration = 1200;
+      const startTime = performance.now();
+      function update(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = eased * num;
+        el.textContent = prefix + (isFloat ? current.toFixed(1) : Math.floor(current)) + (progress < 1 ? '' : suffix);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    }
+
+    const metricObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const targets = ['6','42','€0','5'];
+          e.target.querySelectorAll('.metric-value span').forEach((el, i) => {
+            setTimeout(() => animateCount(el, targets[i]), i * 120);
+          });
+          metricObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const metricsEl = document.querySelector('.metrics');
+    if (metricsEl) metricObserver.observe(metricsEl);
+  </script>
 </body>
 </html>
