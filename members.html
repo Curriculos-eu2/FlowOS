@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowOS&#8482; &#8212; &#193;rea de Membros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg0:#07070D;--bg1:#0D0D1A;--bg2:#12121F;--bg3:#1A1A2E;
+  --border:#1E1E35;--border-glow:rgba(99,102,241,0.25);
+  --accent:#6366F1;--accent2:#8B5CF6;--accent3:#A78BFA;
+  --t0:#F4F4FA;--t1:#A0A0C0;--t2:#5C5C80;
+  --green:#10B981;--red:#F43F5E;--amber:#F59E0B;
+  --sidebar:240px;--r:10px;--r-lg:16px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg0);color:var(--t0);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* ── LOGIN ── */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+#login-screen::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(99,102,241,0.15) 0%,transparent 70%);pointer-events:none}
+.login-card{background:var(--bg1);border:1px solid var(--border-glow);border-radius:var(--r-lg);padding:48px 40px;width:100%;max-width:400px;position:relative;z-index:1;box-shadow:0 0 80px rgba(99,102,241,0.08)}
+.login-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:26px;letter-spacing:-0.03em;color:var(--t0);text-align:center;margin-bottom:6px}
+.login-logo span{color:var(--accent)}
+.login-badge{text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--accent3);letter-spacing:0.08em;margin-bottom:32px}
+.login-label{font-size:12px;color:var(--t2);font-family:'DM Mono',monospace;letter-spacing:0.06em;margin-bottom:8px}
+.login-input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;color:var(--t0);font-size:15px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.2s;margin-bottom:16px}
+.login-input:focus{border-color:var(--border-glow)}
+.login-input::placeholder{color:var(--t2)}
+.login-btn{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;border:none;border-radius:var(--r);padding:14px;cursor:pointer;transition:all 0.2s;box-shadow:0 0 40px rgba(99,102,241,0.25)}
+.login-btn:hover{transform:translateY(-1px);box-shadow:0 0 60px rgba(99,102,241,0.4)}
+.login-error{color:var(--red);font-size:13px;text-align:center;margin-top:10px;display:none}
+.login-note{text-align:center;font-size:12px;color:var(--t2);margin-top:16px}
+
+/* ── APP LAYOUT ── */
+#app-screen{display:flex;min-height:100vh}
+aside#sidebar{width:var(--sidebar);background:var(--bg1);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;z-index:50;transition:transform 0.3s ease}
+#main-content{margin-left:var(--sidebar);flex:1;min-height:100vh;padding:0}
+
+/* ── SIDEBAR ── */
+.sidebar-logo{padding:24px 20px 20px;border-bottom:1px solid var(--border)}
+.sidebar-logo-text{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;letter-spacing:-0.02em;color:var(--t0)}
+.sidebar-logo-text span{color:var(--accent)}
+.sidebar-logo-sub{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);letter-spacing:0.06em;margin-top:2px}
+.sidebar-nav{flex:1;overflow-y:auto;padding:12px 0}
+.nav-section-label{padding:16px 20px 6px;font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);letter-spacing:0.1em;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;border-radius:0;transition:all 0.15s;font-size:13px;color:var(--t1);border-left:2px solid transparent;user-select:none}
+.nav-item:hover{background:var(--bg2);color:var(--t0)}
+.nav-item.active{background:rgba(99,102,241,0.1);color:var(--accent3);border-left-color:var(--accent)}
+.nav-item-icon{font-size:14px;width:18px;text-align:center;flex-shrink:0}
+.nav-item-text{flex:1;font-weight:500}
+.nav-item-badge{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);background:var(--bg3);border-radius:4px;padding:2px 5px}
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--border)}
+.logout-btn{width:100%;display:flex;align-items:center;gap:8px;background:transparent;border:1px solid var(--border);border-radius:var(--r);padding:9px 14px;color:var(--t2);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all 0.2s}
+.logout-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* ── PAGE HEADER ── */
+.page-header{padding:32px 40px 24px;border-bottom:1px solid var(--border);background:var(--bg0)}
+.page-eyebrow{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px}
+.page-title{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;letter-spacing:-0.025em;color:var(--t0);line-height:1.1}
+.page-desc{font-size:14px;color:var(--t1);margin-top:6px;max-width:580px}
+
+/* ── DASHBOARD ── */
+.dash-wrap{padding:32px 40px}
+.dash-welcome{margin-bottom:32px}
+.dash-welcome-title{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--t0);margin-bottom:4px}
+.dash-welcome-sub{font-size:13px;color:var(--t2)}
+.stacks-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stack-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;cursor:pointer;transition:all 0.25s;position:relative;overflow:hidden}
+.stack-card::after{content:'';position:absolute;inset:0;opacity:0;transition:opacity 0.3s}
+.stack-card:hover{transform:translateY(-2px);border-color:var(--border-glow)}
+.stack-card:hover::after{opacity:1}
+.stack-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.stack-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);background:var(--bg2);border:1px solid var(--border);border-radius:100px;padding:3px 9px}
+.stack-infra-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--green);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);border-radius:100px;padding:3px 9px}
+.stack-emoji{font-size:28px;margin-bottom:10px;display:block}
+.stack-card-name{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--t0);letter-spacing:-0.015em;margin-bottom:5px}
+.stack-card-tagline{font-size:12px;color:var(--t2);line-height:1.5;margin-bottom:14px}
+.stack-tags-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:16px}
+.stack-tag{font-size:10px;color:var(--t1);background:var(--bg2);border:1px solid var(--border);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace}
+.stack-open-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:var(--r);padding:10px;color:var(--accent3);font-size:12px;font-weight:600;transition:all 0.2s;cursor:pointer}
+.stack-open-btn:hover{background:rgba(99,102,241,0.15);border-color:var(--border-glow)}
+
+/* ── STACK VIEW ── */
+.stack-view-wrap{max-width:900px;margin:0 auto;padding:0 40px 60px}
+.back-btn{display:inline-flex;align-items:center;gap:6px;color:var(--t2);font-size:13px;cursor:pointer;margin:28px 0 0;transition:color 0.2s;background:none;border:none;padding:0;font-family:'DM Sans',sans-serif}
+.back-btn:hover{color:var(--accent3)}
+.stack-view-header{padding:24px 0 20px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;border-bottom:1px solid var(--border);margin-bottom:0}
+.stack-view-left .stack-emoji-lg{font-size:36px;margin-bottom:8px;display:block}
+.stack-view-name{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-0.02em;color:var(--t0);margin-bottom:4px}
+.stack-view-tagline{font-size:13px;color:var(--t1)}
+.stack-view-right{display:flex;flex-direction:column;gap:6px;align-items:flex-end;flex-shrink:0}
+.meta-pill{font-family:'DM Mono',monospace;font-size:10px;border-radius:100px;padding:4px 12px}
+.meta-pill.infra{color:var(--green);background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15)}
+
+/* ── VIDEO PLACEHOLDER ── */
+.video-block{margin:24px 0;background:var(--bg1);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.video-placeholder{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:var(--bg2);position:relative;overflow:hidden}
+.video-placeholder::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(99,102,241,0.08) 0%,transparent 70%)}
+.video-play-btn{width:64px;height:64px;background:rgba(99,102,241,0.15);border:2px solid rgba(99,102,241,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.video-play-icon{width:0;height:0;border-top:12px solid transparent;border-bottom:12px solid transparent;border-left:20px solid var(--accent3);margin-left:4px}
+.video-label{font-family:'DM Mono',monospace;font-size:11px;color:var(--t2);letter-spacing:0.06em;position:relative;z-index:1}
+.video-sub{font-size:12px;color:var(--t2);position:relative;z-index:1}
+.video-bar{padding:12px 20px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.video-bar-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent3);letter-spacing:0.04em}
+.video-bar-badge{font-size:11px;color:var(--t2);background:var(--bg3);border-radius:5px;padding:3px 8px}
+
+/* ── TABS ── */
+.tabs-nav{display:flex;border-bottom:1px solid var(--border);margin:0 0 24px;gap:0;overflow-x:auto}
+.tab-btn{padding:14px 20px;font-size:13px;font-weight:500;color:var(--t2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:'DM Sans',sans-serif;letter-spacing:-0.01em}
+.tab-btn:hover{color:var(--t1)}
+.tab-btn.active{color:var(--accent3);border-bottom-color:var(--accent)}
+
+/* ── OVERVIEW TAB ── */
+.overview-desc{font-size:14px;color:var(--t1);line-height:1.8;margin-bottom:24px;white-space:pre-line}
+.meta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.meta-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.meta-card-label{font-family:'DM Mono',monospace;font-size:9px;color:var(--t2);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px}
+.meta-card-tags{display:flex;flex-wrap:wrap;gap:5px}
+.meta-card-tag{font-size:11px;color:var(--t1);background:var(--bg2);border:1px solid var(--border);border-radius:5px;padding:3px 8px;font-family:'DM Mono',monospace}
+
+/* ── PLAN TAB ── */
+.day-accordion{display:flex;flex-direction:column;gap:8px}
+.day-item{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.day-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;transition:background 0.2s;user-select:none}
+.day-header:hover{background:var(--bg2)}
+.day-header-left{display:flex;align-items:center;gap:12px}
+.day-num-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);background:rgba(99,102,241,0.1);border:1px solid rgba(99,102,241,0.2);border-radius:6px;padding:4px 10px;letter-spacing:0.05em}
+.day-title{font-family:'Syne',sans-serif;font-weight:600;font-size:14px;color:var(--t0);letter-spacing:-0.01em}
+.day-chevron{color:var(--t2);transition:transform 0.3s;font-size:18px;line-height:1}
+.day-item.open .day-chevron{transform:rotate(90deg)}
+.day-body{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+.day-item.open .day-body{max-height:500px}
+.day-tasks{padding:4px 20px 16px 20px;display:flex;flex-direction:column;gap:8px}
+.day-task{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--t1);line-height:1.55}
+.day-task-dot{width:16px;height:16px;flex-shrink:0;margin-top:1px;color:var(--accent)}
+
+/* ── WORKFLOWS TAB ── */
+.workflow-list{display:flex;flex-direction:column;gap:12px}
+.workflow-card{background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;transition:border-color 0.2s}
+.workflow-card:hover{border-color:var(--border-glow)}
+.workflow-card-head{padding:16px 20px 12px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.workflow-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.15);border-radius:5px;padding:3px 8px;flex-shrink:0}
+.workflow-title{font-family:'Syne',sans-serif;font-weight:600;font-size:14px;color:var(--t0);letter-spacing:-0.01em;flex:1}
+.copy-btn{display:flex;align-items:center;gap:5px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:6px 12px;color:var(--t2);font-size:11px;cursor:pointer;transition:all 0.2s;white-space:nowrap;font-family:'DM Mono',monospace;flex-shrink:0}
+.copy-btn:hover{border-color:var(--border-glow);color:var(--accent3)}
+.copy-btn.copied{border-color:rgba(16,185,129,0.3);color:var(--green);background:rgba(16,185,129,0.05)}
+.workflow-prompt{padding:0 20px 16px;font-family:'DM Mono',monospace;font-size:11.5px;color:var(--t1);line-height:1.7;background:var(--bg2);margin:0 20px 16px;border-radius:8px;padding:14px 16px;border:1px solid var(--border)}
+.prompt-bracket{color:var(--accent3)}
+
+/* ── CHECKLIST TAB ── */
+.checklist-header{margin-bottom:20px}
+.checklist-progress{height:4px;background:var(--bg2);border-radius:2px;overflow:hidden;margin-top:10px}
+.checklist-progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width 0.4s ease}
+.checklist-progress-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--t2);margin-top:6px;letter-spacing:0.04em}
+.checklist-list{display:flex;flex-direction:column;gap:6px}
+.checklist-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg1);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;transition:all 0.2s;user-select:none}
+.checklist-item:hover{border-color:var(--border-glow)}
+.checklist-item.checked{opacity:0.6}
+.checklist-item.checked .checklist-item-text{text-decoration:line-through;color:var(--t2)}
+.checklist-checkbox{width:18px;height:18px;border:1.5px solid var(--border);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.checklist-item.checked .checklist-checkbox{background:var(--green);border-color:var(--green)}
+.checklist-check-icon{color:#fff;font-size:11px;display:none}
+.checklist-item.checked .checklist-check-icon{display:block}
+.checklist-item-text{font-size:13px;color:var(--t0);line-height:1.4}
+
+/* ── LIBRARY VIEW ── */
+.library-wrap{padding:0 40px 60px}
+.library-filters{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+.filter-btn{font-family:'DM Mono',monospace;font-size:11px;padding:7px 14px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--t2);cursor:pointer;transition:all 0.2s}
+.filter-btn:hover{border-color:var(--border-glow);color:var(--t1)}
+.filter-btn.active{background:rgba(99,102,241,0.1);border-color:rgba(99,102,241,0.3);color:var(--accent3)}
+.library-stack-group{margin-bottom:36px}
+.library-stack-title{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--t0);margin-bottom:14px;display:flex;align-items:center;gap:8px;letter-spacing:-0.015em;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.library-workflow-grid{display:flex;flex-direction:column;gap:8px}
+
+/* ── RESPONSIVE ── */
+.hamburger{display:none;position:fixed;top:16px;left:16px;z-index:200;background:var(--bg1);border:1px solid var(--border);border-radius:8px;padding:8px;cursor:pointer}
+.ham-line{width:18px;height:2px;background:var(--t1);display:block;margin:3px 0;transition:all 0.3s}
+.sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:49}
+
+@media(max-width:900px){
+  aside#sidebar{transform:translateX(-100%)}
+  aside#sidebar.open{transform:translateX(0)}
+  #main-content{margin-left:0}
+  .hamburger{display:flex;flex-direction:column}
+  .sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity 0.3s}
+  .sidebar-overlay.visible{opacity:1;pointer-events:all}
+  .dash-wrap,.library-wrap{padding:24px 20px 60px}
+  .stack-view-wrap{padding:0 20px 60px}
+  .stacks-grid{grid-template-columns:1fr}
+  .meta-grid{grid-template-columns:1fr}
+  .page-header{padding:24px 20px 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- =============================================================== -->
+<!-- LOGIN SCREEN                                                     -->
+<!-- =============================================================== -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">Flow<span>OS</span>&#8482;</div>
+    <div class="login-badge">&#193;REA DE MEMBROS &middot; FOUNDING EDITION</div>
+    <div class="login-label">SENHA DE ACESSO</div>
+    <input id="pwd-input" class="login-input" type="password" placeholder="Insere a tua senha..." autocomplete="off">
+    <button class="login-btn" onclick="doLogin()">Entrar na &#193;rea de Membros</button>
+    <div id="login-error" class="login-error">Senha incorrecta. Verifica o email de compra.</div>
+    <div class="login-note">Acesso exclusivo para compradores do FlowOS&#8482;</div>
+  </div>
+</div>
+
+<!-- =============================================================== -->
+<!-- HAMBURGER (mobile)                                              -->
+<!-- =============================================================== -->
+<button class="hamburger" onclick="toggleSidebar()" id="hamburger">
+  <span class="ham-line"></span>
+  <span class="ham-line"></span>
+  <span class="ham-line"></span>
+</button>
+<div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+<!-- =============================================================== -->
+<!-- APP SCREEN                                                       -->
+<!-- =============================================================== -->
+<div id="app-screen" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-text">Flow<span>OS</span>&#8482;</div>
+      <div class="sidebar-logo-sub">AI WORKFLOW MONETIZATION</div>
+    </div>
+    <nav class="sidebar-nav" id="sidebar-nav">
+      <div class="nav-section-label">Navega&#231;&#227;o</div>
+      <div class="nav-item" id="nav-dashboard" onclick="navigateTo('dashboard')">
+        <span class="nav-item-icon">&#127968;</span>
+        <span class="nav-item-text">Dashboard</span>
+      </div>
+      <div class="nav-section-label">Stacks</div>
+      <div class="nav-item" id="nav-stack-1" onclick="navigateTo('stack',1)">
+        <span class="nav-item-icon">&#128225;</span>
+        <span class="nav-item-text">Faceless Content</span>
+        <span class="nav-item-badge">01</span>
+      </div>
+      <div class="nav-item" id="nav-stack-2" onclick="navigateTo('stack',2)">
+        <span class="nav-item-icon">&#9889;</span>
+        <span class="nav-item-text">Digital Products</span>
+        <span class="nav-item-badge">02</span>
+      </div>
+      <div class="nav-item" id="nav-stack-3" onclick="navigateTo('stack',3)">
+        <span class="nav-item-icon">&#127912;</span>
+        <span class="nav-item-text">Print Studio</span>
+        <span class="nav-item-badge">03</span>
+      </div>
+      <div class="nav-item" id="nav-stack-4" onclick="navigateTo('stack',4)">
+        <span class="nav-item-icon">&#127979;</span>
+        <span class="nav-item-text">Commerce Stack</span>
+        <span class="nav-item-badge">04</span>
+      </div>
+      <div class="nav-item" id="nav-stack-5" onclick="navigateTo('stack',5)">
+        <span class="nav-item-icon">&#128295;</span>
+        <span class="nav-item-text">AI Services</span>
+        <span class="nav-item-badge">05</span>
+      </div>
+      <div class="nav-item" id="nav-stack-6" onclick="navigateTo('stack',6)">
+        <span class="nav-item-icon">&#9854;</span>
+        <span class="nav-item-text">Affiliate System</span>
+        <span class="nav-item-badge">06</span>
+      </div>
+      <div class="nav-section-label">Recursos</div>
+      <div class="nav-item" id="nav-library" onclick="navigateTo('library')">
+        <span class="nav-item-icon">&#128218;</span>
+        <span class="nav-item-text">Workflow Library</span>
+        <span class="nav-item-badge">42</span>
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="logout-btn" onclick="doLogout()">
+        <span>&#8594;</span> Terminar sess&#227;o
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main id="main-content">
+    <div id="view-container"></div>
+  </main>
+
+</div>
+
+<script>
+const STACKS = [
+  {
+    "id": 1,
+    "name": "Faceless Content Infrastructure",
+    "tagline": "Canal de conteúdo 100% assíncrono — sem câmara, sem voz, sem identidade pública.",
+    "emoji": "📡",
+    "color": "#6366F1",
+    "bg": "rgba(99,102,241,0.12)",
+    "infra": "€0",
+    "tools": [
+      "Claude AI",
+      "Kling AI",
+      "ElevenLabs",
+      "CapCut"
+    ],
+    "channels": [
+      "TikTok",
+      "YouTube Shorts",
+      "Instagram Reels"
+    ],
+    "revenue": [
+      "CPM",
+      "Afiliados",
+      "Produtos próprios"
+    ],
+    "description": "O modelo Faceless Content permite construir um canal de conteúdo completo sem aparecer em câmara, sem gravar a tua voz e sem expor a tua identidade. Todo o conteúdo é gerado com IA: o roteiro com Claude AI, a voz com ElevenLabs, o vídeo com Kling AI e a edição com CapCut.\n\nO canal distribui em TikTok, YouTube Shorts e Instagram Reels simultaneamente. A monetização vem de múltiplas fontes: CPM das plataformas, links de afiliados na bio e produtos próprios.\n\nConsistência supera qualidade inicial. Os primeiros 20 vídeos são dados de aprendizagem — o algoritmo precisa de volume para perceber o teu nicho e distribuir o conteúdo.",
+    "days": [
+      {
+        "day": 1,
+        "title": "Setup do Stack",
+        "tasks": [
+          "Criar conta no TikTok, YouTube e Instagram com nome do canal (não pessoal)",
+          "Instalar CapCut no computador ou telemóvel",
+          "Criar conta no ElevenLabs — testar 2-3 vozes em Português",
+          "Criar conta no Kling AI — gerar um clip de teste de 5 segundos",
+          "Definir nicho e tom do canal: tema principal + 3 sub-temas"
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Primeiro Roteiro",
+        "tasks": [
+          "Usar Workflow 01 para gerar o primeiro roteiro de 60 segundos no Claude AI",
+          "Rever e editar o roteiro — adaptar ao tom do canal",
+          "Gerar o áudio com ElevenLabs e descarregar o ficheiro",
+          "Verificar qualidade do áudio: sem pausas estranhas, pronúncia correcta"
+        ]
+      },
+      {
+        "day": 3,
+        "title": "Produção do Vídeo",
+        "tasks": [
+          "Gerar clips visuais com Kling AI usando os pontos-chave do roteiro",
+          "Abrir o CapCut — importar áudio e clips",
+          "Montar o vídeo: sincronizar áudio com visuais",
+          "Adicionar legendas automáticas (ferramenta nativa do CapCut)",
+          "Adicionar música de fundo da biblioteca gratuita do CapCut",
+          "Exportar em 1080×1920 para formato vertical"
+        ]
+      },
+      {
+        "day": 4,
+        "title": "Publicação",
+        "tasks": [
+          "Usar Workflow 04 para gerar título, descrição e hashtags com Claude AI",
+          "Publicar no TikTok com título e hashtags optimizados",
+          "Republicar no YouTube Shorts com descrição adaptada",
+          "Republicar no Instagram Reels",
+          "Configurar link na bio com Linktree (gratuito)"
+        ]
+      },
+      {
+        "day": 5,
+        "title": "Sistema de Continuidade",
+        "tasks": [
+          "Verificar métricas iniciais: visualizações, completion rate, comentários",
+          "Usar Workflow 03 para criar calendário de 30 dias no Claude AI",
+          "Preparar os próximos 3 roteiros em batch — é muito mais eficiente",
+          "Definir frequência sustentável: mínimo 3 publicações por semana",
+          "Activar notificações de métricas nas plataformas"
+        ]
+      }
+    ],
+    "workflows": [
+      {
+        "num": "01",
+        "title": "Gerar Roteiro de Vídeo Faceless",
+        "prompt": "Cria um roteiro de vídeo de [DURAÇÃO: 60/90 segundos] sobre [TEMA] para o nicho de [NICHO]. O vídeo é 100% narrado em voz-off, sem aparecer em câmara. Começa com um hook de 3 segundos, desenvolve o conteúdo em 3 pontos e termina com um CTA para [ACÇÃO]. Tom: [informativo/entretenimento/educacional]. Idioma: Português europeu."
+      },
+      {
+        "num": "02",
+        "title": "Gerar 10 Hooks para Vídeo Curto",
+        "prompt": "Gera 10 hooks de abertura para vídeos de 60 segundos sobre [TEMA] no nicho [NICHO]. Cada hook deve ter máximo 8 palavras, criar curiosidade imediata e funcionar como primeira frase narrada. Formato: lista numerada."
+      },
+      {
+        "num": "03",
+        "title": "Plano de Conteúdo Mensal (30 dias)",
+        "prompt": "Cria um plano de conteúdo para 30 dias para um canal [TikTok/YouTube/Instagram] no nicho [NICHO]. Para cada semana sugere 5 vídeos com: título, hook de abertura, tema central e CTA final. Conteúdo 100% faceless e sem identidade pessoal."
+      },
+      {
+        "num": "04",
+        "title": "Optimização SEO — Título, Descrição e Hashtags",
+        "prompt": "Para o vídeo sobre [TEMA] no nicho [NICHO], cria: 1) 5 opções de título optimizados para [TikTok/YouTube] com keywords relevantes, 2) Uma descrição de 150 palavras com keywords naturais, 3) 10 hashtags relevantes para o mercado europeu."
+      },
+      {
+        "num": "05",
+        "title": "Adaptar Artigo em Roteiro de Vídeo",
+        "prompt": "Transforma este texto em roteiro de vídeo de 90 segundos para narração em voz-off: [COLA O TEXTO AQUI]. Mantém as informações principais, adapta o tom para ser conversacional e dinâmico, e adiciona indicações de pausas e ênfases para o narrador."
+      },
+      {
+        "num": "06",
+        "title": "Gerar CTAs Eficazes para Final de Vídeo",
+        "prompt": "Cria 8 CTAs diferentes para o final de vídeos no nicho [NICHO]. Cada CTA deve ter máximo 15 palavras, ser natural (não forçado) e dirigir para [ACÇÃO: seguir/comentar/link]. Adapta para tom europeu, evita expressões americanas."
+      },
+      {
+        "num": "07",
+        "title": "Responder a Comentários com IA",
+        "prompt": "Estou a gerir um canal sobre [NICHO]. Recebo estes comentários frequentemente: [LISTA DE COMENTÁRIOS]. Cria respostas autênticas para cada um que: criem engagement, sejam curtas (máx 2 frases), não pareçam automatizadas e reforcem a identidade do canal."
+      }
+    ],
+    "checklist": [
+      "Conta criada no TikTok, YouTube e Instagram com nome do canal",
+      "CapCut instalado e testado",
+      "Conta ElevenLabs criada — voz seleccionada e testada",
+      "Conta Kling AI criada — clip de teste gerado",
+      "Nicho definido e documentado",
+      "Primeiro roteiro escrito e revisto",
+      "Áudio gerado e qualidade verificada",
+      "Vídeo exportado em 1080×1920",
+      "Legendas adicionadas e verificadas",
+      "Título e hashtags optimizados (Workflow 04)",
+      "Publicado no TikTok, YouTube Shorts e Instagram",
+      "Link na bio configurado (Linktree)",
+      "Calendário de 30 dias criado (Workflow 03)",
+      "Frequência de publicação definida (mín. 3x/semana)"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Digital Product Engine",
+    "tagline": "Cria e vende produtos digitais com Claude AI — 100% de margem.",
+    "emoji": "⚡",
+    "color": "#8B5CF6",
+    "bg": "rgba(139,92,246,0.12)",
+    "infra": "€0",
+    "tools": [
+      "Claude AI",
+      "Canva",
+      "Gumroad",
+      "Etsy"
+    ],
+    "channels": [
+      "Etsy",
+      "Gumroad",
+      "Marketplaces digitais"
+    ],
+    "revenue": [
+      "Venda directa",
+      "100% de margem"
+    ],
+    "description": "O stack de produtos digitais permite criar e vender templates, guias, pacotes de prompts e presets com Claude AI a fazer o trabalho pesado. A distribuição é feita via Etsy e Gumroad — ambas com tráfego orgânico incorporado.\n\nA margem é de 100% menos as comissões da plataforma (6.5% Etsy, 10% Gumroad no plano gratuito). Uma vez criado, o produto vende indefinidamente sem trabalho adicional.\n\nO Etsy tem um algoritmo de boost para novas listagens — as primeiras 48-72h após publicação têm mais visibilidade. Certifica-te de que o produto está 100% pronto antes de publicar.",
+    "days": [
+      {
+        "day": 1,
+        "title": "Pesquisa e Validação",
+        "tasks": [
+          "Usar Workflow 01 para gerar 5 ideias de produto com Claude AI",
+          "Pesquisar cada ideia no Etsy — verificar procura e concorrência",
+          "Escolher o produto com melhor combinação: procura alta + concorrência baixa",
+          "Criar conta no Etsy e no Gumroad (ambos gratuitos)"
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Criação do Produto",
+        "tasks": [
+          "Usar Workflow 02 ou 03 para criar o conteúdo do produto com Claude AI",
+          "Rever e editar o output — adicionar valor e contexto pessoal",
+          "Formatar no Canva com template de documento profissional",
+          "Exportar em PDF e testar o download e visualização"
+        ]
+      },
+      {
+        "day": 3,
+        "title": "Assets Visuais",
+        "tasks": [
+          "Criar 5 imagens de preview no Canva (mockups profissionais)",
+          "Criar thumbnail principal — fundo simples, texto claro, produto visível",
+          "Usar Workflow 05 para gerar a copy da listagem com Claude AI",
+          "Rever e personalizar a copy"
+        ]
+      },
+      {
+        "day": 4,
+        "title": "Publicação",
+        "tasks": [
+          "Criar listagem no Etsy com título, descrição e 13 tags (Workflow 04)",
+          "Fazer upload do PDF e das imagens de preview",
+          "Definir preço — começa 20% abaixo da média para conseguir as primeiras reviews",
+          "Publicar no Gumroad também (distribui em dois canais)",
+          "Partilhar nas redes sociais"
+        ]
+      },
+      {
+        "day": 5,
+        "title": "Optimização e Expansão",
+        "tasks": [
+          "Verificar se a listagem está indexada no Etsy (pesquisa pelo título)",
+          "Criar 2-3 variações do mesmo produto a preços diferentes",
+          "Planear os próximos 3 produtos do mesmo nicho",
+          "Activar o programa de afiliados do Gumroad"
+        ]
+      }
+    ],
+    "workflows": [
+      {
+        "num": "01",
+        "title": "Gerar Ideias de Produto Digital",
+        "prompt": "Analisa o nicho [NICHO] e sugere 5 ideias de produtos digitais que posso criar com Claude AI e vender no Etsy/Gumroad. Para cada ideia inclui: título, formato (template/guia/prompt pack), público-alvo, preço sugerido e tempo estimado de criação. Foca em produtos com procura real e baixa concorrência na Europa."
+      },
+      {
+        "num": "02",
+        "title": "Criar Template Profissional",
+        "prompt": "Cria um template de [TIPO: Notion/Google Docs/Canva] para [FINALIDADE] para [PÚBLICO-ALVO]. O template deve ser: profissional, imediatamente utilizável, com instruções claras e adaptado ao mercado europeu. Inclui todas as secções necessárias com exemplos preenchidos."
+      },
+      {
+        "num": "03",
+        "title": "Escrever Guia PDF Completo",
+        "prompt": "Escreve um guia completo em PDF sobre [TEMA] para [PÚBLICO-ALVO]. Estrutura: Introdução (problema + solução), [5-7 capítulos com subtítulos], Conclusão + próximos passos. Tom: profissional mas acessível. Total: aproximadamente [NR] palavras. Idioma: Português europeu."
+      },
+      {
+        "num": "04",
+        "title": "Criar Listagem Etsy Optimizada",
+        "prompt": "Cria uma listagem completa para o Etsy para este produto: [DESCRIÇÃO DO PRODUTO]. Inclui: Título (máx 140 chars com keywords), Descrição completa (500 palavras), Lista de 13 tags relevantes e 5 bullet points de benefícios. Optimiza para pesquisa europeia."
+      },
+      {
+        "num": "05",
+        "title": "Criar Pacote de Prompts para Venda",
+        "prompt": "Cria um pacote de 20 prompts para Claude AI sobre [TEMA] para vender como produto digital. Cada prompt deve: resolver um problema específico, ter instruções claras de uso, funcionar com copy-paste e produzir resultados profissionais. Organiza por categorias e inclui instruções de uso no início."
+      },
+      {
+        "num": "06",
+        "title": "Sequência de Email Pós-Compra",
+        "prompt": "Cria uma sequência de 3 emails para clientes que compraram [PRODUTO DIGITAL]. Email 1 (imediato): entrega do produto + instruções. Email 2 (dia 3): dica de uso avançado + pedido de feedback. Email 3 (dia 7): caso de uso inspirador + produto complementar. Tom: útil, não vendedor."
+      },
+      {
+        "num": "07",
+        "title": "Estratégia de Pricing",
+        "prompt": "Ajuda-me a definir o preço para este produto digital: [DESCRIÇÃO DO PRODUTO]. Analisa: valor percebido, concorrência no Etsy/Gumroad, público europeu e posicionamento desejado. Sugere 3 opções de preço com justificação e estratégia de lançamento para cada uma."
+      }
+    ],
+    "checklist": [
+      "Nicho de produto validado no Etsy",
+      "Conta Etsy criada e configurada",
+      "Conta Gumroad criada e configurada",
+      "Produto criado e revisto com Claude AI",
+      "PDF formatado no Canva e exportado",
+      "Download testado e verificado",
+      "5 imagens de preview criadas",
+      "Thumbnail principal criada",
+      "Copy da listagem escrita (Workflow 04)",
+      "13 tags Etsy definidas",
+      "Preço definido e justificado",
+      "Produto publicado no Etsy",
+      "Produto publicado no Gumroad",
+      "Variações do produto planeadas"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "AI Print Studio",
+    "tagline": "Designs com Ideogram AI. Produção e envio automáticos. Zero inventário.",
+    "emoji": "🎨",
+    "color": "#10B981",
+    "bg": "rgba(16,185,129,0.12)",
+    "infra": "€0",
+    "tools": [
+      "Ideogram AI",
+      "Canva",
+      "Printify",
+      "Redbubble",
+      "Etsy"
+    ],
+    "channels": [
+      "Etsy",
+      "Redbubble",
+      "Merch by Amazon"
+    ],
+    "revenue": [
+      "Margem por venda",
+      "Royalties"
+    ],
+    "description": "O stack de Print-on-Demand usa Ideogram AI para gerar designs, Printify para produção e Etsy/Redbubble para distribuição. Quando um cliente compra, o Printify produz e envia automaticamente — sem intervenção tua.\n\nZero inventário, zero logística. A margem varia entre €3-15 por produto dependendo do item e preço de venda. O modelo é evergreen: produtos bem posicionados vendem indefinidamente.\n\nFaz sempre uma encomenda de teste antes de publicar para verificar a qualidade do produto físico. No Redbubble não precisas de configurar produção — carregas o design e eles tratam de tudo.",
+    "days": [
+      {
+        "day": 1,
+        "title": "Setup e Pesquisa de Nicho",
+        "tasks": [
+          "Criar conta no Ideogram AI (25 gerações/dia gratuitas)",
+          "Criar conta no Printify — ligar ao Etsy (integração directa e gratuita)",
+          "Criar conta no Redbubble",
+          "Usar Workflow 01 para identificar nicho rentável com Claude AI",
+          "Pesquisar o nicho no Etsy: analisar bestsellers e preços médios"
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Criação dos Primeiros Designs",
+        "tasks": [
+          "Usar Workflow 02 para gerar prompts para Ideogram AI com Claude AI",
+          "Gerar 5-10 designs no Ideogram AI — seleccionar os 3 melhores",
+          "Descarregar designs em alta resolução (PNG)",
+          "Ajustar no Canva se necessário (contraste, tamanho, posicionamento)",
+          "Verificar resolução mínima: 4500×5400 px para t-shirts no Printify"
+        ]
+      },
+      {
+        "day": 3,
+        "title": "Aplicar Designs e Criar Produtos",
+        "tasks": [
+          "No Printify: criar produto de t-shirt com o primeiro design",
+          "Escolher fornecedor com envio para a Europa (Printify Express EU)",
+          "Definir preço: custo base + margem + comissão Etsy",
+          "Os mockups do produto são gerados automaticamente pelo Printify",
+          "Repetir para 3-5 produtos com variações de design"
+        ]
+      },
+      {
+        "day": 4,
+        "title": "Publicação nas Plataformas",
+        "tasks": [
+          "Usar Workflow 04 para gerar títulos e tags optimizados",
+          "Publicar cada produto no Etsy com listagem completa",
+          "Publicar os mesmos designs no Redbubble (mais simples — sem Printify)",
+          "Verificar que o processo de encomenda automático está configurado"
+        ]
+      },
+      {
+        "day": 5,
+        "title": "Análise e Escala",
+        "tasks": [
+          "Verificar que os produtos estão indexados nas pesquisas do Etsy",
+          "Aplicar estratégia de Pinterest (Bónus C) para os designs",
+          "Usar Workflow 07 para expandir a colecção",
+          "Criar 10-15 designs adicionais para completar a loja (mínimo 20 produtos)"
+        ]
+      }
+    ],
+    "workflows": [
+      {
+        "num": "01",
+        "title": "Encontrar Nichos Rentáveis para POD",
+        "prompt": "Analisa nichos para print-on-demand no mercado europeu em 2026. Sugere 10 nichos com: procura estimada, nível de concorrência, tipo de design que funciona e plataformas recomendadas (Etsy/Redbubble). Prioriza nichos com baixa saturação e alta intenção de compra."
+      },
+      {
+        "num": "02",
+        "title": "Gerar Prompts para Ideogram AI",
+        "prompt": "Cria 5 prompts detalhados para o Ideogram AI para gerar designs de [TIPO: t-shirt/poster/caneca] no estilo [ESTILO: minimalista/vintage/bold/ilustração] para o nicho [NICHO]. Cada prompt deve ser específico sobre cores, composição, elementos visuais e mood."
+      },
+      {
+        "num": "03",
+        "title": "Criar Colecção Temática",
+        "prompt": "Ajuda-me a desenvolver uma colecção de 10 designs relacionados para o tema [TEMA]. Para cada design: conceito visual, paleta de cores sugerida, texto a incluir (se aplicável) e prompt para Ideogram AI. A colecção deve ter identidade visual coerente."
+      },
+      {
+        "num": "04",
+        "title": "Títulos e Tags para Etsy/Redbubble",
+        "prompt": "Para um produto de [TIPO] com design sobre [TEMA], cria: 5 títulos optimizados para Etsy (com keywords de pesquisa), 5 títulos para Redbubble e 15 tags relevantes para cada plataforma. Foca em keywords com volume de pesquisa no mercado europeu."
+      },
+      {
+        "num": "05",
+        "title": "Descrição de Produto para Loja",
+        "prompt": "Escreve a descrição completa para este produto POD: [DESCRIÇÃO DO PRODUTO]. Inclui: opening hook, descrição do design, especificações do produto, informação de qualidade e CTA. Tom: entusiasta mas não exagerado. Adapta para compradores europeus."
+      },
+      {
+        "num": "06",
+        "title": "Avaliar Potencial de Design",
+        "prompt": "Tenho este design para print-on-demand: [DESCREVE O DESIGN]. Analisa: apelo visual para o público-alvo, potencial de vendas, plataformas mais adequadas, preço sugerido por produto e sugestões para melhorar ou variar o design."
+      },
+      {
+        "num": "07",
+        "title": "Escalar uma Colecção que Vende",
+        "prompt": "Este design está a vender bem: [DESCREVE O DESIGN]. Ajuda-me a expandir a colecção com: 5 variações de cor, 3 estilos alternativos, 5 produtos diferentes onde aplicar o mesmo design e 3 nichos relacionados onde este design poderia também funcionar."
+      }
+    ],
+    "checklist": [
+      "Conta Ideogram AI criada (25 gen/dia gratuitas)",
+      "Conta Printify criada e ligada ao Etsy",
+      "Conta Redbubble criada",
+      "Nicho de POD validado (Workflow 01)",
+      "Primeiros 3 designs criados e seleccionados",
+      "Resolução verificada: mín. 4500×5400 px",
+      "Produto criado no Printify com fornecedor EU",
+      "Mockups gerados e verificados",
+      "Encomenda de teste realizada",
+      "Títulos e tags optimizados (Workflow 04)",
+      "Produto publicado no Etsy",
+      "Produto publicado no Redbubble",
+      "Processo de encomenda automático testado",
+      "Plano de expansão de colecção definido"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "AI Commerce Stack",
+    "tagline": "Produto seleccionado por dados. Vídeo gerado por IA. Loja automatizada.",
+    "emoji": "🏪",
+    "color": "#F59E0B",
+    "bg": "rgba(245,158,11,0.12)",
+    "infra": "€1/mês",
+    "tools": [
+      "Claude AI",
+      "Kling AI",
+      "Shopify",
+      "DSers",
+      "CJ Dropshipping EU"
+    ],
+    "channels": [
+      "TikTok Shop",
+      "Instagram",
+      "Shopify"
+    ],
+    "revenue": [
+      "Margem por transacção (2-4x)"
+    ],
+    "description": "O stack de dropshipping usa Claude AI para seleccionar produtos, Kling AI para criar vídeos de produto e Shopify com DSers para automatizar encomendas. Quando um cliente compra, o DSers envia automaticamente a encomenda ao fornecedor que produz e entrega — sem tocares no produto.\n\nO foco é em produtos com margem de 2-4x, fornecedores com armazéns europeus e distribuição via TikTok Shop e Instagram. CJ Dropshipping EU tem armazém em Espanha com entregas de 5-8 dias para Portugal e Espanha.\n\nFaz sempre uma encomenda de teste antes de lançar marketing. Se o produto não for o que esperavas, muda antes de vender.",
+    "days": [
+      {
+        "day": 1,
+        "title": "Selecção de Produto e Setup",
+        "tasks": [
+          "Usar Workflow 01 para analisar produtos com Claude AI",
+          "Pesquisar o produto no TikTok — verificar se há conteúdo viral",
+          "Encontrar o produto no CJ Dropshipping EU ou Spocket — verificar prazo EU",
+          "Activar trial Shopify (€1/mês no primeiro mês)",
+          "Instalar DSers no Shopify — configurar integração com fornecedor"
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Criação da Loja",
+        "tasks": [
+          "Escolher tema Shopify gratuito (Dawn ou Refresh)",
+          "Configurar: nome da loja, logo, cores",
+          "Criar página de produto com copy gerada com Claude AI (Workflow 04)",
+          "Adicionar imagens do produto do fornecedor",
+          "Configurar políticas de envio, devolução e privacidade",
+          "Configurar métodos de pagamento: Stripe e PayPal"
+        ]
+      },
+      {
+        "day": 3,
+        "title": "Criação de Conteúdo de Produto",
+        "tasks": [
+          "Usar Workflow 02 para criar roteiro de vídeo para Kling AI",
+          "Gerar vídeo de produto no Kling AI (30 segundos)",
+          "Criar 3-5 variações com ângulos diferentes (Workflow 05)",
+          "Editar no CapCut — adicionar música e texto",
+          "Criar copy de anúncio com Workflow 03"
+        ]
+      },
+      {
+        "day": 4,
+        "title": "Activação e Primeiros Testes",
+        "tasks": [
+          "Publicar vídeo de produto no TikTok com link para a loja",
+          "Publicar no Instagram Reels",
+          "Fazer uma encomenda de teste — verificar processo completo",
+          "Verificar email de confirmação automático ao cliente",
+          "Monitorizar métricas: cliques, tempo na página, abandono"
+        ]
+      },
+      {
+        "day": 5,
+        "title": "Análise e Optimização",
+        "tasks": [
+          "Analisar dados das primeiras 48h de tráfego",
+          "Identificar o maior ponto de abandono",
+          "Ajustar copy ou imagens com base nos dados",
+          "Criar 2-3 variações de conteúdo para testar ângulos diferentes",
+          "Configurar remarketing via email (Klaviyo gratuito até 250 contactos)"
+        ]
+      }
+    ],
+    "workflows": [
+      {
+        "num": "01",
+        "title": "Encontrar Produto para Dropshipping",
+        "prompt": "Analisa tendências de produtos para dropshipping no mercado europeu em 2026. Sugere 5 produtos com: categoria, fornecedor recomendado (CJ EU ou Spocket), preço de custo estimado, preço de venda sugerido, margem e argumento de venda principal. Evita produtos com problemas de envio ou qualidade conhecidos."
+      },
+      {
+        "num": "02",
+        "title": "Roteiro para Vídeo de Produto (Kling AI)",
+        "prompt": "Cria um roteiro de vídeo de produto de 30 segundos para o Kling AI para este produto: [PRODUTO]. Inclui: shot inicial (produto em uso), benefício principal demonstrado visualmente, close-up do produto e CTA final. Formato: lista de shots com descrição visual de cada um."
+      },
+      {
+        "num": "03",
+        "title": "Copy de Anúncio para TikTok/Instagram",
+        "prompt": "Cria 5 variações de copy para anúncio deste produto: [PRODUTO]. Para cada variação: hook de 3 segundos, copy principal (máx 80 palavras) e CTA. Usa diferentes ângulos: problema/solução, antes/depois, prova social, urgência, curiosidade. Tom adaptado para mercado europeu."
+      },
+      {
+        "num": "04",
+        "title": "Copy da Página de Produto Shopify",
+        "prompt": "Escreve a copy completa para a página de produto Shopify deste item: [PRODUTO]. Inclui: título optimizado, descrição principal (300 palavras), 5 bullet points de benefícios, FAQ com 4 perguntas e respostas e copy da política de devolução. Tom: profissional e confiável."
+      },
+      {
+        "num": "05",
+        "title": "Sequência de Recuperação de Carrinho",
+        "prompt": "Cria uma sequência de 3 emails de recuperação de carrinho abandonado para uma loja de [NICHO]. Email 1 (1h): lembrete simples e útil. Email 2 (24h): benefícios do produto + prova social. Email 3 (72h): oferta especial ou urgência real. Tom: nunca agressivo, sempre útil."
+      },
+      {
+        "num": "06",
+        "title": "Avaliar Produto Antes de Testar",
+        "prompt": "Analisa este produto para dropshipping: [PRODUTO]. Avalia: saturação de mercado, público-alvo na Europa, problemas potenciais de envio/qualidade, concorrência no TikTok Shop, margem realista e recomendação final (testar / não testar / ajustar)."
+      },
+      {
+        "num": "07",
+        "title": "Estratégia para Produto que Converte",
+        "prompt": "Este produto está a converter bem: [PRODUTO + DADOS BÁSICOS]. Cria um plano de escala a 30 dias com: aumento de orçamento de anúncios, novos ângulos criativos, expansão para novos mercados europeus, produtos complementares para upsell e estratégia de email marketing."
+      }
+    ],
+    "checklist": [
+      "Produto seleccionado e validado (Workflow 01)",
+      "Fornecedor EU identificado (CJ EU ou Spocket)",
+      "Trial Shopify activado (€1/mês)",
+      "DSers instalado e integrado com fornecedor",
+      "Tema Shopify configurado",
+      "Página de produto com copy completa (Workflow 04)",
+      "Imagens do produto adicionadas",
+      "Políticas de envio e devolução configuradas",
+      "Stripe e PayPal configurados",
+      "Vídeo de produto criado no Kling AI",
+      "Encomenda de teste realizada e aprovada",
+      "Email de confirmação automático testado",
+      "Primeiro vídeo publicado no TikTok",
+      "Primeiro vídeo publicado no Instagram"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "AI-Augmented Services",
+    "tagline": "Serviços premium. Entrega mais rápida. Margem superior com IA como alavanca.",
+    "emoji": "🔧",
+    "color": "#F43F5E",
+    "bg": "rgba(244,63,94,0.12)",
+    "infra": "€0",
+    "tools": [
+      "Claude AI",
+      "CapCut",
+      "Canva",
+      "Fiverr",
+      "Upwork"
+    ],
+    "channels": [
+      "Fiverr",
+      "Upwork",
+      "Referências directas"
+    ],
+    "revenue": [
+      "Por projecto",
+      "Retainer mensal"
+    ],
+    "description": "O stack de serviços aumentados por IA permite oferecer copywriting, produção de conteúdo e gestão de redes sociais com a IA como alavanca operacional. Entregas mais rápido, com qualidade consistente e capacidade para gerir mais clientes em paralelo.\n\nO Fiverr e o Upwork têm tráfego incorporado — não precisas de audiência para começar. A receita pode começar em 1-5 dias com os primeiros clientes.\n\nA desvantagem de serviços é que o rendimento está ligado ao tempo. O objectivo a médio prazo é usar os serviços para financiar o desenvolvimento dos outros stacks.",
+    "days": [
+      {
+        "day": 1,
+        "title": "Definir a Oferta",
+        "tasks": [
+          "Usar Workflow 01 para criar a oferta de serviço com Claude AI",
+          "Escolher uma especialidade clara (não 'faço tudo')",
+          "Criar conta no Fiverr e/ou Upwork",
+          "Preparar 2-3 exemplos de trabalho com o Claude AI",
+          "Definir preços — começa abaixo do mercado para as primeiras reviews"
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Setup do Perfil",
+        "tasks": [
+          "Criar perfil profissional no Fiverr/Upwork",
+          "Escrever bio que foca em resultados, não em ferramentas",
+          "Criar o primeiro gig com copy gerada pelo Claude (Workflow 01)",
+          "Adicionar amostras de trabalho na galeria",
+          "Configurar mensagem de boas-vindas para novos contactos"
+        ]
+      },
+      {
+        "day": 3,
+        "title": "Sistema de Produção",
+        "tasks": [
+          "Criar biblioteca de prompts reutilizáveis para o serviço principal",
+          "Criar template de briefing para novos clientes (Workflow 05)",
+          "Criar template de entrega de trabalho",
+          "Definir processo de revisão: máximo 2 rondas incluídas",
+          "Criar checklist de qualidade antes de cada entrega"
+        ]
+      },
+      {
+        "day": 4,
+        "title": "Primeiro Cliente",
+        "tasks": [
+          "Enviar 10-20 propostas no Upwork para projectos adequados",
+          "No Fiverr: partilhar o gig em 3-5 comunidades relevantes",
+          "Responder a todas as mensagens em menos de 2h",
+          "Para o primeiro cliente: entrega com 20% a mais do prometido"
+        ]
+      },
+      {
+        "day": 5,
+        "title": "Sistema de Escala",
+        "tasks": [
+          "Pedir review ao primeiro cliente após entrega satisfatória",
+          "Criar 2-3 gigs adicionais com serviços complementares",
+          "Usar Workflow 06 para criar sistema de onboarding eficiente",
+          "Definir preço de retainer mensal (mais estável que projectos únicos)",
+          "Documentar o processo de produção para replicar consistentemente"
+        ]
+      }
+    ],
+    "workflows": [
+      {
+        "num": "01",
+        "title": "Definir Oferta para Fiverr/Upwork",
+        "prompt": "Ajuda-me a criar uma oferta de serviço para [Fiverr/Upwork] em [CATEGORIA: copywriting/social media/vídeo]. Define: título do gig, descrição completa, 3 pacotes de preço (basic/standard/premium) com entregáveis específicos e 5 FAQs. Posiciona como serviço aumentado por IA — mais rápido e mais consistente."
+      },
+      {
+        "num": "02",
+        "title": "Escrever Proposta para Cliente",
+        "prompt": "Escreve uma proposta profissional para este projecto: [DESCRIÇÃO DO PROJECTO]. Inclui: compreensão do problema do cliente, solução proposta, metodologia, prazo de entrega, preço e condições. Tom: confiante mas não arrogante. Máximo 400 palavras."
+      },
+      {
+        "num": "03",
+        "title": "Produzir Copy para Cliente",
+        "prompt": "Escreve [TIPO DE COPY: email/landing page/post/anúncio] para este cliente e contexto: [PRODUTO/SERVIÇO DO CLIENTE], [PÚBLICO-ALVO], [OBJECTIVO], [TOM DESEJADO]. Entrega a versão final pronta para usar, sem marcas de IA ou linguagem genérica."
+      },
+      {
+        "num": "04",
+        "title": "Criar Calendário de Conteúdo para Cliente",
+        "prompt": "Cria um calendário de conteúdo de 30 dias para [PLATAFORMA] para este negócio: [NEGÓCIO DO CLIENTE]. Para cada post inclui: tipo de conteúdo, hook de abertura, tema central e CTA. Mistura conteúdo educativo, entretenimento e conversão numa proporção 60/20/20."
+      },
+      {
+        "num": "05",
+        "title": "Template de Briefing para Novos Clientes",
+        "prompt": "Cria um processo de onboarding completo para novos clientes do meu serviço de [SERVIÇO]. Inclui: email de boas-vindas, formulário de briefing (10 perguntas essenciais), processo de aprovação de trabalho e comunicação de expectativas. Objectivo: menos revisões e mal-entendidos."
+      },
+      {
+        "num": "06",
+        "title": "Relatório Mensal para Cliente",
+        "prompt": "Cria um template de relatório mensal profissional para um cliente de [SERVIÇO: social media/copywriting/SEO]. Inclui: sumário executivo, métricas principais com interpretação, trabalho realizado no mês, plano para o mês seguinte e recomendações estratégicas."
+      },
+      {
+        "num": "07",
+        "title": "Sistema para Gerir Múltiplos Clientes",
+        "prompt": "Tenho [NR] clientes de [SERVIÇO] e preciso de escalar sem perder qualidade. Cria um sistema de gestão com: template de briefing reutilizável, biblioteca de prompts para produção, checklist de entrega e processo de revisão eficiente. Objectivo: entregar mais rápido com menos tempo operacional."
+      }
+    ],
+    "checklist": [
+      "Especialidade de serviço definida claramente",
+      "Conta Fiverr e/ou Upwork criada",
+      "Perfil profissional completo e optimizado",
+      "Bio focada em resultados (não em ferramentas)",
+      "2-3 amostras de trabalho criadas",
+      "Primeiro gig publicado com copy optimizada",
+      "Template de briefing criado (Workflow 05)",
+      "Biblioteca de prompts para produção criada",
+      "Checklist de qualidade de entrega criada",
+      "Primeiras 10-20 propostas enviadas no Upwork",
+      "Primeiro cliente conquistado",
+      "Review de 5 estrelas solicitada",
+      "2-3 gigs adicionais criados",
+      "Preço de retainer mensal definido"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Evergreen Affiliate System",
+    "tagline": "Conteúdo publicado uma vez. Comissões geradas indefinidamente.",
+    "emoji": "♾",
+    "color": "#06B6D4",
+    "bg": "rgba(6,182,212,0.12)",
+    "infra": "€0",
+    "tools": [
+      "Claude AI",
+      "Beehiiv",
+      "Awin",
+      "WordPress"
+    ],
+    "channels": [
+      "SEO",
+      "Newsletter",
+      "Redes sociais"
+    ],
+    "revenue": [
+      "Comissões afiliadas",
+      "Patrocínios"
+    ],
+    "description": "O stack de afiliados cria conteúdo editorial e newsletters com Claude AI que geram comissões de forma assíncrona. Um artigo bem posicionado no Google pode gerar tráfego e comissões durante anos sem intervenção.\n\nA estratégia combina SEO (artigos) e newsletter (relação directa com audiência). Programas de afiliados europeus via Awin têm comissões entre 3-15% por transacção.\n\nO SEO é o stack de mais longo prazo — os primeiros resultados chegam em 3-6 meses. Durante este período, usa a newsletter para criar uma audiência própria que não depende do Google.",
+    "days": [
+      {
+        "day": 1,
+        "title": "Setup e Escolha de Nicho",
+        "tasks": [
+          "Usar Workflow 01 para analisar nichos com Claude AI",
+          "Verificar programas de afiliados disponíveis no Awin para o nicho",
+          "Candidatar a 2-3 programas de afiliados no Awin (aprovação 1-5 dias)",
+          "Instalar WordPress.com gratuito ou criar conta no Beehiiv",
+          "Criar conta no Beehiiv (gratuito até 2500 subscritores)"
+        ]
+      },
+      {
+        "day": 2,
+        "title": "Estratégia de Conteúdo",
+        "tasks": [
+          "Usar Workflow 06 para criar lista de 20 keywords com Claude AI",
+          "Priorizar keywords por: intenção transacional + baixa concorrência",
+          "Planear calendário editorial: 2 artigos/semana + 1 newsletter/semana",
+          "Criar template de estrutura de artigo para reutilizar"
+        ]
+      },
+      {
+        "day": 3,
+        "title": "Primeiro Conteúdo",
+        "tasks": [
+          "Usar Workflow 02 para escrever o primeiro artigo SEO com Claude AI",
+          "Rever e editar — adicionar exemplos específicos ao mercado europeu",
+          "Adicionar links de afiliado naturalmente no texto",
+          "Adicionar disclaimer de afiliado (OBRIGATÓRIO na UE)",
+          "Publicar com formatação correcta"
+        ]
+      },
+      {
+        "day": 4,
+        "title": "Newsletter e Distribuição",
+        "tasks": [
+          "Usar Workflow 04 para criar a primeira edição de newsletter",
+          "Criar lead magnet simples (guia gratuito de 1 página) para captar emails",
+          "Publicar o lead magnet e promover nas redes sociais",
+          "Partilhar o primeiro artigo em 3-5 comunidades relevantes",
+          "Submeter o site ao Google Search Console (indexação gratuita)"
+        ]
+      },
+      {
+        "day": 5,
+        "title": "Sistema de Publicação Regular",
+        "tasks": [
+          "Criar batch de 4 artigos para as próximas 2 semanas",
+          "Usar Workflow 07 para criar sistema de publicação consistente",
+          "Configurar Google Analytics (gratuito) ou Fathom",
+          "Definir KPIs: tráfego orgânico, cliques afiliados, subscritores",
+          "Programar publicação automática dos artigos"
+        ]
+      }
+    ],
+    "workflows": [
+      {
+        "num": "01",
+        "title": "Encontrar Nicho para Affiliate Marketing",
+        "prompt": "Analisa nichos para affiliate marketing no mercado europeu com potencial em 2026. Sugere 5 nichos com: volume de procura estimado, programas de afiliados disponíveis (Awin, CJ, etc.), comissão média, nível de concorrência editorial e estratégia de conteúdo recomendada."
+      },
+      {
+        "num": "02",
+        "title": "Escrever Artigo SEO Completo",
+        "prompt": "Escreve um artigo SEO completo sobre [TEMA] para o nicho [NICHO]. Estrutura: H1 com keyword principal, introdução com hook, [5-7 secções com H2/H3], FAQ com 4 perguntas e conclusão com CTA. Total: 1200-1500 palavras. Inclui naturalmente a keyword principal 3-4 vezes. Português europeu."
+      },
+      {
+        "num": "03",
+        "title": "Escrever Review de Produto Afiliado",
+        "prompt": "Escreve uma review completa e honesta de [PRODUTO] para o nicho [NICHO]. Inclui: overview do produto, pontos fortes (3-5), pontos fracos (2-3), para quem é ideal, para quem não é, veredicto final e CTA com link de afiliado. Tom: honesto e útil — não puramente promocional."
+      },
+      {
+        "num": "04",
+        "title": "Criar Edição de Newsletter",
+        "prompt": "Cria uma edição completa de newsletter para o nicho [NICHO]. Inclui: assunto do email (5 opções A/B test), abertura, conteúdo principal (dica/recurso/notícia relevante), produto ou serviço afiliado recomendado com contexto natural e fecho. Máximo 400 palavras. Tom: conversa com amigo."
+      },
+      {
+        "num": "05",
+        "title": "Artigo de Comparação de Produtos",
+        "prompt": "Escreve um artigo de comparação entre [PRODUTO A] e [PRODUTO B] para [PÚBLICO-ALVO]. Inclui: tabela comparativa com 8 critérios, análise detalhada de cada produto, recomendação para cada perfil de utilizador e conclusão com CTA. Abordagem genuinamente útil, não tendenciosa."
+      },
+      {
+        "num": "06",
+        "title": "Pesquisa de Keywords para Conteúdo",
+        "prompt": "Para o nicho [NICHO], identifica 20 keywords com potencial para conteúdo de afiliado. Para cada keyword inclui: intenção de pesquisa (informacional/transacional/comparação), dificuldade estimada (baixa/média/alta), tipo de conteúdo ideal e produtos afiliados que se encaixam naturalmente."
+      },
+      {
+        "num": "07",
+        "title": "Sistema de Publicação Evergreen",
+        "prompt": "Ajuda-me a criar um sistema de conteúdo evergreen para o nicho [NICHO] que gere tráfego e comissões de forma assíncrona. Define: tipos de conteúdo a produzir, frequência de publicação, processo de actualização de artigos antigos, estratégia de link interno e métricas a acompanhar mensalmente."
+      }
+    ],
+    "checklist": [
+      "Nicho de afiliado seleccionado e validado",
+      "Candidatura a 2-3 programas no Awin submetida",
+      "WordPress ou Beehiiv configurado",
+      "Conta Beehiiv criada (newsletter)",
+      "Lista de 20 keywords criada (Workflow 06)",
+      "Calendário editorial planeado",
+      "Primeiro artigo escrito e revisto",
+      "Disclaimer de afiliado incluído (obrigatório EU)",
+      "Artigo publicado e formatado",
+      "Site submetido ao Google Search Console",
+      "Lead magnet criado para captar emails",
+      "Primeira newsletter enviada",
+      "Google Analytics configurado",
+      "Sistema de publicação semanal definido"
+    ]
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+const STATE = {
+  view: 'dashboard',
+  stackId: null,
+  tab: 'overview',
+  libraryFilter: 'all'
+};
+
+const PASSWORD = 'flowos2026';
+
+// ============================================================
+// AUTH
+// ============================================================
+function doLogin() {
+  const val = document.getElementById('pwd-input').value.trim();
+  if (val === PASSWORD) {
+    sessionStorage.setItem('flowos_auth', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'flex';
+    document.getElementById('hamburger').style.display = '';
+    navigateTo('dashboard');
+  } else {
+    document.getElementById('login-error').style.display = 'block';
+    document.getElementById('pwd-input').classList.add('shake');
+    setTimeout(() => document.getElementById('pwd-input').classList.remove('shake'), 500);
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem('flowos_auth');
+  document.getElementById('app-screen').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pwd-input').value = '';
+}
+
+document.getElementById('pwd-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function navigateTo(view, stackId, tab) {
+  STATE.view = view;
+  STATE.stackId = stackId || null;
+  STATE.tab = tab || 'overview';
+  updateSidebarActive();
+  renderView();
+  // close mobile sidebar
+  if (window.innerWidth <= 900) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('sidebar-overlay').classList.remove('visible');
+  }
+  document.getElementById('main-content').scrollTop = 0;
+  window.scrollTo(0,0);
+}
+
+function updateSidebarActive() {
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  if (STATE.view === 'dashboard') {
+    const el = document.getElementById('nav-dashboard');
+    if (el) el.classList.add('active');
+  } else if (STATE.view === 'stack' && STATE.stackId) {
+    const el = document.getElementById('nav-stack-' + STATE.stackId);
+    if (el) el.classList.add('active');
+  } else if (STATE.view === 'library') {
+    const el = document.getElementById('nav-library');
+    if (el) el.classList.add('active');
+  }
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebar-overlay').classList.toggle('visible');
+}
+
+// ============================================================
+// RENDER ROUTER
+// ============================================================
+function renderView() {
+  const container = document.getElementById('view-container');
+  if (STATE.view === 'dashboard') {
+    container.innerHTML = renderDashboard();
+  } else if (STATE.view === 'stack' && STATE.stackId) {
+    const stack = STACKS.find(s => s.id === STATE.stackId);
+    if (stack) {
+      container.innerHTML = renderStackView(stack);
+      initAccordions();
+      initChecklist(stack);
+    }
+  } else if (STATE.view === 'library') {
+    container.innerHTML = renderLibrary();
+  }
+}
+
+// ============================================================
+// DASHBOARD VIEW
+// ============================================================
+function renderDashboard() {
+  const cards = STACKS.map(s => {
+    const toolTags = s.tools.map(t => '<span class="stack-tag">' + t + '</span>').join('');
+    return '<div class="stack-card" onclick="navigateTo('stack',' + s.id + ')" style="--card-color:' + s.color + '">' +
+      '<div class="stack-card-top">' +
+        '<span class="stack-num">STACK &middot; 0' + s.id + '</span>' +
+        '<span class="stack-infra-badge">' + s.infra + '</span>' +
+      '</div>' +
+      '<span class="stack-emoji">' + s.emoji + '</span>' +
+      '<div class="stack-card-name">' + s.name + '</div>' +
+      '<div class="stack-card-tagline">' + s.tagline + '</div>' +
+      '<div class="stack-tags-row">' + toolTags + '</div>' +
+      '<div class="stack-open-btn">Abrir Stack &rarr;</div>' +
+    '</div>';
+  }).join('');
+
+  return '<div class="page-header">' +
+      '<div class="page-eyebrow">FLOWOS&#8482; &middot; FOUNDING EDITION</div>' +
+      '<div class="page-title">Os teus 6 Stacks Operacionais</div>' +
+      '<div class="page-desc">Escolhe o stack que melhor corresponde ao teu perfil. Clica para ver o plano completo, workflows e checklist de lança mento.</div>' +
+    '</div>' +
+    '<div class="dash-wrap">' +
+      '<div class="stacks-grid">' + cards + '</div>' +
+    '</div>';
+}
+
+// ============================================================
+// STACK VIEW
+// ============================================================
+function renderStackView(stack) {
+  const tabs = ['overview','plan','workflows','checklist'];
+  const tabLabels = {overview:'Vis&#227;o Geral', plan:'Plano 5 Dias', workflows:'Workflows', checklist:'Checklist'};
+  const tabBtns = tabs.map(t =>
+    '<button class="tab-btn ' + (STATE.tab === t ? 'active' : '') + '" onclick="switchTab('' + t + '')">' + tabLabels[t] + '</button>'
+  ).join('');
+
+  let tabContent = '';
+  if (STATE.tab === 'overview') tabContent = renderOverview(stack);
+  else if (STATE.tab === 'plan') tabContent = renderPlan(stack);
+  else if (STATE.tab === 'workflows') tabContent = renderWorkflows(stack, false);
+  else if (STATE.tab === 'checklist') tabContent = renderChecklist(stack);
+
+  return '<div class="stack-view-wrap">' +
+    '<button class="back-btn" onclick="navigateTo('dashboard')">&larr; Dashboard</button>' +
+    '<div class="stack-view-header">' +
+      '<div class="stack-view-left">' +
+        '<span class="stack-emoji-lg">' + stack.emoji + '</span>' +
+        '<div class="stack-view-name">' + stack.name + '</div>' +
+        '<div class="stack-view-tagline">' + stack.tagline + '</div>' +
+      '</div>' +
+      '<div class="stack-view-right">' +
+        '<span class="meta-pill infra">' + stack.infra + ' infra</span>' +
+      '</div>' +
+    '</div>' +
+    renderVideoPlaceholder(stack) +
+    '<div class="tabs-nav">' + tabBtns + '</div>' +
+    '<div id="tab-content">' + tabContent + '</div>' +
+  '</div>';
+}
+
+function switchTab(tab) {
+  STATE.tab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  const stack = STACKS.find(s => s.id === STATE.stackId);
+  let content = '';
+  if (tab === 'overview') content = renderOverview(stack);
+  else if (tab === 'plan') { content = renderPlan(stack); }
+  else if (tab === 'workflows') content = renderWorkflows(stack, false);
+  else if (tab === 'checklist') content = renderChecklist(stack);
+  document.getElementById('tab-content').innerHTML = content;
+  if (tab === 'plan') initAccordions();
+  if (tab === 'checklist') initChecklist(stack);
+}
+
+function renderVideoPlaceholder(stack) {
+  return '<div class="video-block">' +
+    '<div class="video-placeholder">' +
+      '<div class="video-play-btn"><div class="video-play-icon"></div></div>' +
+      '<div class="video-label">V&#205;DEO DE INTRODU&#199;&#195;O &middot; EM BREVE</div>' +
+      '<div class="video-sub">O walkthrough em v&#237;deo deste stack estar&#225; dispon&#237;vel em breve.</div>' +
+    '</div>' +
+    '<div class="video-bar">' +
+      '<span class="video-bar-title">' + stack.emoji + ' ' + stack.name + ' &mdash; Walkthrough</span>' +
+      '<span class="video-bar-badge">Fase 2</span>' +
+    '</div>' +
+  '</div>';
+}
+
+function renderOverview(stack) {
+  const toolTags = stack.tools.map(t => '<span class="meta-card-tag">' + t + '</span>').join('');
+  const chanTags = stack.channels.map(c => '<span class="meta-card-tag">' + c + '</span>').join('');
+  const revTags = stack.revenue.map(r => '<span class="meta-card-tag">' + r + '</span>').join('');
+  const descEscaped = stack.description.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/
+/g,'<br>');
+  return '<div class="overview-desc">' + descEscaped + '</div>' +
+    '<div class="meta-grid">' +
+      '<div class="meta-card"><div class="meta-card-label">Ferramentas</div><div class="meta-card-tags">' + toolTags + '</div></div>' +
+      '<div class="meta-card"><div class="meta-card-label">Canais</div><div class="meta-card-tags">' + chanTags + '</div></div>' +
+      '<div class="meta-card"><div class="meta-card-label">Receita</div><div class="meta-card-tags">' + revTags + '</div></div>' +
+    '</div>';
+}
+
+function renderPlan(stack) {
+  const days = stack.days.map((d, i) => {
+    const tasks = d.tasks.map(t =>
+      '<div class="day-task">' +
+        '<svg class="day-task-dot" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>' +
+        '<span>' + t + '</span>' +
+      '</div>'
+    ).join('');
+    return '<div class="day-item" id="day-item-' + i + '">' +
+      '<div class="day-header" onclick="toggleDay(' + i + ')">' +
+        '<div class="day-header-left">' +
+          '<span class="day-num-badge">DIA ' + d.day + '</span>' +
+          '<span class="day-title">' + d.title + '</span>' +
+        '</div>' +
+        '<span class="day-chevron">&#8250;</span>' +
+      '</div>' +
+      '<div class="day-body"><div class="day-tasks">' + tasks + '</div></div>' +
+    '</div>';
+  }).join('');
+  return '<div class="day-accordion">' + days + '</div>';
+}
+
+function renderWorkflows(stack, isLibrary) {
+  const cards = stack.workflows.map((w, i) => {
+    const promptEscaped = w.prompt
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+      .replace(/\[([^\]]+)\]/g, '<span class="prompt-bracket">[$1]</span>');
+    const copyId = 'copy-' + stack.id + '-' + i;
+    return '<div class="workflow-card">' +
+      '<div class="workflow-card-head">' +
+        '<span class="workflow-num">W' + w.num + '</span>' +
+        '<span class="workflow-title">' + w.title + '</span>' +
+        '<button class="copy-btn" id="' + copyId + '" onclick="copyPrompt(' + stack.id + ',' + i + ','' + copyId + '')">' +
+          '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="9" height="9" rx="1"/><path d="M4 4V3a1 1 0 011-1h8a1 1 0 011 1v8a1 1 0 01-1 1H13"/></svg>' +
+          'Copiar' +
+        '</button>' +
+      '</div>' +
+      '<div class="workflow-prompt">' + promptEscaped + '</div>' +
+    '</div>';
+  }).join('');
+  return '<div class="workflow-list">' + cards + '</div>';
+}
+
+function renderChecklist(stack) {
+  const total = stack.checklist.length;
+  const items = stack.checklist.map((item, i) => {
+    const key = 'check_' + stack.id + '_' + i;
+    const checked = localStorage.getItem(key) === '1';
+    return '<div class="checklist-item ' + (checked ? 'checked' : '') + '" onclick="toggleCheck(' + stack.id + ',' + i + ',this)">' +
+      '<div class="checklist-checkbox"><span class="checklist-check-icon">&#10003;</span></div>' +
+      '<span class="checklist-item-text">' + item + '</span>' +
+    '</div>';
+  }).join('');
+  const done = stack.checklist.filter((_,i) => localStorage.getItem('check_' + stack.id + '_' + i) === '1').length;
+  const pct = Math.round((done/total)*100);
+  return '<div class="checklist-header">' +
+    '<div class="page-eyebrow">CHECKLIST DE LANCA MENTO</div>' +
+    '<div class="checklist-progress-label">' + done + ' de ' + total + ' conclu&#237;dos &middot; ' + pct + '%</div>' +
+    '<div class="checklist-progress"><div class="checklist-progress-bar" id="prog-bar" style="width:' + pct + '%"></div></div>' +
+  '</div>' +
+  '<div class="checklist-list" id="checklist-list">' + items + '</div>';
+}
+
+// ============================================================
+// LIBRARY VIEW
+// ============================================================
+function renderLibrary() {
+  const filterBtns = [['all','Todos (42)']].concat(STACKS.map(s => [String(s.id), s.emoji + ' ' + s.name])).map(([val, label]) =>
+    '<button class="filter-btn ' + (STATE.libraryFilter === val ? 'active' : '') + '" onclick="setLibraryFilter('' + val + '')">' + label + '</button>'
+  ).join('');
+
+  const groups = STACKS.filter(s => STATE.libraryFilter === 'all' || String(s.id) === STATE.libraryFilter).map(s =>
+    '<div class="library-stack-group">' +
+      '<div class="library-stack-title">' + s.emoji + ' Stack 0' + s.id + ' &mdash; ' + s.name + '</div>' +
+      '<div class="library-workflow-grid">' + renderWorkflows(s, true) + '</div>' +
+    '</div>'
+  ).join('');
+
+  return '<div class="page-header">' +
+      '<div class="page-eyebrow">RECURSOS</div>' +
+      '<div class="page-title">Workflow Library</div>' +
+      '<div class="page-desc">42 prompts prontos para Claude AI. Copia e cola directamente. Os campos em [MAIUSCULAS] s&#227;o os que deves substituir pelo teu contexto.</div>' +
+    '</div>' +
+    '<div class="library-wrap">' +
+      '<div class="library-filters">' + filterBtns + '</div>' +
+      groups +
+    '</div>';
+}
+
+function setLibraryFilter(val) {
+  STATE.libraryFilter = val;
+  navigateTo('library');
+}
+
+// ============================================================
+// INTERACTIONS
+// ============================================================
+function initAccordions() {
+  // open first day by default
+  const first = document.getElementById('day-item-0');
+  if (first) first.classList.add('open');
+}
+
+function toggleDay(i) {
+  const item = document.getElementById('day-item-' + i);
+  if (!item) return;
+  item.classList.toggle('open');
+}
+
+function initChecklist(stack) {
+  // already rendered with correct state
+}
+
+function toggleCheck(stackId, idx, el) {
+  const key = 'check_' + stackId + '_' + idx;
+  const isChecked = el.classList.contains('checked');
+  if (isChecked) {
+    localStorage.removeItem(key);
+    el.classList.remove('checked');
+  } else {
+    localStorage.setItem(key, '1');
+    el.classList.add('checked');
+  }
+  updateProgress(stackId);
+}
+
+function updateProgress(stackId) {
+  const stack = STACKS.find(s => s.id === stackId);
+  if (!stack) return;
+  const total = stack.checklist.length;
+  const done = stack.checklist.filter((_,i) => localStorage.getItem('check_' + stackId + '_' + i) === '1').length;
+  const pct = Math.round((done/total)*100);
+  const bar = document.getElementById('prog-bar');
+  if (bar) bar.style.width = pct + '%';
+  const label = document.querySelector('.checklist-progress-label');
+  if (label) label.textContent = done + ' de ' + total + ' concluídos · ' + pct + '%';
+}
+
+function copyPrompt(stackId, wfIdx, btnId) {
+  const stack = STACKS.find(s => s.id === stackId);
+  if (!stack) return;
+  const prompt = stack.workflows[wfIdx].prompt;
+  const btn = document.getElementById(btnId);
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(prompt).then(() => showCopied(btn)).catch(() => fallbackCopy(prompt, btn));
+  } else {
+    fallbackCopy(prompt, btn);
+  }
+}
+
+function fallbackCopy(text, btn) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); showCopied(btn); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+function showCopied(btn) {
+  if (!btn) return;
+  btn.classList.add('copied');
+  btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg> Copiado!';
+  setTimeout(() => {
+    btn.classList.remove('copied');
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="9" height="9" rx="1"/><path d="M4 4V3a1 1 0 011-1h8a1 1 0 011 1v8a1 1 0 01-1 1H13"/></svg> Copiar';
+  }, 2000);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  if (sessionStorage.getItem('flowos_auth') === '1') {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-screen').style.display = 'flex';
+    navigateTo('dashboard');
+  }
+}
+
+init();
+</script>
+<style>
+@keyframes shake {
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-6px)}
+  75%{transform:translateX(6px)}
+}
+.shake { animation: shake 0.4s ease; }
+</style>
+</body>
+</html>
