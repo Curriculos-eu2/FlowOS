@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>FlowOS - Area de Membros</title>
-<link href="./FlowOS - Area de Membros_files/css2" rel="stylesheet">
+<link href="./members_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -90,16 +90,7 @@ nav{width:var(--sb);background:var(--bg1);border-right:1px solid var(--bd);posit
 .stack-name{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em;margin-bottom:4px}
 .stack-tg{font-size:13px;color:var(--t1)}
 .inf-pill{font-family:'DM Mono',monospace;font-size:10px;color:var(--gn);background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);border-radius:100px;padding:4px 12px;white-space:nowrap}
-/* VIDEO */
-.vblock{margin:22px 0;background:var(--bg1);border:1px solid var(--bd);border-radius:16px;overflow:hidden}
-.vph{aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--bg2);position:relative}
-.vph::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(99,102,241,.08),transparent 70%)}
-.vplay{width:60px;height:60px;background:rgba(99,102,241,.12);border:2px solid rgba(99,102,241,.3);border-radius:50%;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
-.vtri{width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid var(--ac3);margin-left:4px}
-.vlbl{font-family:'DM Mono',monospace;font-size:11px;color:var(--t2);letter-spacing:.06em;position:relative;z-index:1}
-.vbar{padding:10px 18px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between}
-.vbar-t{font-family:'DM Mono',monospace;font-size:11px;color:var(--ac3)}
-.vbar-b{font-size:11px;color:var(--t2);background:var(--bg2);border-radius:5px;padding:3px 8px}
+
 /* TABS */
 .tabs{display:flex;border-bottom:1px solid var(--bd);margin:0 0 24px;overflow-x:auto}
 .tab-btn{padding:13px 18px;font-size:13px;font-weight:500;color:var(--t2);background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;transition:all .2s}
@@ -354,7 +345,7 @@ function renderStack(){
   var tabs=[['ov','Visao Geral'],['plan','Plano 5 Dias'],['wf','Workflows'],['cl','Checklist']];
   var tbH=tabs.map(function(t){return '<button class="tab-btn'+(CUR.tab===t[0]?' active':'')+'" onclick="switchTab(\''+t[0]+'\')">'+t[1]+'</button>';}).join('');
   var tc=renderTab(s);
-  $('main').innerHTML='<div class="stack-wrap"><button class="back-btn" onclick="goDash()">&larr; Dashboard</button><div class="stack-hdr"><div><div class="stack-name">'+e(s.name)+'</div><div class="stack-tg">'+e(s.tagline)+'</div></div><span class="inf-pill">'+e(s.infra)+'</span></div>'+renderVideo(s)+'<div class="tabs">'+tbH+'</div><div id="tc">'+tc+'</div></div>';
+  $('main').innerHTML='<div class="stack-wrap"><button class="back-btn" onclick="goDash()">&larr; Dashboard</button><div class="stack-hdr"><div><div class="stack-name">'+e(s.name)+'</div><div class="stack-tg">'+e(s.tagline)+'</div></div><span class="inf-pill">'+e(s.infra)+'</span></div>'+'<div class="tabs">'+tbH+'</div><div id="tc">'+tc+'</div></div>';
   if(CUR.tab==='plan')initAcc();
 }
 
@@ -371,10 +362,6 @@ function renderTab(s){
   if(CUR.tab==='wf')return renderWF(s,CUR.si);
   if(CUR.tab==='cl')return renderCL(s,CUR.si);
   return '';
-}
-
-function renderVideo(s){
-  return '<div class="vblock"><div class="vph"><div class="vplay"><div class="vtri"></div></div><div class="vlbl">VIDEO DE INTRODUCAO &bull; EM BREVE</div></div><div class="vbar"><span class="vbar-t">'+e(s.name)+'</span><span class="vbar-b">Fase 2</span></div></div>';
 }
 
 function renderOv(s){
