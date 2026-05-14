@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0042)file:///Users/admin/Downloads/members.html -->
+<!-- saved from url=(0044)file:///Users/admin/Downloads/members_1.html -->
 <html lang="pt"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>FlowOS - Area de Membros</title>
-<link href="./members_files/css2" rel="stylesheet">
+<link href="./FlowOS - Area de Membros_files/css2" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -28,6 +28,14 @@ input[type=password]::placeholder{color:var(--t2)}
 .lbtn:hover{opacity:.9}
 .lerr{color:var(--rd);font-size:13px;text-align:center;margin-top:12px;display:none}
 .lnote{text-align:center;font-size:12px;color:var(--t2);margin-top:14px}
+.lkey-icon{text-align:center;font-size:32px;margin-bottom:16px}
+.lsep{display:flex;align-items:center;gap:12px;margin:18px 0 12px;color:var(--t2);font-size:11px}
+.lsep::before,.lsep::after{content:"";flex:1;height:1px;background:var(--bd)}
+.linfo{font-size:12px;color:var(--t2);text-align:center;line-height:1.6;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:12px}
+input[type=text]{width:100%;background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:13px 16px;color:var(--t0);font-size:13px;outline:none;margin-bottom:16px;font-family:"DM Mono",monospace;letter-spacing:.04em}
+input[type=text]:focus{border-color:rgba(99,102,241,.4)}
+input[type=text]::placeholder{color:var(--t2);font-size:11px}
+.lbtn.loading{opacity:.7;cursor:not-allowed}
 /* APP */
 #app{display:none;min-height:100vh}
 .layout{display:flex}
@@ -173,11 +181,16 @@ nav{width:var(--sb);background:var(--bg1);border-right:1px solid var(--bd);posit
   <div class="lcard">
     <div class="logo">Flow<em>OS</em>™</div>
     <div class="lbadge">AREA DE MEMBROS · FOUNDING EDITION</div>
-    <div class="llbl">SENHA DE ACESSO</div>
-    <input type="password" id="pw" placeholder="Insere a tua senha...">
-    <button class="lbtn" onclick="doLogin()">Entrar na Area de Membros</button>
-    <div id="lerr" class="lerr">Senha incorrecta. Verifica o email de compra.</div>
-    <div class="lnote">Acesso exclusivo para compradores do FlowOS™</div>
+    <div class="lkey-icon">🔑</div>
+    <div class="llbl">CHAVE DE LICENCA</div>
+    <input type="text" id="pw" placeholder="Ex: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    <button class="lbtn" id="login-btn" onclick="doLogin()">
+      <span id="btn-text">Verificar e Entrar</span>
+      <span id="btn-loader" style="display:none">A verificar...</span>
+    </button>
+    <div id="lerr" class="lerr"></div>
+    <div class="lsep"><span>Como obter a tua chave?</span></div>
+    <div class="linfo">Apos a compra no Gumroad, recebeste um email com a tua chave de licenca unica. Cola-a acima para aceder.</div>
   </div>
 </div>
 
@@ -221,16 +234,67 @@ function $(id){return document.getElementById(id);}
 function e(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
 /* AUTH */
-function doLogin(){
+var _mk=[65,109,115,116,101,114,100,97,109,50,48,50,54].map(function(c){return String.fromCharCode(c);}).join("");
+var _pp="vxsrof";
+
+function showErr(msg){
+  var el=$('lerr');
+  el.style.display='block';
+  el.textContent=msg;
+}
+
+function setLoading(on){
+  var btn=$('login-btn');
+  var txt=$('btn-text');
+  var ldr=$('btn-loader');
+  if(on){btn.classList.add('loading');txt.style.display='none';ldr.style.display='inline';}
+  else{btn.classList.remove('loading');txt.style.display='inline';ldr.style.display='none';}
+}
+
+function grantAccess(){
+  sessionStorage.setItem('fos','1');
+  $('login').style.display='none';
+  $('app').style.display='block';
+  if(window.innerWidth<=860)$('ham').style.display='flex';
+  goDash();
+}
+
+async function verifyGumroad(key){
+  try{
+    var body='product_permalink='+encodeURIComponent(_pp)+'&license_key='+encodeURIComponent(key);
+    var r=await fetch('https://api.gumroad.com/v2/licenses/verify',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:body
+    });
+    var d=await r.json();
+    return d.success===true;
+  }catch(err){
+    return false;
+  }
+}
+
+async function doLogin(){
   var v=$('pw').value.trim();
-  if(v==='flowos2026'){
-    sessionStorage.setItem('fos','1');
-    $('login').style.display='none';
-    $('app').style.display='block';
-    if(window.innerWidth<=860)$('ham').style.display='flex';
-    goDash();
+  if(!v){showErr('Insere a tua chave de licenca.');return;}
+  $('lerr').style.display='none';
+  setLoading(true);
+
+  // Check master key first (obfuscated)
+  if(v===_mk){
+    setLoading(false);
+    grantAccess();
+    return;
+  }
+
+  // Try Gumroad verification
+  var ok=await verifyGumroad(v);
+  setLoading(false);
+
+  if(ok){
+    grantAccess();
   }else{
-    $('lerr').style.display='block';
+    showErr('Chave invalida ou nao reconhecida. Verifica o email de compra do Gumroad.');
   }
 }
 
