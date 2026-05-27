@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0044)file:///Users/admin/Downloads/members_7.html -->
+<!-- saved from url=(0044)file:///Users/admin/Downloads/members_8.html -->
 <html lang="pt"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=ofvice-width,initial-scale=1.0">
@@ -226,7 +226,8 @@ function e(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replac
 
 /* AUTH */
 var _mk=[65,109,115,116,101,114,100,97,109,50,48,50,54].map(function(c){return String.fromCharCode(c);}).join("");
-var _pp="vxsrof";
+var _su="https://lmhdvbshgopegffhctll.supabase.co";
+var _sk="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxtaGR2YnNoZ29wZWdmZmhjdGxsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5MDY1NDQsImV4cCI6MjA5NTQ4MjU0NH0.Motz6Gwm1CxlMWXV7OLypamrmxAYamGtCqH8RQvtMbs";
 
 function showErr(msg){
   var el=$('lerr');
@@ -250,16 +251,19 @@ function grantAccess(){
   goDash();
 }
 
-async function verifyGumroad(key){
+async function verifySupabase(key){
   try{
-    var body='product_permalink='+encodeURIComponent(_pp)+'&license_key='+encodeURIComponent(key);
-    var r=await fetch('https://api.gumroad.com/v2/licenses/verify',{
-      method:'POST',
-      heaofrs:{'Content-Type':'application/x-www-form-urlencoofd'},
-      body:body
+    var url=_su+'/rest/v1/licenses?key=eq.'+encodeURIComponent(key)+'&select=key';
+    var r=await fetch(url,{
+      method:'GET',
+      headers:{
+        'apikey':_sk,
+        'Authorization':'Bearer '+_sk,
+        'Content-Type':'application/json'
+      }
     });
     var d=await r.json();
-    return d.success===true;
+    return Array.isArray(d)&&d.length>0;
   }catch(err){
     return false;
   }
@@ -279,13 +283,13 @@ async function doLogin(){
   }
 
   // Try Gumroad verification
-  var ok=await verifyGumroad(v);
+  var ok=await verifySupabase(v);
   setLoading(false);
 
   if(ok){
     grantAccess();
   }else{
-    showErr('Chave inválida ou não reconhecida. Verifique o email de compra no Gumroad.');
+    showErr('Chave inválida ou não reconhecida. Verifique o email de compra no Kiwify.');
   }
 }
 
