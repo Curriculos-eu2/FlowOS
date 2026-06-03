@@ -1,1779 +1,675 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FlowOS™ — AI Workflow Monetization Framework</title>
-  <meta name="description" content="6 stacks operacionais. 42 workflows para Claude AI prontos para usar. Infraestrutura configurada. Construído para operadores que preferem sistemas a gurus." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg-0: #07070D;
-      --bg-1: #0D0D1A;
-      --bg-2: #12121F;
-      --bg-3: #1A1A2E;
-      --border: #1E1E35;
-      --border-glow: rgba(99,102,241,0.25);
-      --accent: #6366F1;
-      --accent-2: #8B5CF6;
-      --accent-3: #A78BFA;
-      --text-0: #F4F4FA;
-      --text-1: #A0A0C0;
-      --text-2: #5C5C80;
-      --green: #10B981;
-      --red: #F43F5E;
-      --amber: #F59E0B;
-      --radius: 10px;
-      --radius-lg: 16px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg-0);
-      color: var(--text-0);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 16px;
-      line-height: 1.7;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    /* ──────────── NOISE OVERLAY ──────────── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.4;
-    }
-
-    /* ──────────── TOP BAR ──────────── */
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(7,7,13,0.85);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-    }
-    .topbar-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 18px;
-      color: var(--text-0);
-      letter-spacing: -0.02em;
-    }
-    .topbar-logo span { color: var(--accent); }
-    .topbar-badge {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--accent-3);
-      background: rgba(99,102,241,0.1);
-      border: 1px solid rgba(99,102,241,0.2);
-      border-radius: 100px;
-      padding: 3px 10px;
-      letter-spacing: 0.04em;
-    }
-    .topbar-cta {
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 13px;
-      border: none;
-      border-radius: var(--radius);
-      padding: 8px 18px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
-      white-space: nowrap;
-    }
-    .topbar-cta:hover { opacity: 0.85; transform: translateY(-1px); }
-
-    /* ──────────── CONTAINERS ──────────── */
-    .wrap {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 0 24px;
-      position: relative;
-      z-index: 1;
-    }
-    section { padding: 100px 0; }
-
-    /* ──────────── HERO ──────────── */
-    .hero {
-      padding: 120px 0 100px;
-      text-align: center;
-      position: relative;
-    }
-    .hero-glow {
-      position: absolute;
-      top: -80px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 800px;
-      height: 500px;
-      background: radial-gradient(ellipse at 50% 40%, rgba(99,102,241,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--accent-3);
-      background: rgba(99,102,241,0.08);
-      border: 1px solid rgba(99,102,241,0.18);
-      border-radius: 100px;
-      padding: 6px 14px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-    }
-    .eyebrow-dot {
-      width: 6px; height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity:1; transform:scale(1); }
-      50% { opacity:0.4; transform:scale(0.7); }
-    }
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(36px, 6vw, 68px);
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      color: var(--text-0);
-      margin-bottom: 24px;
-    }
-    .hero h1 em {
-      font-style: normal;
-      background: linear-gradient(135deg, #818CF8, #C084FC);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-sub {
-      font-size: 17px;
-      color: var(--text-1);
-      max-width: 620px;
-      margin: 0 auto 40px;
-      line-height: 1.65;
-    }
-    .hero-actions {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 16px;
-    }
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 600;
-      font-size: 16px;
-      border: none;
-      border-radius: var(--radius);
-      padding: 16px 32px;
-      cursor: pointer;
-      text-decoration: none;
-      box-shadow: 0 0 60px rgba(99,102,241,0.3);
-      transition: all 0.25s ease;
-      letter-spacing: -0.01em;
-    }
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 80px rgba(99,102,241,0.45);
-    }
-    .btn-primary svg { width:16px; height:16px; }
-    .hero-trust {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px 20px;
-      font-size: 13px;
-      color: var(--text-2);
-    }
-    .hero-trust span {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    .hero-trust svg { color: var(--green); flex-shrink: 0; }
-
-    /* ──────────── METRICS ──────────── */
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      margin-top: 72px;
-    }
-    .metric {
-      background: var(--bg-1);
-      padding: 28px 24px;
-      text-align: center;
-    }
-    .metric-value {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 36px;
-      letter-spacing: -0.03em;
-      color: var(--text-0);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-    .metric-value span {
-      background: linear-gradient(135deg, #818CF8, #C084FC);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .metric-label {
-      font-size: 12px;
-      color: var(--text-2);
-      font-family: 'DM Mono', monospace;
-      letter-spacing: 0.03em;
-    }
-
-    /* ──────────── SECTION HEADERS ──────────── */
-    .section-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-      display: block;
-    }
-    h2 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(28px, 4vw, 44px);
-      line-height: 1.1;
-      letter-spacing: -0.025em;
-      color: var(--text-0);
-      margin-bottom: 16px;
-    }
-    .section-desc {
-      font-size: 17px;
-      color: var(--text-1);
-      line-height: 1.65;
-      max-width: 580px;
-    }
-    .section-header { margin-bottom: 56px; }
-
-    /* ──────────── DIVIDER ──────────── */
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--border), transparent);
-    }
-
-    /* ──────────── CONTEXT SECTION ──────────── */
-    .context-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-    }
-    .context-body {
-      font-size: 16px;
-      color: var(--text-1);
-      line-height: 1.75;
-    }
-    .context-body p + p { margin-top: 16px; }
-    .context-highlight {
-      color: var(--text-0);
-      font-weight: 500;
-    }
-    .context-pillars {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-    .pillar {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      transition: border-color 0.2s;
-    }
-    .pillar:hover { border-color: var(--border-glow); }
-    .pillar-icon {
-      width: 36px; height: 36px;
-      background: rgba(99,102,241,0.1);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .pillar-icon svg { width:18px; height:18px; color: var(--accent-3); }
-    .pillar-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--text-0);
-      margin-bottom: 4px;
-      letter-spacing: -0.01em;
-    }
-    .pillar-body { font-size: 13px; color: var(--text-2); line-height: 1.55; }
-
-    /* ──────────── PROBLEM SECTION ──────────── */
-    .problem-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .problem-card {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
-    }
-    .problem-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 3px; height: 100%;
-      background: linear-gradient(to bottom, var(--accent), transparent);
-      opacity: 0.5;
-    }
-    .problem-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--accent);
-      letter-spacing: 0.08em;
-      margin-bottom: 12px;
-    }
-    .problem-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--text-0);
-      margin-bottom: 10px;
-      letter-spacing: -0.015em;
-    }
-    .problem-body { font-size: 14px; color: var(--text-2); line-height: 1.6; }
-
-    /* ──────────── SYSTEM SECTION ──────────── */
-    .system-wrap {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    .system-top {
-      padding: 56px;
-      border-bottom: 1px solid var(--border);
-    }
-    .system-top h2 { margin-bottom: 16px; }
-    .system-pillars {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 0;
-    }
-    .sys-pillar {
-      padding: 36px 32px;
-      border-right: 1px solid var(--border);
-    }
-    .sys-pillar:last-child { border-right: none; }
-    .sys-pillar-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      letter-spacing: 0.1em;
-      margin-bottom: 16px;
-    }
-    .sys-pillar-icon {
-      width: 44px; height: 44px;
-      background: rgba(99,102,241,0.08);
-      border: 1px solid rgba(99,102,241,0.15);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-    .sys-pillar-icon svg { width:20px; height:20px; color: var(--accent-3); }
-    .sys-pillar-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--text-0);
-      margin-bottom: 8px;
-      letter-spacing: -0.015em;
-    }
-    .sys-pillar-body { font-size: 13px; color: var(--text-2); line-height: 1.6; }
-
-    /* ──────────── STACKS ──────────── */
-    .stacks-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .stack-card {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 28px;
-      transition: all 0.25s ease;
-      cursor: default;
-      position: relative;
-      overflow: hidden;
-    }
-    .stack-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 100% 0%, rgba(99,102,241,0.06) 0%, transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .stack-card:hover {
-      border-color: var(--border-glow);
-      transform: translateY(-2px);
-    }
-    .stack-card:hover::after { opacity: 1; }
-    .stack-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 16px;
-    }
-    .stack-num {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--text-2);
-      letter-spacing: 0.08em;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 3px 9px;
-    }
-    .stack-cost {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--green);
-      background: rgba(16,185,129,0.08);
-      border: 1px solid rgba(16,185,129,0.15);
-      border-radius: 100px;
-      padding: 3px 9px;
-    }
-    .stack-icon {
-      width: 48px; height: 48px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      font-size: 22px;
-    }
-    .stack-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--text-0);
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    .stack-desc {
-      font-size: 13px;
-      color: var(--text-2);
-      line-height: 1.6;
-      margin-bottom: 18px;
-    }
-    .stack-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .stack-meta-row {
-      display: flex;
-      gap: 6px;
-      align-items: flex-start;
-    }
-    .stack-meta-label {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--text-2);
-      letter-spacing: 0.06em;
-      min-width: 70px;
-      padding-top: 2px;
-    }
-    .stack-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-    .tag {
-      font-size: 11px;
-      color: var(--text-1);
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: 5px;
-      padding: 2px 8px;
-      font-family: 'DM Mono', monospace;
-    }
-
-    /* ──────────── TOOLS STRIP ──────────── */
-    .tools-strip {
-      padding: 40px 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: var(--bg-1);
-    }
-    .tools-label {
-      text-align: center;
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--text-2);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 24px;
-    }
-    .tools-row {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .tool-pill {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      background: var(--bg-2);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 7px 16px;
-      font-size: 13px;
-      color: var(--text-1);
-      font-weight: 500;
-      transition: border-color 0.2s;
-    }
-    .tool-pill:hover { border-color: var(--border-glow); color: var(--text-0); }
-    .tool-pill-dot {
-      width: 7px; height: 7px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.7;
-    }
-
-    /* ──────────── INCLUDED ──────────── */
-    .included-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .included-card {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-    .included-check {
-      width: 22px; height: 22px;
-      background: rgba(16,185,129,0.1);
-      border: 1px solid rgba(16,185,129,0.2);
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      margin-top: 1px;
-    }
-    .included-check svg { width:12px; height:12px; color: var(--green); }
-    .included-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--text-0);
-      margin-bottom: 5px;
-      letter-spacing: -0.01em;
-    }
-    .included-body { font-size: 13px; color: var(--text-2); line-height: 1.55; }
-    .included-ref {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--accent);
-      margin-top: 6px;
-      letter-spacing: 0.04em;
-    }
-
-    /* ──────────── PRICING ──────────── */
-    .pricing-wrap {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 32px;
-      align-items: start;
-    }
-    .pricing-list { display: flex; flex-direction: column; gap: 10px; }
-    .pricing-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 18px;
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      font-size: 14px;
-      color: var(--text-1);
-    }
-    .pricing-item svg { width:16px; height:16px; color: var(--green); flex-shrink:0; }
-    .pricing-item strong { color: var(--text-0); font-weight:600; }
-    .pricing-card {
-      background: var(--bg-1);
-      border: 1px solid var(--border-glow);
-      border-radius: var(--radius-lg);
-      padding: 36px;
-      position: sticky;
-      top: 80px;
-      box-shadow: 0 0 80px rgba(99,102,241,0.08);
-    }
-    .pricing-eyebrow {
-      font-family: 'DM Mono', monospace;
-      font-size: 11px;
-      color: var(--accent-3);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .price-ref {
-      font-size: 13px;
-      color: var(--text-2);
-      margin-bottom: 4px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .price-ref s { color: var(--text-2); }
-    .price-main {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 52px;
-      color: var(--text-0);
-      letter-spacing: -0.04em;
-      line-height: 1;
-      margin-bottom: 4px;
-    }
-    .price-main span { font-size: 24px; color: var(--text-1); }
-    .price-note {
-      font-size: 12px;
-      color: var(--text-2);
-      font-family: 'DM Mono', monospace;
-      margin-bottom: 28px;
-      letter-spacing: 0.03em;
-    }
-    .price-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 24px 0;
-    }
-    .guarantee {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      background: rgba(16,185,129,0.05);
-      border: 1px solid rgba(16,185,129,0.12);
-      border-radius: var(--radius);
-      padding: 14px;
-      margin-top: 16px;
-    }
-    .guarantee-icon { font-size:18px; flex-shrink:0; margin-top:1px; }
-    .guarantee-text { font-size: 12px; color: var(--text-1); line-height:1.55; }
-    .guarantee-text strong { color: var(--green); font-weight:600; }
-
-    /* ──────────── MARKET LOGIC ──────────── */
-    .logic-grid {
-      display: grid;
-      grid-template-columns: repeat(3,1fr);
-      gap: 16px;
-    }
-    .logic-card {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-    }
-    .logic-value {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 36px;
-      letter-spacing: -0.04em;
-      color: var(--text-0);
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    .logic-value span {
-      background: linear-gradient(135deg, #818CF8, #C084FC);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .logic-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 14px;
-      color: var(--text-0);
-      margin-bottom: 10px;
-    }
-    .logic-body { font-size: 13px; color: var(--text-2); line-height: 1.6; }
-    .logic-source {
-      font-family: 'DM Mono', monospace;
-      font-size: 10px;
-      color: var(--text-2);
-      margin-top: 12px;
-      opacity: 0.6;
-    }
-
-    /* ──────────── FIT ──────────── */
-    .fit-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-    .fit-card {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px;
-    }
-    .fit-title {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .fit-title svg { width:16px; height:16px; }
-    .fit-card.yes .fit-title { color: var(--green); }
-    .fit-card.no .fit-title { color: var(--red); }
-    .fit-list { display:flex; flex-direction:column; gap:10px; }
-    .fit-item {
-      display: flex;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--text-1);
-      line-height: 1.5;
-      align-items: flex-start;
-    }
-    .fit-item-dot { width:16px; height:16px; flex-shrink:0; margin-top:1px; }
-    .fit-item-dot.yes { color: var(--green); }
-    .fit-item-dot.no { color: var(--red); }
-
-    /* ──────────── FAQ ──────────── */
-    .faq-list { display:flex; flex-direction:column; gap:8px; }
-    .faq-item {
-      background: var(--bg-1);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-    .faq-q {
-      padding: 20px 24px;
-      font-family: 'Syne', sans-serif;
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--text-0);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      letter-spacing: -0.01em;
-      user-select: none;
-      transition: color 0.2s;
-    }
-    .faq-q:hover { color: var(--accent-3); }
-    .faq-q svg { width:16px; height:16px; color:var(--text-2); transition:transform 0.3s; flex-shrink:0; }
-    .faq-a {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease, padding 0.3s;
-      font-size: 14px;
-      color: var(--text-2);
-      line-height: 1.7;
-      padding: 0 24px;
-    }
-    .faq-item.open .faq-a {
-      max-height: 400px;
-      padding: 0 24px 20px;
-    }
-    .faq-item.open .faq-q svg { transform: rotate(45deg); }
-    .faq-item.open .faq-q { color: var(--accent-3); }
-    .faq-a ul { padding-left: 18px; margin-top: 8px; }
-    .faq-a li { margin-bottom: 4px; }
-
-    /* ──────────── CLOSE ──────────── */
-    .close-section {
-      text-align: center;
-      position: relative;
-    }
-    .close-section::before {
-      content:'';
-      position: absolute;
-      top: -60px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 600px;
-      height: 400px;
-      background: radial-gradient(ellipse at 50% 50%, rgba(99,102,241,0.12) 0%, transparent 70%);
-      pointer-events:none;
-    }
-    .close-section h2 { max-width: 640px; margin: 0 auto 16px; }
-    .close-section .section-desc { margin: 0 auto 40px; }
-
-    /* ──────────── FOOTER ──────────── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 0;
-    }
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-    .footer-brand { max-width: 320px; }
-    .footer-logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 16px;
-      color: var(--text-0);
-      letter-spacing: -0.02em;
-      margin-bottom: 10px;
-    }
-    .footer-logo span { color: var(--accent); }
-    .footer-disclaimer {
-      font-size: 12px;
-      color: var(--text-2);
-      line-height: 1.6;
-    }
-    .footer-right {
-      text-align: right;
-      font-size: 12px;
-      color: var(--text-2);
-      line-height: 1.8;
-    }
-
-    /* ──────────── SCROLL ANIMATIONS ──────────── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .fade-up.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ──────────── RESPONSIVE ──────────── */
-    @media (max-width: 768px) {
-      section { padding: 64px 0; }
-      .hero { padding: 80px 0 64px; }
-      .metrics { grid-template-columns: repeat(2,1fr); }
-      .context-grid,
-      .problem-grid,
-      .stacks-grid,
-      .included-grid,
-      .pricing-wrap,
-      .logic-grid,
-      .fit-grid,
-      .system-pillars { grid-template-columns: 1fr; }
-      .sys-pillar { border-right: none; border-bottom: 1px solid var(--border); }
-      .sys-pillar:last-child { border-bottom: none; }
-      .pricing-card { position: static; }
-      .footer-inner { flex-direction: column; }
-      .footer-right { text-align: left; }
-      .topbar-badge { display: none; }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FlowOS™ — Sistema de Execução com IA para Renda Online</title>
+<meta name="description" content="Um sistema de execução com IA para escolher, organizar e testar um modelo de renda online em poucos dias. 6 stacks prontos, 42 workflows para Claude AI. Para brasileiros que querem começar de forma prática." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg-0:#07070D;--bg-1:#0D0D1A;--bg-2:#12121F;--bg-3:#1A1A2E;
+--border:#1E1E35;--border-glow:rgba(99,102,241,0.25);
+--accent:#6366F1;--accent-2:#8B5CF6;--accent-3:#A78BFA;
+--text-0:#F4F4FA;--text-1:#A0A0C0;--text-2:#5C5C80;
+--green:#10B981;--red:#F43F5E;--amber:#F59E0B;
+--radius:10px;--radius-lg:16px
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg-0);color:var(--text-0);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4}
+.container{max-width:900px;margin:0 auto;padding:0 24px}
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(7,7,13,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:14px 0}
+.topbar-inner{display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto;padding:0 24px}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:-0.02em}
+.logo em{color:var(--accent);font-style:normal}
+.topbar-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:100px;padding:4px 12px}
+.topbar-cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:600;font-size:13px;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
+/* HERO */
+.hero{padding:80px 0 64px;text-align:center;position:relative}
+.hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
+.hero-headline{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,6vw,52px);line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px}
+.hero-headline span{color:var(--accent)}
+.hero-sub{font-size:17px;color:var(--text-1);max-width:640px;margin:0 auto 32px;line-height:1.7}
+.hero-price{margin-bottom:32px}
+.price-original{font-size:16px;color:var(--text-2);text-decoration:line-through;margin-bottom:6px;font-family:'DM Mono',monospace}
+.price-current{font-family:'Syne',sans-serif;font-weight:800;font-size:42px;color:var(--text-0);letter-spacing:-0.02em}
+.price-note{font-size:13px;color:var(--accent-3);font-family:'DM Mono',monospace;margin-top:4px}
+.hero-cta{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700;font-size:16px;border-radius:12px;padding:18px 40px;text-decoration:none;margin-bottom:16px;transition:opacity .2s}
+.hero-cta:hover{opacity:.9}
+.hero-guarantee{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
+.hero-bullets{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:32px 0}
+.hero-bullet{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-1);background:var(--bg-1);border:1px solid var(--border);border-radius:100px;padding:7px 16px}
+.hero-bullet span{color:var(--green)}
+/* SECTIONS */
+section{padding:64px 0;border-top:1px solid var(--border)}
+.section-eye{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
+.section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4vw,32px);letter-spacing:-0.025em;margin-bottom:16px;line-height:1.2}
+.section-desc{font-size:15px;color:var(--text-1);max-width:620px;line-height:1.75;margin-bottom:32px}
+/* PROBLEM */
+.problem-list{display:flex;flex-direction:column;gap:12px;max-width:600px}
+.problem-item{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--text-1);padding:14px 18px;background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius)}
+.problem-icon{font-size:16px;flex-shrink:0;margin-top:2px}
+/* MECHANISM */
+.mechanism-box{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;margin-bottom:24px}
+.mechanism-title{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px}
+.mechanism-desc{font-size:14px;color:var(--text-1);line-height:1.7}
+.mechanism-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:28px}
+.mstep{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.mstep-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
+.mstep-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:6px}
+.mstep-desc{font-size:12px;color:var(--text-1);line-height:1.6}
+/* FOR WHO */
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.who-box{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px}
+.who-box.is{border-color:rgba(16,185,129,.2)}
+.who-box.not{border-color:rgba(244,63,94,.1)}
+.who-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;margin-bottom:14px}
+.who-label.is{color:var(--green)}
+.who-label.not{color:var(--red)}
+.who-list{display:flex;flex-direction:column;gap:8px}
+.who-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-1);line-height:1.5}
+.who-dot.is{color:var(--green)}
+.who-dot.not{color:var(--red)}
+/* STACKS */
+.stacks-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stack-card{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;transition:border-color .2s}
+.stack-card:hover{border-color:rgba(99,102,241,.3)}
+.stack-stripe{height:3px;border-radius:3px;margin-bottom:14px}
+.stack-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-2);margin-bottom:6px}
+.stack-name{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;letter-spacing:-0.015em;margin-bottom:6px}
+.stack-promise{font-size:13px;color:var(--text-1);line-height:1.55;margin-bottom:12px}
+.stack-meta{display:flex;gap:6px;flex-wrap:wrap}
+.stack-tag{font-size:11px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:'DM Mono',monospace}
+/* SELECTOR */
+.selector-box{background:var(--bg-1);border:1px solid rgba(99,102,241,.2);border-radius:var(--radius-lg);padding:32px}
+.selector-matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
+.selector-item{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
+.selector-question{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent-3);letter-spacing:.06em;margin-bottom:8px}
+.selector-answer{font-size:13px;color:var(--text-1);line-height:1.6}
+/* 30 DAY OS */
+.weeks{display:flex;flex-direction:column;gap:14px}
+.week-card{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px}
+.week-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;margin-bottom:8px}
+.week-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;margin-bottom:8px}
+.week-tasks{display:flex;flex-direction:column;gap:6px}
+.week-task{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text-1)}
+.week-dot{color:var(--accent);flex-shrink:0}
+/* WORKFLOWS */
+.wf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
+.wf-stat{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
+.wf-stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:32px;color:var(--accent);margin-bottom:4px}
+.wf-stat-label{font-size:12px;color:var(--text-1);font-family:'DM Mono',monospace}
+.wf-examples{display:flex;flex-direction:column;gap:10px}
+.wf-example{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px}
+.wf-example-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:6px}
+.wf-example-title{font-size:14px;color:var(--text-1)}
+/* BONUS */
+.bonus-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.bonus-card{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px}
+.bonus-icon{font-size:24px;margin-bottom:12px}
+.bonus-name{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:6px}
+.bonus-desc{font-size:13px;color:var(--text-1);line-height:1.6}
+/* COMPARISON */
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table th{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;padding:14px 18px;border-bottom:1px solid var(--border);text-align:left}
+.compare-table th:nth-child(2){color:var(--accent)}
+.compare-table td{font-size:14px;padding:12px 18px;border-bottom:1px solid var(--border);color:var(--text-1)}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table td:nth-child(2){color:var(--text-0)}
+.compare-check{color:var(--green)}
+.compare-x{color:var(--red)}
+/* OFFER */
+.offer-box{background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(139,92,246,.05));border:1px solid rgba(99,102,241,.3);border-radius:var(--radius-lg);padding:40px;text-align:center}
+.offer-badge{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:100px;padding:6px 16px;display:inline-block;margin-bottom:20px}
+.offer-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4vw,32px);margin-bottom:12px;letter-spacing:-0.02em}
+.offer-desc{font-size:15px;color:var(--text-1);max-width:560px;margin:0 auto 28px}
+.offer-price-block{margin-bottom:28px}
+.offer-original{font-size:16px;color:var(--text-2);text-decoration:line-through;font-family:'DM Mono',monospace;margin-bottom:6px}
+.offer-price{font-family:'Syne',sans-serif;font-weight:800;font-size:52px;letter-spacing:-0.03em}
+.offer-eu{font-size:13px;color:var(--accent-3);font-family:'DM Mono',monospace;margin-top:4px}
+.offer-includes{display:flex;flex-direction:column;gap:8px;text-align:left;max-width:400px;margin:0 auto 28px}
+.offer-include{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--text-1)}
+.offer-include span:first-child{color:var(--green)}
+.offer-cta{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700;font-size:17px;border-radius:12px;padding:20px 48px;text-decoration:none;margin-bottom:14px;transition:opacity .2s}
+.offer-cta:hover{opacity:.9}
+.offer-guarantee{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
+/* GUARANTEE */
+.guarantee-box{background:var(--bg-1);border:1px solid rgba(16,185,129,.2);border-radius:var(--radius-lg);padding:32px;display:flex;gap:24px;align-items:flex-start}
+.guarantee-icon{font-size:40px;flex-shrink:0}
+.guarantee-title{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;margin-bottom:8px}
+.guarantee-desc{font-size:14px;color:var(--text-1);line-height:1.7}
+/* FAQ */
+.faq-list{display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;user-select:none;font-weight:500;font-size:15px;transition:background .2s}
+.faq-q:hover{background:var(--bg-2)}
+.faq-chevron{color:var(--text-2);font-size:18px;transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-chevron{transform:rotate(90deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:0 20px 18px;font-size:14px;color:var(--text-1);line-height:1.75;border-top:1px solid var(--border)}
+/* DISCLAIMER */
+.disclaimer-box{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
+.disclaimer-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.08em;margin-bottom:12px}
+.disclaimer-text{font-size:13px;color:var(--text-2);line-height:1.75}
+/* FOOTER */
+footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
+.footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;margin-bottom:8px}
+.footer-logo em{color:var(--accent);font-style:normal}
+.footer-sub{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
+/* RESPONSIVE */
+@media(max-width:720px){
+.who-grid,.stacks-grid,.selector-matrix,.bonus-grid,.wf-stats{grid-template-columns:1fr}
+.mechanism-steps{grid-template-columns:1fr}
+.guarantee-box{flex-direction:column}
+.offer-box{padding:28px 20px}
+.hero{padding:56px 0 48px}
+}
+</style>
 </head>
 <body>
+<!-- TOPBAR -->
+<div class="topbar">
+<div class="topbar-inner">
+<div class="logo">Flow<em>OS</em>™</div>
+<span class="topbar-badge">FOUNDING ACCESS · R$147</span>
+<a href="#oferta" class="topbar-cta">Quero Acessar</a>
+</div>
+</div>
 
-  <!-- TOP BAR -->
-  <nav class="topbar">
-    <div class="topbar-logo">Flow<span>OS</span>™</div>
-    <div class="topbar-badge">FOUNDING ACCESS</div>
-    <a href="#oferta" class="topbar-cta">Ativar — R$47</a>
-  </nav>
+<!-- HERO -->
+<section class="hero" style="border:none">
+<div class="container">
+<div class="hero-eyebrow">FlowOS™ · Founding Access · Edição Fundadora</div>
+<h1 class="hero-headline">Pare de acumular cursos.<br>Comece a <span>executar com IA.</span></h1>
+<p class="hero-sub">Um sistema de execução com IA para escolher, organizar e testar um modelo de renda online em poucos dias — com 6 stacks prontos, 42 workflows para Claude AI e infraestrutura de baixo custo. Para brasileiros que querem começar de forma prática, inclusive morando na Europa.</p>
+<div class="hero-bullets">
+<div class="hero-bullet"><span>✓</span> 6 stacks operacionais prontos</div>
+<div class="hero-bullet"><span>✓</span> 42 workflows para Claude AI</div>
+<div class="hero-bullet"><span>✓</span> Infraestrutura entre €0 e €1</div>
+<div class="hero-bullet"><span>✓</span> Plano de 30 dias de execução</div>
+<div class="hero-bullet"><span>✓</span> Stack Selector para escolher o melhor stack</div>
+<div class="hero-bullet"><span>✓</span> Contexto europeu adaptado</div>
+</div>
+<div class="hero-price">
+<div class="price-original">De R$297</div>
+<div class="price-current">R$147</div>
+<div class="price-note">Founding Access · primeiras 10 vendas · ~€25 no câmbio atual</div>
+</div>
+<a href="#oferta" class="hero-cta">Acessar o FlowOS™ por R$147</a>
+<div class="hero-guarantee">🔒 Garantia de 7 dias · Acesso permanente · Sem mensalidade</div>
+</div>
+</section>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-glow"></div>
-      <div class="eyebrow fade-up">
-        <span class="eyebrow-dot"></span>
-        AI Workflow Monetization Framework · Europa 2026
-      </div>
-      <h1 class="fade-up">O sistema operacional que transforma<br><em>workflows de IA</em> em receita recorrente.</h1>
-      <p class="hero-sub fade-up">6 stacks operacionais. 42 workflows para Claude AI prontos para usar. Infraestrutura configurada. Construído para operadores que preferem sistemas a gurus.</p>
-      <div class="hero-actions fade-up">
-        <a href="#oferta" class="btn-primary">
-          Ativar FlowOS™ — R$47
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M3 8h10M9 4l4 4-4 4"/>
-          </svg>
-        </a>
-        <div class="hero-trust">
-          <span>
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            Acesso imediato
-          </span>
-          <span>
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            Garantia de 7 dias
-          </span>
-          <span>
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            Stack com €0–1 de infraestrutura
-          </span>
-          <span>
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            Mercado europeu
-          </span>
-        </div>
-      </div>
+<!-- PROBLEMA -->
+<section id="problema">
+<div class="container">
+<div class="section-eye">O Problema</div>
+<h2 class="section-title">Você sabe que dá para monetizar com IA.<br>O problema é saber por onde começar.</h2>
+<p class="section-desc">A maioria das pessoas que quer criar renda online com IA fica presa num ciclo que nunca resolve nada.</p>
+<div class="problem-list">
+<div class="problem-item"><span class="problem-icon">🔄</span><span>Fica pulando de ideia em ideia sem executar nenhuma até o fim.</span></div>
+<div class="problem-item"><span class="problem-icon">📚</span><span>Consome conteúdo, cursos e tutoriais sem nunca publicar nada de verdade.</span></div>
+<div class="problem-item"><span class="problem-icon">😵</span><span>Não sabe qual modelo de renda faz mais sentido pro seu perfil e disponibilidade.</span></div>
+<div class="problem-item"><span class="problem-icon">💸</span><span>Gasta em ferramentas caras antes de validar qualquer coisa.</span></div>
+<div class="problem-item"><span class="problem-icon">🌍</span><span>Mora na Europa ou quer operar em euro, mas não sabe por qual canal começar.</span></div>
+<div class="problem-item"><span class="problem-icon">🎓</span><span>Já comprou curso de guru que prometia fórmula mágica — e não funcionou.</span></div>
+</div>
+</div>
+</section>
 
-      <div class="metrics fade-up">
-        <div class="metric">
-          <div class="metric-value"><span>6</span></div>
-          <div class="metric-label">Stacks Operacionais</div>
-        </div>
-        <div class="metric">
-          <div class="metric-value"><span>42</span></div>
-          <div class="metric-label">Workflows para Claude AI</div>
-        </div>
-        <div class="metric">
-          <div class="metric-value"><span>€0</span></div>
-          <div class="metric-label">Infraestrutura Base (5/6)</div>
-        </div>
-        <div class="metric">
-          <div class="metric-value"><span>5</span></div>
-          <div class="metric-label">Dias por Ativação de Stack</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- MECANISMO -->
+<section id="mecanismo">
+<div class="container">
+<div class="section-eye">O Mecanismo</div>
+<h2 class="section-title">FlowOS™ não é curso.<br>É um sistema operacional de execução.</h2>
+<div class="mechanism-box">
+<div class="mechanism-title">O que é o FlowOS™?</div>
+<div class="mechanism-desc">O FlowOS™ é um framework documentado que combina um Stack Selector (para você escolher o modelo certo), um plano de 30 dias de execução, 42 workflows prontos para Claude AI e documentação operacional de 6 stacks de monetização. O objetivo não é te ensinar teoria — é te dar estrutura para testar, validar e construir uma operação inicial de renda online com IA.</div>
+<div class="mechanism-steps">
+<div class="mstep"><div class="mstep-num">ETAPA 01</div><div class="mstep-title">Escolher</div><div class="mstep-desc">Use o Stack Selector para identificar qual dos 6 stacks combina com seu perfil, tempo e objetivo.</div></div>
+<div class="mstep"><div class="mstep-num">ETAPA 02</div><div class="mstep-title">Organizar</div><div class="mstep-desc">Configure as ferramentas, defina o nicho e crie os primeiros ativos com os workflows prontos.</div></div>
+<div class="mstep"><div class="mstep-num">ETAPA 03</div><div class="mstep-title">Executar</div><div class="mstep-desc">Siga o plano de 30 dias: semana de setup, semana de produção, semana de publicação, semana de medição.</div></div>
+<div class="mstep"><div class="mstep-num">ETAPA 04</div><div class="mstep-title">Validar</div><div class="mstep-desc">Meça resultados, corrija o que não funciona e defina se continua no mesmo stack ou ajusta a abordagem.</div></div>
+</div>
+</div>
+<p class="section-desc" style="margin-bottom:0">O FlowOS™ <strong>não é</strong> um método secreto, uma fórmula mágica ou uma promessa de renda garantida. É documentação operacional para quem prefere sistemas a gurus.</p>
+</div>
+</section>
+<!-- PARA QUEM É -->
+<section id="para-quem">
+<div class="container">
+<div class="section-eye">Público</div>
+<h2 class="section-title">Para quem é — e para quem não é</h2>
+<div class="who-grid">
+<div class="who-box is">
+<div class="who-label is">PARA QUEM É ✓</div>
+<div class="who-list">
+<div class="who-item"><span class="who-dot is">✓</span><span>Brasileiros que querem criar renda online com IA de forma prática</span></div>
+<div class="who-item"><span class="who-dot is">✓</span><span>Brasileiros que moram na Europa e querem renda extra em euro</span></div>
+<div class="who-item"><span class="who-dot is">✓</span><span>Imigrantes que buscam renda complementar sem abrir empresa</span></div>
+<div class="who-item"><span class="who-dot is">✓</span><span>Freelancers iniciantes que querem usar IA para entregar mais rápido</span></div>
+<div class="who-item"><span class="who-dot is">✓</span><span>Creators iniciantes que querem começar sem aparecer em câmera</span></div>
+<div class="who-item"><span class="who-dot is">✓</span><span>Pessoas cansadas de cursos genéricos que prometem resultado sem sistema</span></div>
+<div class="who-item"><span class="who-dot is">✓</span><span>Quem prefere checklists, documentação e execução a aulas longas</span></div>
+<div class="who-item"><span class="who-dot is">✓</span><span>Quem tem 1 a 2 horas por dia e quer usá-las de forma organizada</span></div>
+</div>
+</div>
+<div class="who-box not">
+<div class="who-label not">PARA QUEM NÃO É ✗</div>
+<div class="who-list">
+<div class="who-item"><span class="who-dot not">✗</span><span>Quem busca renda garantida ou resultado automático sem esforço</span></div>
+<div class="who-item"><span class="who-dot not">✗</span><span>Quem não tem disposição para executar e testar por pelo menos 30 dias</span></div>
+<div class="who-item"><span class="who-dot not">✗</span><span>Quem quer uma fórmula pronta que funcione sem precisar adaptar</span></div>
+<div class="who-item"><span class="who-dot not">✗</span><span>Quem não usa Claude AI ou não tem interesse em aprender a usar</span></div>
+<div class="who-item"><span class="who-dot not">✗</span><span>Quem quer negócio 100% passivo sem nenhum envolvimento operacional</span></div>
+<div class="who-item"><span class="who-dot not">✗</span><span>Europeus nativos — o produto está em português brasileiro</span></div>
+</div>
+</div>
+</div>
+</div>
+</section>
 
-  <div class="divider"></div>
+<!-- 6 STACKS -->
+<section id="stacks">
+<div class="container">
+<div class="section-eye">Os 6 Stacks</div>
+<h2 class="section-title">6 modelos de renda online com IA.<br>Cada um documentado do zero ao primeiro resultado.</h2>
+<p class="section-desc">Não são 6 ideias soltas. São 6 stacks operacionais com ferramentas, canais, setup de 5 dias, rotina de 30 dias e workflows prontos para Claude AI.</p>
+<div class="stacks-grid">
+<div class="stack-card">
+<div class="stack-stripe" style="background:#6366F1"></div>
+<div class="stack-num">STACK 01</div>
+<div class="stack-name">Faceless Content</div>
+<div class="stack-promise">Canal de conteúdo com IA — sem câmera, sem voz, sem identidade pública. Você gera roteiro, vídeo e áudio 100% com IA e publica em múltiplas plataformas.</div>
+<div class="stack-meta">
+<span class="stack-tag">TikTok</span><span class="stack-tag">YouTube</span><span class="stack-tag">Instagram</span>
+<span class="stack-tag">CPM + Afiliados</span><span class="stack-tag">€0 setup</span>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-stripe" style="background:#8B5CF6"></div>
+<div class="stack-num">STACK 02</div>
+<div class="stack-name">Digital Products</div>
+<div class="stack-promise">Crie e venda templates, guias, pacotes de prompts e presets com Claude AI. Distribua no Etsy e Gumroad com tráfego orgânico já incorporado. Margem de 100%.</div>
+<div class="stack-meta">
+<span class="stack-tag">Etsy</span><span class="stack-tag">Gumroad</span>
+<span class="stack-tag">Venda direta</span><span class="stack-tag">€0 setup</span>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-stripe" style="background:#10B981"></div>
+<div class="stack-num">STACK 03</div>
+<div class="stack-name">AI Print Studio</div>
+<div class="stack-promise">Designs gerados com Ideogram AI, produção automática com Printify, distribuição no Etsy e Redbubble. Zero estoque, zero logística, envio para a Europa automático.</div>
+<div class="stack-meta">
+<span class="stack-tag">Etsy</span><span class="stack-tag">Redbubble</span>
+<span class="stack-tag">Margem + Royalties</span><span class="stack-tag">€0 setup</span>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-stripe" style="background:#F59E0B"></div>
+<div class="stack-num">STACK 04</div>
+<div class="stack-name">AI Commerce</div>
+<div class="stack-promise">Produto escolhido com dados, vídeo criado por IA, pedidos automatizados via DSers. Fornecedores com armazém na Europa, entrega em 5–8 dias. Margem de 2–4x.</div>
+<div class="stack-meta">
+<span class="stack-tag">TikTok Shop</span><span class="stack-tag">Shopify</span>
+<span class="stack-tag">Margem 2–4x</span><span class="stack-tag">~€1/mês</span>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-stripe" style="background:#F43F5E"></div>
+<div class="stack-num">STACK 05</div>
+<div class="stack-name">AI Services</div>
+<div class="stack-promise">Ofereça copywriting, conteúdo e gestão de redes com IA como alavanca. Entregue mais rápido, com qualidade consistente. Fiverr e Upwork têm tráfego incorporado — sem precisar de audiência.</div>
+<div class="stack-meta">
+<span class="stack-tag">Fiverr</span><span class="stack-tag">Upwork</span>
+<span class="stack-tag">Projeto ou Retainer</span><span class="stack-tag">€0 setup</span>
+</div>
+</div>
+<div class="stack-card">
+<div class="stack-stripe" style="background:#06B6D4"></div>
+<div class="stack-num">STACK 06</div>
+<div class="stack-name">Evergreen Affiliate</div>
+<div class="stack-promise">Artigos SEO e newsletters criados com Claude AI que geram comissões de forma assíncrona. Conteúdo publicado uma vez, receita gerada indefinidamente. Programas europeus via Awin.</div>
+<div class="stack-meta">
+<span class="stack-tag">SEO</span><span class="stack-tag">Newsletter</span><span class="stack-tag">Awin</span>
+<span class="stack-tag">Comissões 3–15%</span><span class="stack-tag">€0 setup</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- STACK SELECTOR -->
+<section id="stack-selector">
+<div class="container">
+<div class="section-eye">Stack Selector</div>
+<h2 class="section-title">Não sabe por qual stack começar?<br>A matriz de decisão resolve isso.</h2>
+<p class="section-desc">O Stack Selector é uma ferramenta de diagnóstico incluída no FlowOS™. Você responde 9 perguntas e descobre qual stack combina com seu perfil, tempo e objetivo. Sem precisar testar todos os 6 ao mesmo tempo.</p>
+<div class="selector-box">
+<div class="section-eye" style="margin-bottom:8px">As 9 perguntas do Stack Selector</div>
+<div class="selector-matrix">
+<div class="selector-item">
+<div class="selector-question">01 · TEMPO DISPONÍVEL</div>
+<div class="selector-answer">Você tem menos de 1h por dia → Serviços ou Afiliados. Mais de 2h → Commerce ou Faceless Content.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">02 · QUER APARECER?</div>
+<div class="selector-answer">Não quer aparecer → Faceless Content, Print Studio ou Produtos Digitais. Sem restrição → qualquer stack.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">03 · PREFERÊNCIA DE MODELO</div>
+<div class="selector-answer">Serviço → AI Services. Produto digital → Digital Products. Conteúdo → Faceless. Afiliado → Evergreen. E-commerce → Commerce ou Print Studio.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">04 · NÍVEL DE EXPERIÊNCIA</div>
+<div class="selector-answer">Iniciante completo → Digital Products ou Print Studio. Tem alguma experiência → qualquer stack com suporte dos workflows.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">05 · TOLERÂNCIA A RISCO</div>
+<div class="selector-answer">Risco mínimo → Serviços ou Produtos Digitais. Risco médio → Print Studio ou Faceless. Risco maior → Commerce.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">06 · RETORNO ESPERADO</div>
+<div class="selector-answer">Precisa de retorno rápido (dias) → Serviços. Aceita esperar semanas → Digital Products ou Print. Aceita meses → Afiliados ou Faceless Content.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">07 · CRIAR CONTEÚDO</div>
+<div class="selector-answer">Gosta de escrever → Afiliados ou Produtos Digitais. Prefere visual → Print Studio. Indiferente → Faceless Content com IA.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">08 · MORA NA EUROPA</div>
+<div class="selector-answer">Sim → Print Studio (Printify EU), AI Commerce (CJ EU), Afiliados (Awin EU) têm vantagem operacional real.</div>
+</div>
+<div class="selector-item">
+<div class="selector-question">09 · DIGITAL vs E-COMMERCE</div>
+<div class="selector-answer">100% digital → Serviços, Afiliados, Produtos, Faceless. Com operação física → Print Studio ou AI Commerce.</div>
+</div>
+</div>
+<p style="font-size:13px;color:var(--text-2);margin-top:20px;font-family:'DM Mono',monospace">⚠️ Regra de ouro: escolha UM stack e execute por 30 dias completos antes de considerar mudar.</p>
+</div>
+</div>
+</section>
 
-  <!-- TOOLS STRIP -->
-  <div class="tools-strip">
-    <div class="wrap">
-      <p class="tools-label">Stack de ferramentas incluído</p>
-      <div class="tools-row">
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Claude AI</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Kling AI</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>ElevenLabs</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Ideogram AI</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>CapCut</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Canva</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Gumroad</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Shopify</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Printify</div>
-        <div class="tool-pill"><span class="tool-pill-dot"></span>Beehiiv</div>
-      </div>
-    </div>
-  </div>
+<!-- 30-DAY EXECUTION OS -->
+<section id="30dias">
+<div class="container">
+<div class="section-eye">30-Day Execution OS</div>
+<h2 class="section-title">Um plano de 30 dias para sair da teoria<br>e entrar em execução real.</h2>
+<p class="section-desc">O FlowOS™ já tinha um plano de 5 dias por stack. A nova versão inclui o 30-Day Execution OS: uma camada de planejamento que guia você da escolha do stack até a primeira validação.</p>
+<div class="weeks">
+<div class="week-card">
+<div class="week-label">SEMANA 01 · DIAS 1–7</div>
+<div class="week-title">Setup e Escolha</div>
+<div class="week-tasks">
+<div class="week-task"><span class="week-dot">→</span><span>Usar o Stack Selector para definir o stack inicial</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Configurar todas as ferramentas necessárias do stack escolhido</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Entender o modelo de receita e os canais de distribuição</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Definir nicho específico e público-alvo</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Criar os primeiros ativos usando os workflows do Claude AI</span></div>
+</div>
+</div>
+<div class="week-card">
+<div class="week-label">SEMANA 02 · DIAS 8–14</div>
+<div class="week-title">Produção de Ativos</div>
+<div class="week-tasks">
+<div class="week-task"><span class="week-dot">→</span><span>Produzir os ativos principais: produto, conteúdo, página, perfil ou serviço</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Montar a oferta inicial com copy gerada pelos workflows</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Preparar imagens, textos e materiais de suporte</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Revisar e testar tudo antes de publicar</span></div>
+</div>
+</div>
+<div class="week-card">
+<div class="week-label">SEMANA 03 · DIAS 15–21</div>
+<div class="week-title">Publicação e Ativação</div>
+<div class="week-tasks">
+<div class="week-task"><span class="week-dot">→</span><span>Publicar, listar produtos, enviar propostas ou gerar tráfego orgânico</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Prospectar clientes ou ativar distribuição conforme o stack</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Manter consistência mínima de execução diária (45 a 90 minutos)</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Documentar o que está funcionando e o que não está</span></div>
+</div>
+</div>
+<div class="week-card">
+<div class="week-label">SEMANA 04 · DIAS 22–30</div>
+<div class="week-title">Medição e Validação</div>
+<div class="week-tasks">
+<div class="week-task"><span class="week-dot">→</span><span>Medir resultados com as métricas definidas para o stack</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Corrigir o que não está funcionando com base nos dados</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Melhorar a oferta, o conteúdo ou a abordagem</span></div>
+<div class="week-task"><span class="week-dot">→</span><span>Buscar a primeira venda, o primeiro lead ou a primeira validação real</span></div>
+</div>
+</div>
+</div>
+<p style="font-size:13px;color:var(--text-2);margin-top:20px;font-family:'DM Mono',monospace">Objetivo: clareza operacional e rotina de execução — não promessa de dinheiro garantido.</p>
+</div>
+</section>
+<!-- WORKFLOWS -->
+<section id="workflows">
+<div class="container">
+<div class="section-eye">Biblioteca de Workflows</div>
+<h2 class="section-title">42 workflows prontos para Claude AI.<br>Copie, cole e adapte.</h2>
+<p class="section-desc">Não são apenas prompts. São instruções operacionais organizadas por stack, categorizadas por função e conectadas ao plano de 30 dias. Cada workflow resolve um problema específico — substituindo horas de tentativa e erro por um ponto de partida testado.</p>
+<div class="wf-stats">
+<div class="wf-stat"><div class="wf-stat-num">42</div><div class="wf-stat-label">Workflows prontos</div></div>
+<div class="wf-stat"><div class="wf-stat-num">6</div><div class="wf-stat-label">Categorias por stack</div></div>
+<div class="wf-stat"><div class="wf-stat-num">7</div><div class="wf-stat-label">Workflows por stack</div></div>
+</div>
+<div class="wf-examples">
+<div class="wf-example"><div class="wf-example-tag">FACELESS CONTENT · W01</div><div class="wf-example-title">Gerar Roteiro de Vídeo Faceless — roteiro de 60 ou 90 segundos com hook, 3 pontos principais e CTA, pronto para narrar com ElevenLabs.</div></div>
+<div class="wf-example"><div class="wf-example-tag">DIGITAL PRODUCTS · W04</div><div class="wf-example-title">Criar Listagem Etsy Otimizada — título de 140 caracteres com keywords, descrição completa, 13 tags e 5 bullet points de benefícios.</div></div>
+<div class="wf-example"><div class="wf-example-tag">AI SERVICES · W02</div><div class="wf-example-title">Escrever Proposta para Cliente — proposta profissional de até 400 palavras com compreensão do problema, solução proposta e preço.</div></div>
+<div class="wf-example"><div class="wf-example-tag">EVERGREEN AFFILIATE · W02</div><div class="wf-example-title">Artigo SEO Completo — artigo de 1.200 a 1.500 palavras com H1, seções com H2/H3, FAQ e conclusão com CTA, em português brasileiro.</div></div>
+<div class="wf-example"><div class="wf-example-tag">AI COMMERCE · W04</div><div class="wf-example-title">Copy da Página de Produto Shopify — título otimizado, descrição de 300 palavras, 5 bullets de benefícios, FAQ e política de devolução.</div></div>
+</div>
+<p style="font-size:13px;color:var(--text-2);margin-top:16px;font-family:'DM Mono',monospace">+ 37 workflows adicionais organizados por stack e função dentro da área de membros.</p>
+</div>
+</section>
 
-  <div class="divider"></div>
+<!-- BONUS -->
+<section id="bonus">
+<div class="container">
+<div class="section-eye">Bônus Incluídos</div>
+<h2 class="section-title">Materiais complementares que fazem parte do sistema.</h2>
+<p class="section-desc">Não são bônus genéricos de enchimento. Cada material resolve um problema específico do processo de execução.</p>
+<div class="bonus-grid">
+<div class="bonus-card">
+<div class="bonus-icon">📈</div>
+<div class="bonus-name">Stack Expansion Guide</div>
+<div class="bonus-desc">Como expandir cada stack após o primeiro ciclo de 30 dias. Escala, novos canais, novos produtos e como combinar dois stacks de forma complementar sem perder foco.</div>
+</div>
+<div class="bonus-card">
+<div class="bonus-icon">✅</div>
+<div class="bonus-name">Pre-Launch Checklist</div>
+<div class="bonus-desc">Lista de verificação completa antes de publicar qualquer stack. Evite os erros mais comuns de configuração que atrasam os primeiros resultados.</div>
+</div>
+<div class="bonus-card">
+<div class="bonus-icon">🌍</div>
+<div class="bonus-name">European Traffic Playbook</div>
+<div class="bonus-desc">Guia de canais e estratégias de tráfego adaptados ao contexto europeu. Plataformas, programas de afiliados, fornecedores e particularidades do mercado da UE.</div>
+</div>
+<div class="bonus-card">
+<div class="bonus-icon">⚠️</div>
+<div class="bonus-name">Critical Failure Analysis</div>
+<div class="bonus-desc">Os erros mais comuns em cada stack, por que acontecem e como evitá-los. Documentação baseada nos pontos de abandono mais frequentes para cada modelo.</div>
+</div>
+</div>
+</div>
+</section>
 
-  <!-- CONTEXT -->
-  <section>
-    <div class="wrap">
-      <div class="context-grid">
-        <div>
-          <span class="section-label">Contexto de Mercado</span>
-          <h2>O mercado mudou.<br>A maioria dos sistemas não.</h2>
-          <div class="context-body fade-up">
-            <p>Em 2024, Claude AI, Kling AI, ElevenLabs e Ideogram democratizaram capacidades que antes exigiam equipes inteiras. Um operador individual consegue agora produzir conteúdo, gerenciar audiências, criar produtos digitais e escalar serviços <span class="context-highlight">sem expor a identidade pessoal e sem infraestrutura cara.</span></p>
-            <p>O problema não é falta de ferramentas. É falta de arquitetura.</p>
-            <p><span class="context-highlight">FlowOS™ é o framework que define essa arquitetura.</span> Seis stacks operacionais, cada um com ferramentas configuradas, workflows documentados e plano de execução de 5 dias.</p>
-          </div>
-        </div>
-        <div class="context-pillars fade-up">
-          <div class="pillar">
-            <div class="pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            </div>
-            <div>
-              <div class="pillar-title">Stack Documentado</div>
-              <div class="pillar-body">Cada ferramenta, integração e configuração especificada. Sem decisões em aberto bloqueando a execução.</div>
-            </div>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div>
-              <div class="pillar-title">Workflow Library</div>
-              <div class="pillar-body">42 workflows para Claude AI prontos para usar, organizados por stack. Copie, cole e execute. Sem engenharia de prompts.</div>
-            </div>
-          </div>
-          <div class="pillar">
-            <div class="pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-            </div>
-            <div>
-              <div class="pillar-title">Execution Blueprint</div>
-              <div class="pillar-body">Plano de 5 dias por stack. Tarefas específicas, não teorias. Do setup ao primeiro output monetizável.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- COMPARAÇÃO -->
+<section id="comparacao">
+<div class="container">
+<div class="section-eye">Comparação</div>
+<h2 class="section-title">FlowOS™ vs. cursos tradicionais<br>de ganhar dinheiro online.</h2>
+<table class="compare-table">
+<thead>
+<tr>
+<th>Critério</th>
+<th>FlowOS™</th>
+<th>Cursos Tradicionais</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>Formato</td><td><span class="compare-check">✓</span> Sistema + documentação operacional</td><td><span class="compare-x">✗</span> Aulas longas e teoria</td></tr>
+<tr><td>Ponto de partida</td><td><span class="compare-check">✓</span> Stack Selector define o modelo certo pra você</td><td><span class="compare-x">✗</span> Você decide sem diagnóstico</td></tr>
+<tr><td>Workflows prontos</td><td><span class="compare-check">✓</span> 42 workflows para Claude AI</td><td><span class="compare-x">✗</span> Raramente incluídos</td></tr>
+<tr><td>Plano de execução</td><td><span class="compare-check">✓</span> 30-Day Execution OS detalhado</td><td><span class="compare-x">✗</span> Genérico ou inexistente</td></tr>
+<tr><td>Custo de infraestrutura</td><td><span class="compare-check">✓</span> €0 a €1 para começar</td><td><span class="compare-x">✗</span> Geralmente pedem ferramentas caras</td></tr>
+<tr><td>Contexto europeu</td><td><span class="compare-check">✓</span> Adaptado ao mercado da UE</td><td><span class="compare-x">✗</span> Focado no Brasil ou EUA</td></tr>
+<tr><td>Dependência de guru</td><td><span class="compare-check">✓</span> Nenhuma — sistema autossuficiente</td><td><span class="compare-x">✗</span> Alta dependência do professor</td></tr>
+<tr><td>Promessa</td><td><span class="compare-check">✓</span> Testar, validar e executar</td><td><span class="compare-x">✗</span> Renda passiva garantida</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- OFERTA -->
+<section id="oferta">
+<div class="container">
+<div class="section-eye">Founding Access</div>
+<h2 class="section-title">Acesso ao FlowOS™ com condição de lançamento.</h2>
+<div class="offer-box">
+<span class="offer-badge">🚀 FOUNDING ACCESS — PRIMEIRAS 10 VENDAS</span>
+<h2 class="offer-title">FlowOS™ — AI Workflow Monetization Framework</h2>
+<p class="offer-desc">Sistema operacional de execução com IA para escolher, organizar e testar um modelo de renda online. 6 stacks, 42 workflows, plano de 30 dias, Stack Selector e bônus incluídos.</p>
+<div class="offer-price-block">
+<div class="offer-original">Valor completo: R$297</div>
+<div class="offer-price">R$147</div>
+<div class="offer-eu">≈ €25 no câmbio atual · Condição Founding Access</div>
+</div>
+<div class="offer-includes">
+<div class="offer-include"><span>✓</span><span>Documentação completa dos 6 stacks operacionais</span></div>
+<div class="offer-include"><span>✓</span><span>42 workflows prontos para Claude AI</span></div>
+<div class="offer-include"><span>✓</span><span>Stack Selector — matriz de decisão para escolher seu stack</span></div>
+<div class="offer-include"><span>✓</span><span>30-Day Execution OS — plano dia a dia</span></div>
+<div class="offer-include"><span>✓</span><span>Quick Start — setup em 60 minutos</span></div>
+<div class="offer-include"><span>✓</span><span>Dashboard/Tracker de execução</span></div>
+<div class="offer-include"><span>✓</span><span>Stack Expansion Guide</span></div>
+<div class="offer-include"><span>✓</span><span>Pre-Launch Checklist</span></div>
+<div class="offer-include"><span>✓</span><span>European Traffic Playbook</span></div>
+<div class="offer-include"><span>✓</span><span>Critical Failure Analysis</span></div>
+<div class="offer-include"><span>✓</span><span>Atualizações futuras incluídas</span></div>
+<div class="offer-include"><span>✓</span><span>Acesso permanente — sem mensalidade</span></div>
+</div>
+<a href="https://app.gumroad.com/l/flowos" class="offer-cta" target="_blank">Acessar o FlowOS™ por R$147 →</a>
+<div class="offer-guarantee">🔒 Garantia de 7 dias sem perguntas · Acesso imediato após compra</div>
+</div>
+<div style="margin-top:24px;background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
+<p style="font-size:13px;color:var(--text-1);line-height:1.75"><strong style="color:var(--text-0)">Por que R$147 e não R$297?</strong><br>O FlowOS™ está passando por um reposicionamento. O preço de Founding Access existe por um motivo real: queremos validar a nova versão com os primeiros compradores, coletar feedback e ajustar antes do lançamento definitivo. Você acessa o sistema completo com condição de lançamento — e todas as atualizações futuras já estão incluídas. Quando o Founding Access encerrar (nas primeiras 10 vendas), o preço volta para R$297.</p>
+</div>
+</div>
+</section>
 
-  <div class="divider"></div>
+<!-- GARANTIA -->
+<section id="garantia">
+<div class="container">
+<div class="section-eye">Garantia</div>
+<h2 class="section-title">7 dias de garantia sem perguntas.</h2>
+<div class="guarantee-box">
+<div class="guarantee-icon">🛡️</div>
+<div>
+<div class="guarantee-title">Garantia de 7 dias</div>
+<div class="guarantee-desc">Se você acessar o FlowOS™, explorar o conteúdo e decidir que não é o que esperava, basta pedir o reembolso em até 7 dias. Sem formulários complicados, sem perguntas constrangedoras. O risco está do nosso lado — não do seu.</div>
+</div>
+</div>
+</div>
+</section>
 
-  <!-- PROBLEM -->
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-label">Diagnóstico</span>
-        <h2>Por que a maioria das tentativas<br>falha antes de começar.</h2>
-      </div>
-      <div class="problem-grid fade-up">
-        <div class="problem-card">
-          <div class="problem-num">01 · STACK DISORDER</div>
-          <div class="problem-title">Dezenas de ferramentas. Zero framework.</div>
-          <div class="problem-body">Cada tutorial usa um stack diferente, numa ordem diferente, para um mercado diferente. O resultado é paralisia operacional disfarçada de pesquisa.</div>
-        </div>
-        <div class="problem-card">
-          <div class="problem-num">02 · SINGLE-MODEL RISK</div>
-          <div class="problem-title">Um modelo único é um ponto de falha único.</div>
-          <div class="problem-body">Se não funciona para o seu perfil, você desiste. FlowOS™ oferece 6 stacks distintos — você encontra o que ressoa com o seu perfil operacional.</div>
-        </div>
-        <div class="problem-card">
-          <div class="problem-num">03 · CONTEXT MISMATCH</div>
-          <div class="problem-title">Todos os frameworks são americanos.</div>
-          <div class="problem-body">CPMs, plataformas de pagamento, requisitos legais e canais de distribuição funcionam de forma diferente. Um sistema americano precisa ser reconstruído — não adaptado.</div>
-        </div>
-        <div class="problem-card">
-          <div class="problem-num">04 · IDENTITY DEPENDENCY</div>
-          <div class="problem-title">O modelo dominante exige presença pessoal.</div>
-          <div class="problem-body">Rosto, nome, história, exposição contínua. FlowOS™ é arquitetado para operação 100% assíncrona — sem câmera, sem identidade pública, sem dependência pessoal.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- FAQ -->
+<section id="faq">
+<div class="container">
+<div class="section-eye">FAQ</div>
+<h2 class="section-title">Perguntas frequentes.</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Isso funciona para brasileiros que moram no Brasil? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">Sim. O produto foi criado para brasileiros — tanto os que moram no Brasil quanto os que estão na Europa. Os stacks de Digital Products, Faceless Content e Serviços funcionam sem nenhuma adaptação local. Os stacks de Print Studio e Commerce têm vantagens específicas para quem mora na Europa (fornecedores EU, Printify Express, Awin), mas podem ser usados do Brasil com ajuste de fornecedores.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Preciso aparecer em câmera ou ter seguidores? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">Não para a maioria dos stacks. O Faceless Content foi desenvolvido especificamente para quem não quer aparecer. O Digital Products, Print Studio e Afiliados não exigem presença pessoal. O Serviços exige apresentação profissional no perfil, mas não câmera. Somente o Commerce pode se beneficiar de conteúdo pessoal, mas não é obrigatório.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Preciso pagar ferramentas caras para começar? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">Não. A infraestrutura de 5 dos 6 stacks começa com €0. O único stack com custo inicial é o AI Commerce, que usa o trial do Shopify (€1/mês no primeiro mês). Claude AI tem plano gratuito suficiente para começar. Etsy, Gumroad, Fiverr, Upwork, Redbubble e Beehiiv têm acesso gratuito. O FlowOS™ foi desenhado para quem quer validar antes de investir.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Preciso de experiência prévia com IA ou marketing? <span class="faq-chavron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">Não. Os workflows são copiados e colados diretamente no Claude AI. A documentação explica cada passo. O Stack Selector ajuda a escolher o modelo mais adequado para iniciantes. Você precisa de disposição para executar — não de experiência técnica prévia.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Quanto tempo por dia preciso dedicar? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">O plano de 30 dias foi desenhado para funcionar com 45 a 90 minutos por dia. Alguns stacks (como Serviços) podem exigir um pouco mais nas primeiras semanas de prospecção. Outros (como Afiliados) funcionam bem com sessões de 60 minutos. O Stack Selector considera sua disponibilidade diária na hora de recomendar o stack ideal.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Isso é curso ou sistema? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">É um sistema — não um curso de aulas. O FlowOS™ é documentação operacional, workflows prontos, checklists e um plano de execução. Não há vídeos longos, módulos teóricos ou conteúdo pra consumir passivamente. Você acessa, escolhe o stack, segue o plano e executa. É mais parecido com um manual de operação do que com um curso.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Isso garante que vou ganhar dinheiro? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">Não. O FlowOS™ entrega estrutura, workflows e plano de execução — não resultados garantidos. Os resultados dependem da execução, da consistência, do nicho escolhido e de variáveis fora do nosso controle. O objetivo é te ajudar a testar e validar um modelo de renda de forma organizada, não prometer dinheiro automático.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Por que R$147 e não o preço normal de R$297? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">O FlowOS™ está em fase de validação da nova versão (Founding Access). O preço promocional existe para conseguir os primeiros compradores, coletar feedback real e ajustar antes do lançamento definitivo. Você entra com condição de lançamento e recebe todas as atualizações futuras sem custo adicional. Quando as primeiras 10 vendas forem concluídas, o preço volta para R$297.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Posso começar mesmo trabalhando em tempo integral? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">Sim. O plano foi desenhado para ser executado em blocos de 45 a 90 minutos por dia. Para quem tem pouco tempo, o Stack Selector recomenda os stacks de menor demanda operacional diária. A ideia é criar rotina — não exigir dedicação em período integral desde o início.</div></div>
+</div>
+<div class="faq-item">
+<div class="faq-q" onclick="toggleFaq(this)">Preciso abrir empresa para usar os stacks? <span class="faq-chevron">›</span></div>
+<div class="faq-a"><div class="faq-a-inner">Não para começar a testar. Mas você é responsável por verificar as regras fiscais e legais do país onde atua — especialmente se mora na Europa. Plataformas como Etsy, Gumroad, Fiverr e Upwork permitem cadastro como pessoa física para começar. Quando houver receita consistente, recomendamos buscar orientação contábil local.</div></div>
+</div>
+</div>
+</div>
+</section>
+<!-- DISCLAIMER -->
+<section id="disclaimer">
+<div class="container">
+<div class="disclaimer-box">
+<div class="disclaimer-title">AVISO LEGAL E EDUCATIVO</div>
+<div class="disclaimer-text">O FlowOS™ é um produto educativo. Todo o conteúdo — stacks, workflows, planos e materiais complementares — tem finalidade educativa e informativa. Não há garantia de renda, resultado financeiro ou sucesso. Os resultados dependem exclusivamente da execução, consistência e contexto individual de cada pessoa. Os modelos de monetização descritos são legítimos e baseados em plataformas reais, mas nenhum resultado é garantido ou previsível. A pessoa é responsável por cumprir as regras fiscais, legais, contábeis e regulatórias do país onde atua, incluindo obrigações com plataformas como Etsy, Gumroad, TikTok, Fiverr, Upwork e demais canais mencionados. O FlowOS™ entrega estrutura e documentação operacional — não promessas financeiras. Qualquer decisão de negócio, investimento em ferramentas ou mudança de trajetória profissional é de responsabilidade exclusiva do comprador.</div>
+</div>
+</div>
+</section>
 
-  <div class="divider"></div>
+<!-- CTA FINAL -->
+<section id="cta-final" style="padding:80px 0;text-align:center;border-top:1px solid var(--border)">
+<div class="container">
+<div class="section-eye">Comece agora</div>
+<h2 class="section-title" style="margin-bottom:16px">Você vai continuar acumulando conteúdo<br>ou vai começar a executar?</h2>
+<p style="font-size:16px;color:var(--text-1);max-width:540px;margin:0 auto 32px;line-height:1.7">O FlowOS™ não vai fazer o trabalho por você. Mas vai organizar o que você precisa fazer, quando fazer e como medir se está funcionando.</p>
+<div style="margin-bottom:24px">
+<div style="font-size:15px;color:var(--text-2);text-decoration:line-through;font-family:'DM Mono',monospace;margin-bottom:6px">De R$297</div>
+<div style="font-family:'Syne',sans-serif;font-weight:800;font-size:48px;letter-spacing:-0.03em">R$147</div>
+<div style="font-size:13px;color:var(--accent-3);font-family:'DM Mono',monospace;margin-top:4px">Founding Access · primeiras 10 vendas · ~€25</div>
+</div>
+<a href="https://app.gumroad.com/l/flowos" class="hero-cta" target="_blank" style="font-size:17px;padding:20px 48px">Acessar o FlowOS™ por R$147 →</a>
+<div style="margin-top:16px;font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace">🔒 Garantia de 7 dias · Acesso imediato · Sem mensalidade · Atualizações incluídas</div>
+</div>
+</section>
 
-  <!-- SYSTEM -->
-  <section>
-    <div class="wrap">
-      <div class="system-wrap fade-up">
-        <div class="system-top">
-          <span class="section-label">O Framework</span>
-          <h2>FlowOS™ não é um curso.<br>É infraestrutura de execução.</h2>
-          <p class="section-desc">Um curso te diz o que fazer. FlowOS™ te dá o sistema completo para fazer: workflows documentados, stack de ferramentas configurado, biblioteca de prompts para Claude AI e plano de execução por fases. A diferença entre saber e executar é arquitetura.</p>
-        </div>
-        <div class="system-pillars">
-          <div class="sys-pillar">
-            <div class="sys-pillar-num">01 / FOUNDATION</div>
-            <div class="sys-pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            </div>
-            <div class="sys-pillar-title">Stack Documentado</div>
-            <div class="sys-pillar-body">Cada ferramenta e integração especificada, configurada e testada. Custo total: €0–1. Sem surpresas, sem custos ocultos.</div>
-          </div>
-          <div class="sys-pillar">
-            <div class="sys-pillar-num">02 / EXECUTION</div>
-            <div class="sys-pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div class="sys-pillar-title">Workflow Library</div>
-            <div class="sys-pillar-body">42 workflows para Claude AI organizados por stack. Copie, cole e execute. Sem precisar escrever prompts — o sistema faz isso por você.</div>
-          </div>
-          <div class="sys-pillar">
-            <div class="sys-pillar-num">03 / DEPLOYMENT</div>
-            <div class="sys-pillar-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-            </div>
-            <div class="sys-pillar-title">Execution Blueprint</div>
-            <div class="sys-pillar-body">Plano de 5 dias por stack com tarefas diárias específicas. Do setup ao primeiro output publicado. Sem adivinhar o próximo passo.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!-- FOOTER -->
+<footer>
+<div class="container">
+<div class="footer-logo">Flow<em>OS</em>™</div>
+<div class="footer-sub" style="margin-bottom:8px">AI WORKFLOW MONETIZATION FRAMEWORK</div>
+<div class="footer-sub">Sistema de execução para renda online com IA · Produto educativo em português brasileiro</div>
+</div>
+</footer>
 
-  <div class="divider"></div>
-
-  <!-- STACKS -->
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-label">Os 6 Stacks</span>
-        <h2>Seis arquiteturas de monetização.<br>Uma escolha.</h2>
-        <p class="section-desc">Cada stack é um sistema completo — ferramentas, workflows, plano de execução e canais de distribuição. Você escolhe o que alinha com o seu perfil operacional.</p>
-      </div>
-      <div class="stacks-grid">
-
-        <div class="stack-card fade-up">
-          <div class="stack-header">
-            <div class="stack-num">STACK · 01</div>
-            <div class="stack-cost">€0 infra</div>
-          </div>
-          <div class="stack-icon" style="background:rgba(99,102,241,0.1)">📡</div>
-          <div class="stack-name">Faceless Content Infrastructure</div>
-          <div class="stack-desc">Canal de conteúdo 100% assíncrono — sem câmera, sem voz, sem identidade pública. Vídeo, áudio e roteiros gerados com IA e distribuídos em múltiplos canais.</div>
-          <div class="stack-meta">
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">STACK</div>
-              <div class="stack-tags">
-                <span class="tag">Claude AI</span><span class="tag">Kling AI</span><span class="tag">ElevenLabs</span><span class="tag">CapCut</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">CANAIS</div>
-              <div class="stack-tags">
-                <span class="tag">TikTok</span><span class="tag">YouTube</span><span class="tag">Instagram</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">RECEITA</div>
-              <div class="stack-tags">
-                <span class="tag">CPM</span><span class="tag">Afiliados</span><span class="tag">Produtos próprios</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="stack-card fade-up">
-          <div class="stack-header">
-            <div class="stack-num">STACK · 02</div>
-            <div class="stack-cost">€0 infra</div>
-          </div>
-          <div class="stack-icon" style="background:rgba(139,92,246,0.1)">⚡</div>
-          <div class="stack-name">Digital Product Engine</div>
-          <div class="stack-desc">Crie e distribua produtos digitais com Claude AI — templates, guias, pacotes de prompts e presets. Publique em marketplaces com tráfego orgânico incorporado.</div>
-          <div class="stack-meta">
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">STACK</div>
-              <div class="stack-tags">
-                <span class="tag">Claude AI</span><span class="tag">Canva</span><span class="tag">Gumroad</span><span class="tag">Etsy</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">CANAIS</div>
-              <div class="stack-tags">
-                <span class="tag">Etsy</span><span class="tag">Gumroad</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">RECEITA</div>
-              <div class="stack-tags">
-                <span class="tag">Venda direta</span><span class="tag">100% margem</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="stack-card fade-up">
-          <div class="stack-header">
-            <div class="stack-num">STACK · 03</div>
-            <div class="stack-cost">€0 infra</div>
-          </div>
-          <div class="stack-icon" style="background:rgba(16,185,129,0.1)">🎨</div>
-          <div class="stack-name">AI Print Studio</div>
-          <div class="stack-desc">Designs gerados com Ideogram AI. Aplicados em produtos físicos. Produção, estoque e envio totalmente automatizados — sem tocar em um único produto.</div>
-          <div class="stack-meta">
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">STACK</div>
-              <div class="stack-tags">
-                <span class="tag">Ideogram AI</span><span class="tag">Canva</span><span class="tag">Printify</span><span class="tag">Redbubble</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">CANAIS</div>
-              <div class="stack-tags">
-                <span class="tag">Etsy</span><span class="tag">Redbubble</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">RECEITA</div>
-              <div class="stack-tags">
-                <span class="tag">Margem por venda</span><span class="tag">Royalties</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="stack-card fade-up">
-          <div class="stack-header">
-            <div class="stack-num">STACK · 04</div>
-            <div class="stack-cost">€1/mês</div>
-          </div>
-          <div class="stack-icon" style="background:rgba(245,158,11,0.1)">🏪</div>
-          <div class="stack-name">AI Commerce Stack</div>
-          <div class="stack-desc">Produto selecionado por análise de dados. Vídeo gerado com Kling AI. Loja automatizada com DSers e Shopify. Margens de 2-4x sem gestão de estoque.</div>
-          <div class="stack-meta">
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">STACK</div>
-              <div class="stack-tags">
-                <span class="tag">Claude AI</span><span class="tag">Kling AI</span><span class="tag">Shopify</span><span class="tag">DSers</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">CANAIS</div>
-              <div class="stack-tags">
-                <span class="tag">TikTok Shop</span><span class="tag">Instagram</span><span class="tag">Shopify</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">RECEITA</div>
-              <div class="stack-tags">
-                <span class="tag">Margem por transação</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="stack-card fade-up">
-          <div class="stack-header">
-            <div class="stack-num">STACK · 05</div>
-            <div class="stack-cost">€0 infra</div>
-          </div>
-          <div class="stack-icon" style="background:rgba(244,63,94,0.1)">🔧</div>
-          <div class="stack-name">AI-Augmented Services</div>
-          <div class="stack-desc">Serviços de copywriting, produção de conteúdo e gestão de redes sociais com IA como alavanca operacional. Entrega mais rápida, margem superior, capacidade escalável.</div>
-          <div class="stack-meta">
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">STACK</div>
-              <div class="stack-tags">
-                <span class="tag">Claude AI</span><span class="tag">CapCut</span><span class="tag">Canva</span><span class="tag">Fiverr</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">CANAIS</div>
-              <div class="stack-tags">
-                <span class="tag">Fiverr</span><span class="tag">Upwork</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">RECEITA</div>
-              <div class="stack-tags">
-                <span class="tag">Por projeto</span><span class="tag">Retainer mensal</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="stack-card fade-up">
-          <div class="stack-header">
-            <div class="stack-num">STACK · 06</div>
-            <div class="stack-cost">€0 infra</div>
-          </div>
-          <div class="stack-icon" style="background:rgba(99,102,241,0.1)">∞</div>
-          <div class="stack-name">Evergreen Affiliate System</div>
-          <div class="stack-desc">Conteúdo editorial e newsletters criados com Claude AI que geram comissões de forma assíncrona. Publicado uma vez. Distribui indefinidamente.</div>
-          <div class="stack-meta">
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">STACK</div>
-              <div class="stack-tags">
-                <span class="tag">Claude AI</span><span class="tag">Beehiiv</span><span class="tag">Awin</span><span class="tag">WordPress</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">CANAIS</div>
-              <div class="stack-tags">
-                <span class="tag">SEO</span><span class="tag">Newsletter</span><span class="tag">Social</span>
-              </div>
-            </div>
-            <div class="stack-meta-row">
-              <div class="stack-meta-label">RECEITA</div>
-              <div class="stack-tags">
-                <span class="tag">Comissões de afiliados</span><span class="tag">Patrocínios</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- INCLUDED -->
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-label">Conteúdo Completo</span>
-        <h2>FlowOS™ Founding Access.<br>Tudo incluído.</h2>
-      </div>
-      <div class="included-grid fade-up">
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">Core System — 6 Stacks Operacionais</div>
-            <div class="included-body">Documentação completa de cada stack: arquitetura, ferramentas, integrações e plano de execução de 5 dias. 19 páginas estruturadas.</div>
-            <div class="included-ref">REF. €79</div>
-          </div>
-        </div>
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">Workflow Library — 42 Prompts para Claude AI</div>
-            <div class="included-body">7 workflows específicos por stack + prompts universais de produção. Testados e organizados para execução direta por copy-paste.</div>
-            <div class="included-ref">REF. €49</div>
-          </div>
-        </div>
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">Infrastructure Setup Guide — 8 Ferramentas</div>
-            <div class="included-body">Guia de configuração das 8 ferramentas base. Pronto em menos de 30 minutos. Custo total: €0–1.</div>
-            <div class="included-ref">REF. €29</div>
-          </div>
-        </div>
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">Stack Expansion Guide</div>
-            <div class="included-body">Ferramentas secundárias de cada stack — Shopify, DSers, Printify, Fiverr, Beehiiv, Awin e mais. Integração e configuração documentadas.</div>
-            <div class="included-ref">BÔNUS A · REF. €19</div>
-          </div>
-        </div>
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">Pre-Launch Checklist</div>
-            <div class="included-body">Lista de verificação antes de cada ativação ou publicação. Elimina os erros de setup mais comuns que custam dias de progresso.</div>
-            <div class="included-ref">BÔNUS B · REF. €9</div>
-          </div>
-        </div>
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">European Traffic Playbook</div>
-            <div class="included-body">Organic distribution channels for the Mercado europeu. TikTok, YouTube, Instagram, Pinterest, SEO, Etsy — when and how to use each channel per stack.</div>
-            <div class="included-ref">BÔNUS C · REF. €19</div>
-          </div>
-        </div>
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">Critical Failure Analysis</div>
-            <div class="included-body">Os 10 erros operacionais que consomem meses de progresso. Lê antes de activar qualquer stack — poupa semanas de tentativa e erro.</div>
-            <div class="included-ref">BÔNUS D · REF. €9</div>
-          </div>
-        </div>
-        <div class="included-card">
-          <div class="included-check">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-          </div>
-          <div>
-            <div class="included-title">Atualizações Futuras Incluídas</div>
-            <div class="included-body">Acesso a todas as actualizações do sistema sem custo adicional. O Framework evolui com as tools — o teu acesso não expira.</div>
-            <div class="included-ref">ACESSO PERMANENTE</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- PRICING -->
-  <section id="oferta">
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-label">Founding Access</span>
-        <h2>Acesso único. Sem assinatura.</h2>
-        <p class="section-desc">Pagamento único de R$47. Acesso permanente ao sistema completo, incluindo atualizações futuras.</p>
-      </div>
-      <div class="pricing-wrap fade-up">
-        <div class="pricing-list">
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span><strong>Sistema principal</strong> — 6 stacks documentados</span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span><strong>42 workflows</strong> para Claude AI organizados por stack</span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span><strong>Infrastructure setup guide</strong> — 8 ferramentas configuradas</span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span>Stack Expansion Guide <strong>(Bônus A)</strong></span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span>Pre-Launch Checklist <strong>(Bônus B)</strong></span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span>European Traffic Playbook <strong>(Bônus C)</strong></span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span>Critical Failure Analysis <strong>(Bônus D)</strong></span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span><strong>Atualizações futuras</strong> incluídas — acesso permanente</span>
-          </div>
-          <div class="pricing-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            <span><strong>Acesso imediato</strong> após pagamento</span>
-          </div>
-        </div>
-        <div class="pricing-card">
-          <div class="pricing-eyebrow">FlowOS™ · Founding Access</div>
-          <div class="price-ref">
-            <s>Valor de referência: R$213+</s>
-          </div>
-          <div class="price-main"><span>R$</span>47</div>
-          <div class="price-note">PAGAMENTO ÚNICO · SEM ASSINATURA</div>
-          <a href="https://pay.kiwify.com.br/Btg1xGX" class="btn-primary" style="width:100%;justify-content:center;font-size:15px;">
-            Ativar FlowOS™ Agora
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 8h10M9 4l4 4-4 4"/>
-            </svg>
-          </a>
-          <div class="price-divider"></div>
-          <div class="guarantee">
-            <div class="guarantee-icon">🛡</div>
-            <div class="guarantee-text">
-              <strong>Garantia de 7 dias — devolução total, sem condições.</strong> Se por qualquer razão o sistema não corresponder às expectativas, recuperas R$47 na totalidade. Processo directo, sem formulários.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- MARKET LOGIC -->
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-label">Lógica de Mercado</span>
-        <h2>A lógica por trás do sistema.</h2>
-        <p class="section-desc">Sem resultados pessoais para mostrar — sem inventar. As condições de mercado são públicas e verificáveis.</p>
-      </div>
-      <div class="logic-grid fade-up">
-        <div class="logic-card">
-          <div class="logic-value"><span>200M+</span></div>
-          <div class="logic-title">Usuários ativos do TikTok na Europa</div>
-          <div class="logic-body">O mercado de atenção existe e está ativo. A saturação de conteúdo faceless com IA ainda está em fase inicial comparada aos EUA — a janela de oportunidade é real.</div>
-          <div class="logic-source">TikTok for Business Europe, 2024</div>
-        </div>
-        <div class="logic-card">
-          <div class="logic-value"><span>€0–1</span></div>
-          <div class="logic-title">Custo de infraestrutura base (5/6 stacks)</div>
-          <div class="logic-body">Claude AI, Kling AI (66 créditos/dia), ElevenLabs (10.000 chars/mês), Canva, Ideogram (25 gerações/dia) — todos com planos gratuitos suficientes para começar.</div>
-          <div class="logic-source">Verificável nos planos atuais de cada ferramenta</div>
-        </div>
-        <div class="logic-card">
-          <div class="logic-value"><span>5</span> <span style="font-size:18px;color:var(--text-2)">days</span></div>
-          <div class="logic-title">Tempo médio de ativação por stack</div>
-          <div class="logic-body">Não é uma promessa de resultado — é o tempo documentado para configurar o stack, produzir o primeiro output e publicar no canal certo. O resultado financeiro depende da execução.</div>
-          <div class="logic-source">Baseado no plano de execução de cada stack</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- FIT -->
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-label">Alinhamento de Perfil</span>
-        <h2>Para quem é. Para quem não é.</h2>
-      </div>
-      <div class="fit-grid fade-up">
-        <div class="fit-card yes">
-          <div class="fit-title">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-            FlowOS™ é adequado se...
-          </div>
-          <div class="fit-list">
-            <div class="fit-item">
-              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Você quer operar online sem exposição de identidade pessoal
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Você prefere sistemas documentados a tutoriais dispersos
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Você tem 45–90 minutos diários para execução durante 5 dias
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              You operate in or for the Mercado europeu
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Você quer explorar vários modelos antes de especializar
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot yes" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="2 8 6 12 14 4"/></svg>
-              Você entende que retorno financeiro é função de execução, não de acesso à informação
-            </div>
-          </div>
-        </div>
-        <div class="fit-card no">
-          <div class="fit-title">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-            FlowOS™ não é adequado se...
-          </div>
-          <div class="fit-list">
-            <div class="fit-item">
-              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-              Você espera retorno financeiro sem execução consistente
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-              Você quer resultados garantidos de renda específica
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-              Você não tem acesso à internet ou a um computador básico
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-              Você já tem operação avançada em todos os 6 modelos
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-              Você procura mentoria personalizada com acompanhamento individual
-            </div>
-            <div class="fit-item">
-              <svg class="fit-item-dot no" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"/><line x1="12" y1="4" x2="4" y2="12"/></svg>
-              Você quer automação total sem nenhum envolvimento operacional
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- FAQ -->
-  <section>
-    <div class="wrap">
-      <div class="section-header">
-        <span class="section-label">Perguntas Frequentes</span>
-        <h2>Perguntas diretas.<br>Respostas diretas.</h2>
-      </div>
-      <div class="faq-list fade-up">
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
-            O sistema funciona na Europa? Os prazos do dropshipping não são longos?
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
-          </div>
-          <div class="faq-a">The dropshipping stack (Stack 04) is specifically configured with suppliers with European warehouses — CJ Dropshipping EU and Spocket — with delivery times of 5 to 10 business days. The guide specifies the suppliers, product selection criteria and DSers configurations for the Mercado europeu. The other 5 stacks are 100% digital — no shipping, no inventory, no logistics.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
-            As ferramentas são realmente gratuitas ou há custos ocultos?
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
-          </div>
-          <div class="faq-a">
-            Planos gratuitos suficientes para começar:
-            <ul>
-              <li>Claude AI — plano gratuito disponível</li>
-              <li>Kling AI — 66 créditos/dia no plano gratuito</li>
-              <li>ElevenLabs — 10.000 caracteres/mês gratuitos</li>
-              <li>CapCut — gratuito</li>
-              <li>Ideogram AI — 25 gerações/dia gratuitas</li>
-              <li>Canva — gratuito</li>
-              <li>Gumroad — gratuito (comissão por venda)</li>
-            </ul>
-            O único custo obrigatório é o trial do Shopify em €1/mês — e apenas para o Stack 04. O guia especifica exactamente o que é free, o que tem limite e quando faz sentido actualizar.
-          </div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
-            Não tenho nenhuma experiência. Consigo executar?
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
-          </div>
-          <div class="faq-a">O sistema foi construído para operadores sem experiência prévia. Cada ferramenta tem um guia de setup documentado. Os 42 workflows para Claude AI funcionam por copy-paste — não é necessário conhecimento de engenharia de prompts. Os planos de 5 days são compostos por tarefas específicas e sequenciais, não por orientações genéricas. Se consegues usar um browser e uma conta de email, consegues executar qualquer um dos 6 stacks.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
-            Por que custa R$47 se há informação gratuita no YouTube?
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
-          </div>
-          <div class="faq-a">A informação existe. O que o FlowOS™ fornece é diferente: curadoria específica para o mercado europeu em 2026, organização em planos de execução de 5 days com tarefas concretas (não teorias), 42 workflows testados para Claude AI, stack de tools com custos €0–1 documentado e configurado, e filtragem do ruído — o que é relevante vs. o que está desactualizado. O teu tempo é o recurso mais escasso. R$47 compra arquitectura — não informação.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
-            Preciso de empresa ou CNPJ para começar?
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
-          </div>
-          <div class="faq-a">For the validation phase, no — most European countries have exemption regimes for low-volume income. The system includes a section on legal framework summary for the main Mercado europeus, with references to each country's official resources. The recommended approach: activate, validate, legalise when the volume justifies it.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">
-            E se não for o que eu esperava?
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="3" x2="8" y2="13"/><line x1="3" y1="8" x2="13" y2="8"/></svg>
-          </div>
-          <div class="faq-a">Você tem 7 dias de garantia de devolução total. Se o sistema não corresponder às expectativas por qualquer razão, solicite a devolução e recupere R$47 na totalidade. Processo direto, sem condições, sem formulários extensos. O risco é do nosso lado — a única condição é executares.</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- CLOSE -->
-  <section class="close-section">
-    <div class="wrap">
-      <span class="section-label">Decisão Final</span>
-      <h2 class="fade-up">Em 5 dias, ou você tem um stack ativo — ou tem R$47 de volta.</h2>
-      <p class="section-desc fade-up">A decisão é simples. O risco financeiro é R$47. O risco operacional é 5 dias de execução. Se não funcionar, você devolve e recupera tudo. O que você não consegue recuperar é o tempo gasto procurando o sistema certo em vez de executá-lo.</p>
-      <br/><br/>
-      <a href="https://pay.kiwify.com.br/Btg1xGX" class="btn-primary fade-up">
-        Ativar FlowOS™ — R$47 · Acesso Imediato
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 8h10M9 4l4 4-4 4"/>
-        </svg>
-      </a>
-      <br/><br/>
-      <div class="guarantee" style="max-width:420px;margin:24px auto 0;text-align:left;">
-        <div class="guarantee-icon">🛡</div>
-        <div class="guarantee-text">
-          <strong>Garantia de 7 dias — devolução total, sem condições.</strong> Recuperas R$47 na totalidade se não ficares satisfeito. Sem perguntas, sem burocracia.
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="wrap">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <div class="footer-logo">Flow<span>OS</span>™</div>
-          <div class="footer-disclaimer">Este produto é de natureza educativa e operacional. Os resultados financeiros dependem da execução individual e variam de operador para operador. Não são garantidos rendimentos específicos de qualquer valor.</div>
-        </div>
-        <div class="footer-right">
-          <div>FlowOS™ · AI Workflow Monetization Framework</div>
-          <div>Edição Fundadora · Europa 2026</div>
-          <div style="margin-top:8px;opacity:0.5">Todos os direitos reservados</div>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    // FAQ toggle
-    function toggleFaq(el) {
-      const item = el.parentElement;
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
-    }
-
-    // Scroll animations
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 60);
-          observer.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.08 });
-
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-    // Animated counters in metrics
-    function animateCount(el, target, suffix='') {
-      let start = 0;
-      const isFloat = target.includes('.');
-      const num = parseFloat(target.replace(/[^0-9.]/g,''));
-      const prefix = target.match(/^[^0-9]*/)?.[0] || '';
-      const duration = 1200;
-      const startTime = performance.now();
-      function update(now) {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const current = eased * num;
-        el.textContent = prefix + (isFloat ? current.toFixed(1) : Math.floor(current)) + (progress < 1 ? '' : suffix);
-        if (progress < 1) requestAnimationFrame(update);
-      }
-      requestAnimationFrame(update);
-    }
-
-    const metricObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const targets = ['6','42','€0','5'];
-          e.target.querySelectorAll('.metric-value span').forEach((el, i) => {
-            setTimeout(() => animateCount(el, targets[i]), i * 120);
-          });
-          metricObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    const metricsEl = document.querySelector('.metrics');
-    if (metricsEl) metricObserver.observe(metricsEl);
-  </script>
+<script>
+function toggleFaq(el) {
+  var item = el.closest('.faq-item');
+  var wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(function(i) { i.classList.remove('open'); });
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>
