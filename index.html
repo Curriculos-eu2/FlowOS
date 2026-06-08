@@ -10,26 +10,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
---bg-0:#07070D;--bg-1:#0D0D1A;--bg-2:#12121F;--bg-3:#1A1A2E;
---border:#1E1E35;--border-glow:rgba(99,102,241,0.25);
---accent:#6366F1;--accent-2:#8B5CF6;--accent-3:#A78BFA;
---text-0:#F4F4FA;--text-1:#A0A0C0;--text-2:#5C5C80;
---green:#10B981;--red:#F43F5E;--amber:#F59E0B;
---radius:10px;--radius-lg:16px
-}
+:root{--bg-0:#07070D;--bg-1:#0D0D1A;--bg-2:#12121F;--bg-3:#1A1A2E;--border:#1E1E35;--border-glow:rgba(99,102,241,0.25);--accent:#6366F1;--accent-2:#8B5CF6;--accent-3:#A78BFA;--text-0:#F4F4FA;--text-1:#A0A0C0;--text-2:#5C5C80;--green:#10B981;--red:#F43F5E;--amber:#F59E0B;--radius:10px;--radius-lg:16px}
 html{scroll-behavior:smooth}
 body{background:var(--bg-0);color:var(--text-0);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:0.4}
 .container{max-width:900px;margin:0 auto;padding:0 24px}
-/* TOPBAR */
 .topbar{position:sticky;top:0;z-index:100;background:rgba(7,7,13,0.92);border-bottom:1px solid var(--border);backdrop-filter:blur(12px);padding:14px 0}
 .topbar-inner{display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto;padding:0 24px}
 .logo{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;letter-spacing:-0.02em}
 .logo em{color:var(--accent);font-style:normal}
 .topbar-badge{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:100px;padding:4px 12px}
 .topbar-cta{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:600;font-size:13px;border:none;border-radius:8px;padding:10px 20px;cursor:pointer;font-family:'DM Sans',sans-serif;text-decoration:none;display:inline-block}
-/* HERO */
 .hero{padding:80px 0 64px;text-align:center;position:relative}
 .hero-eyebrow{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:20px}
 .hero-headline{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,6vw,52px);line-height:1.1;letter-spacing:-0.03em;margin-bottom:20px}
@@ -45,16 +36,13 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .hero-bullets{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:32px 0}
 .hero-bullet{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-1);background:var(--bg-1);border:1px solid var(--border);border-radius:100px;padding:7px 16px}
 .hero-bullet span{color:var(--green)}
-/* SECTIONS */
 section{padding:64px 0;border-top:1px solid var(--border)}
 .section-eye{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
 .section-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4vw,32px);letter-spacing:-0.025em;margin-bottom:16px;line-height:1.2}
 .section-desc{font-size:15px;color:var(--text-1);max-width:620px;line-height:1.75;margin-bottom:32px}
-/* PROBLEM */
 .problem-list{display:flex;flex-direction:column;gap:12px;max-width:600px}
 .problem-item{display:flex;align-items:flex-start;gap:12px;font-size:15px;color:var(--text-1);padding:14px 18px;background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius)}
 .problem-icon{font-size:16px;flex-shrink:0;margin-top:2px}
-/* MECHANISM */
 .mechanism-box{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px;margin-bottom:24px}
 .mechanism-title{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;margin-bottom:8px}
 .mechanism-desc{font-size:14px;color:var(--text-1);line-height:1.7}
@@ -63,7 +51,6 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .mstep-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.08em;margin-bottom:8px}
 .mstep-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;margin-bottom:6px}
 .mstep-desc{font-size:12px;color:var(--text-1);line-height:1.6}
-/* FOR WHO */
 .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .who-box{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px}
 .who-box.is{border-color:rgba(16,185,129,.2)}
@@ -75,7 +62,6 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .who-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--text-1);line-height:1.5}
 .who-dot.is{color:var(--green)}
 .who-dot.not{color:var(--red)}
-/* STACKS */
 .stacks-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .stack-card{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px;transition:border-color .2s}
 .stack-card:hover{border-color:rgba(99,102,241,.3)}
@@ -85,13 +71,11 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .stack-promise{font-size:13px;color:var(--text-1);line-height:1.55;margin-bottom:12px}
 .stack-meta{display:flex;gap:6px;flex-wrap:wrap}
 .stack-tag{font-size:11px;color:var(--text-2);background:var(--bg-2);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-family:'DM Mono',monospace}
-/* SELECTOR */
 .selector-box{background:var(--bg-1);border:1px solid rgba(99,102,241,.2);border-radius:var(--radius-lg);padding:32px}
 .selector-matrix{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}
 .selector-item{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
 .selector-question{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent-3);letter-spacing:.06em;margin-bottom:8px}
 .selector-answer{font-size:13px;color:var(--text-1);line-height:1.6}
-/* 30 DAY OS */
 .weeks{display:flex;flex-direction:column;gap:14px}
 .week-card{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px}
 .week-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.1em;margin-bottom:8px}
@@ -99,7 +83,6 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .week-tasks{display:flex;flex-direction:column;gap:6px}
 .week-task{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--text-1)}
 .week-dot{color:var(--accent);flex-shrink:0}
-/* WORKFLOWS */
 .wf-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}
 .wf-stat{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
 .wf-stat-num{font-family:'Syne',sans-serif;font-weight:800;font-size:32px;color:var(--accent);margin-bottom:4px}
@@ -108,13 +91,11 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .wf-example{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px}
 .wf-example-tag{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:6px}
 .wf-example-title{font-size:14px;color:var(--text-1)}
-/* BONUS */
 .bonus-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .bonus-card{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius-lg);padding:22px}
 .bonus-icon{font-size:24px;margin-bottom:12px}
 .bonus-name{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:6px}
 .bonus-desc{font-size:13px;color:var(--text-1);line-height:1.6}
-/* COMPARISON */
 .compare-table{width:100%;border-collapse:collapse}
 .compare-table th{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;padding:14px 18px;border-bottom:1px solid var(--border);text-align:left}
 .compare-table th:nth-child(2){color:var(--accent)}
@@ -123,7 +104,6 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .compare-table td:nth-child(2){color:var(--text-0)}
 .compare-check{color:var(--green)}
 .compare-x{color:var(--red)}
-/* OFFER */
 .offer-box{background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(139,92,246,.05));border:1px solid rgba(99,102,241,.3);border-radius:var(--radius-lg);padding:40px;text-align:center}
 .offer-badge{font-family:'DM Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.1em;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);border-radius:100px;padding:6px 16px;display:inline-block;margin-bottom:20px}
 .offer-title{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,4vw,32px);margin-bottom:12px;letter-spacing:-0.02em}
@@ -138,12 +118,10 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .offer-cta{display:inline-block;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:700;font-size:17px;border-radius:12px;padding:20px 48px;text-decoration:none;margin-bottom:14px;transition:opacity .2s}
 .offer-cta:hover{opacity:.9}
 .offer-guarantee{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
-/* GUARANTEE */
 .guarantee-box{background:var(--bg-1);border:1px solid rgba(16,185,129,.2);border-radius:var(--radius-lg);padding:32px;display:flex;gap:24px;align-items:flex-start}
 .guarantee-icon{font-size:40px;flex-shrink:0}
 .guarantee-title{font-family:'Syne',sans-serif;font-weight:700;font-size:20px;margin-bottom:8px}
 .guarantee-desc{font-size:14px;color:var(--text-1);line-height:1.7}
-/* FAQ */
 .faq-list{display:flex;flex-direction:column;gap:10px}
 .faq-item{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
 .faq-q{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;cursor:pointer;user-select:none;font-weight:500;font-size:15px;transition:background .2s}
@@ -153,27 +131,17 @@ section{padding:64px 0;border-top:1px solid var(--border)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
 .faq-item.open .faq-a{max-height:300px}
 .faq-a-inner{padding:0 20px 18px;font-size:14px;color:var(--text-1);line-height:1.75;border-top:1px solid var(--border)}
-/* DISCLAIMER */
 .disclaimer-box{background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:24px}
 .disclaimer-title{font-family:'DM Mono',monospace;font-size:11px;color:var(--text-2);letter-spacing:.08em;margin-bottom:12px}
 .disclaimer-text{font-size:13px;color:var(--text-2);line-height:1.75}
-/* FOOTER */
 footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 .footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;margin-bottom:8px}
 .footer-logo em{color:var(--accent);font-style:normal}
 .footer-sub{font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace}
-/* RESPONSIVE */
-@media(max-width:720px){
-.who-grid,.stacks-grid,.selector-matrix,.bonus-grid,.wf-stats{grid-template-columns:1fr}
-.mechanism-steps{grid-template-columns:1fr}
-.guarantee-box{flex-direction:column}
-.offer-box{padding:28px 20px}
-.hero{padding:56px 0 48px}
-}
+@media(max-width:720px){.who-grid,.stacks-grid,.selector-matrix,.bonus-grid,.wf-stats{grid-template-columns:1fr}.mechanism-steps{grid-template-columns:1fr}.guarantee-box{flex-direction:column}.offer-box{padding:28px 20px}.hero{padding:56px 0 48px}}
 </style>
 </head>
 <body>
-<!-- TOPBAR -->
 <div class="topbar">
 <div class="topbar-inner">
 <div class="logo">Flow<em>OS</em>™</div>
@@ -181,8 +149,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <a href="#oferta" class="topbar-cta">Quero Acessar</a>
 </div>
 </div>
-
-<!-- HERO -->
 <section class="hero" style="border:none">
 <div class="container">
 <div class="hero-eyebrow">FlowOS™ · Founding Access · Edição Fundadora</div>
@@ -205,8 +171,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <div class="hero-guarantee">🔒 Garantia de 7 dias · Acesso permanente · Sem mensalidade</div>
 </div>
 </section>
-
-<!-- PROBLEMA -->
 <section id="problema">
 <div class="container">
 <div class="section-eye">O Problema</div>
@@ -222,8 +186,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 </div>
 </div>
 </section>
-
-<!-- MECANISMO -->
 <section id="mecanismo">
 <div class="container">
 <div class="section-eye">O Mecanismo</div>
@@ -241,7 +203,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <p class="section-desc" style="margin-bottom:0">O FlowOS™ <strong>não é</strong> um método secreto, uma fórmula mágica ou uma promessa de renda garantida. É documentação operacional para quem prefere sistemas a gurus.</p>
 </div>
 </section>
-<!-- PARA QUEM É -->
 <section id="para-quem">
 <div class="container">
 <div class="section-eye">Público</div>
@@ -274,78 +235,21 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 </div>
 </div>
 </section>
-
-<!-- 6 STACKS -->
 <section id="stacks">
 <div class="container">
 <div class="section-eye">Os 6 Stacks</div>
 <h2 class="section-title">6 modelos de renda online com IA.<br>Cada um documentado do zero ao primeiro resultado.</h2>
 <p class="section-desc">Não são 6 ideias soltas. São 6 stacks operacionais com ferramentas, canais, setup de 5 dias, rotina de 30 dias e workflows prontos para Claude AI.</p>
 <div class="stacks-grid">
-<div class="stack-card">
-<div class="stack-stripe" style="background:#6366F1"></div>
-<div class="stack-num">STACK 01</div>
-<div class="stack-name">Faceless Content</div>
-<div class="stack-promise">Canal de conteúdo com IA — sem câmera, sem voz, sem identidade pública. Você gera roteiro, vídeo e áudio 100% com IA e publica em múltiplas plataformas.</div>
-<div class="stack-meta">
-<span class="stack-tag">TikTok</span><span class="stack-tag">YouTube</span><span class="stack-tag">Instagram</span>
-<span class="stack-tag">CPM + Afiliados</span><span class="stack-tag">€0 setup</span>
-</div>
-</div>
-<div class="stack-card">
-<div class="stack-stripe" style="background:#8B5CF6"></div>
-<div class="stack-num">STACK 02</div>
-<div class="stack-name">Digital Products</div>
-<div class="stack-promise">Crie e venda templates, guias, pacotes de prompts e presets com Claude AI. Distribua no Etsy e Gumroad com tráfego orgânico já incorporado. Margem de 100%.</div>
-<div class="stack-meta">
-<span class="stack-tag">Etsy</span><span class="stack-tag">Gumroad</span>
-<span class="stack-tag">Venda direta</span><span class="stack-tag">€0 setup</span>
-</div>
-</div>
-<div class="stack-card">
-<div class="stack-stripe" style="background:#10B981"></div>
-<div class="stack-num">STACK 03</div>
-<div class="stack-name">AI Print Studio</div>
-<div class="stack-promise">Designs gerados com Ideogram AI, produção automática com Printify, distribuição no Etsy e Redbubble. Zero estoque, zero logística, envio para a Europa automático.</div>
-<div class="stack-meta">
-<span class="stack-tag">Etsy</span><span class="stack-tag">Redbubble</span>
-<span class="stack-tag">Margem + Royalties</span><span class="stack-tag">€0 setup</span>
-</div>
-</div>
-<div class="stack-card">
-<div class="stack-stripe" style="background:#F59E0B"></div>
-<div class="stack-num">STACK 04</div>
-<div class="stack-name">AI Commerce</div>
-<div class="stack-promise">Produto escolhido com dados, vídeo criado por IA, pedidos automatizados via DSers. Fornecedores com armazém na Europa, entrega em 5–8 dias. Margem de 2–4x.</div>
-<div class="stack-meta">
-<span class="stack-tag">TikTok Shop</span><span class="stack-tag">Shopify</span>
-<span class="stack-tag">Margem 2–4x</span><span class="stack-tag">~€1/mês</span>
-</div>
-</div>
-<div class="stack-card">
-<div class="stack-stripe" style="background:#F43F5E"></div>
-<div class="stack-num">STACK 05</div>
-<div class="stack-name">AI Services</div>
-<div class="stack-promise">Ofereça copywriting, conteúdo e gestão de redes com IA como alavanca. Entregue mais rápido, com qualidade consistente. Fiverr e Upwork têm tráfego incorporado — sem precisar de audiência.</div>
-<div class="stack-meta">
-<span class="stack-tag">Fiverr</span><span class="stack-tag">Upwork</span>
-<span class="stack-tag">Projeto ou Retainer</span><span class="stack-tag">€0 setup</span>
-</div>
-</div>
-<div class="stack-card">
-<div class="stack-stripe" style="background:#06B6D4"></div>
-<div class="stack-num">STACK 06</div>
-<div class="stack-name">Evergreen Affiliate</div>
-<div class="stack-promise">Artigos SEO e newsletters criados com Claude AI que geram comissões de forma assíncrona. Conteúdo publicado uma vez, receita gerada indefinidamente. Programas europeus via Awin.</div>
-<div class="stack-meta">
-<span class="stack-tag">SEO</span><span class="stack-tag">Newsletter</span><span class="stack-tag">Awin</span>
-<span class="stack-tag">Comissões 3–15%</span><span class="stack-tag">€0 setup</span>
-</div>
-</div>
+<div class="stack-card"><div class="stack-stripe" style="background:#6366F1"></div><div class="stack-num">STACK 01</div><div class="stack-name">Faceless Content</div><div class="stack-promise">Canal de conteúdo com IA — sem câmera, sem voz, sem identidade pública. Você gera roteiro, vídeo e áudio 100% com IA e publica em múltiplas plataformas.</div><div class="stack-meta"><span class="stack-tag">TikTok</span><span class="stack-tag">YouTube</span><span class="stack-tag">Instagram</span><span class="stack-tag">CPM + Afiliados</span><span class="stack-tag">€0 setup</span></div></div>
+<div class="stack-card"><div class="stack-stripe" style="background:#8B5CF6"></div><div class="stack-num">STACK 02</div><div class="stack-name">Digital Products</div><div class="stack-promise">Crie e venda templates, guias, pacotes de prompts e presets com Claude AI. Distribua no Etsy e Gumroad com tráfego orgânico já incorporado. Margem de 100%.</div><div class="stack-meta"><span class="stack-tag">Etsy</span><span class="stack-tag">Gumroad</span><span class="stack-tag">Venda direta</span><span class="stack-tag">€0 setup</span></div></div>
+<div class="stack-card"><div class="stack-stripe" style="background:#10B981"></div><div class="stack-num">STACK 03</div><div class="stack-name">AI Print Studio</div><div class="stack-promise">Designs gerados com Ideogram AI, produção automática com Printify, distribuição no Etsy e Redbubble. Zero estoque, zero logística, envio para a Europa automático.</div><div class="stack-meta"><span class="stack-tag">Etsy</span><span class="stack-tag">Redbubble</span><span class="stack-tag">Margem + Royalties</span><span class="stack-tag">€0 setup</span></div></div>
+<div class="stack-card"><div class="stack-stripe" style="background:#F59E0B"></div><div class="stack-num">STACK 04</div><div class="stack-name">AI Commerce</div><div class="stack-promise">Produto escolhido com dados, vídeo criado por IA, pedidos automatizados via DSers. Fornecedores com armazém na Europa, entrega em 5–8 dias. Margem de 2–4x.</div><div class="stack-meta"><span class="stack-tag">TikTok Shop</span><span class="stack-tag">Shopify</span><span class="stack-tag">Margem 2–4x</span><span class="stack-tag">~€1/mês</span></div></div>
+<div class="stack-card"><div class="stack-stripe" style="background:#F43F5E"></div><div class="stack-num">STACK 05</div><div class="stack-name">AI Services</div><div class="stack-promise">Ofereça copywriting, conteúdo e gestão de redes com IA como alavanca. Entregue mais rápido, com qualidade consistente. Fiverr e Upwork têm tráfego incorporado — sem precisar de audiência.</div><div class="stack-meta"><span class="stack-tag">Fiverr</span><span class="stack-tag">Upwork</span><span class="stack-tag">Projeto ou Retainer</span><span class="stack-tag">€0 setup</span></div></div>
+<div class="stack-card"><div class="stack-stripe" style="background:#06B6D4"></div><div class="stack-num">STACK 06</div><div class="stack-name">Evergreen Affiliate</div><div class="stack-promise">Artigos SEO e newsletters criados com Claude AI que geram comissões de forma assíncrona. Conteúdo publicado uma vez, receita gerada indefinidamente. Programas europeus via Awin.</div><div class="stack-meta"><span class="stack-tag">SEO</span><span class="stack-tag">Newsletter</span><span class="stack-tag">Awin</span><span class="stack-tag">Comissões 3–15%</span><span class="stack-tag">€0 setup</span></div></div>
 </div>
 </div>
 </section>
-<!-- STACK SELECTOR -->
 <section id="stack-selector">
 <div class="container">
 <div class="section-eye">Stack Selector</div>
@@ -354,101 +258,34 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <div class="selector-box">
 <div class="section-eye" style="margin-bottom:8px">As 9 perguntas do Stack Selector</div>
 <div class="selector-matrix">
-<div class="selector-item">
-<div class="selector-question">01 · TEMPO DISPONÍVEL</div>
-<div class="selector-answer">Você tem menos de 1h por dia → Serviços ou Afiliados. Mais de 2h → Commerce ou Faceless Content.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">02 · QUER APARECER?</div>
-<div class="selector-answer">Não quer aparecer → Faceless Content, Print Studio ou Produtos Digitais. Sem restrição → qualquer stack.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">03 · PREFERÊNCIA DE MODELO</div>
-<div class="selector-answer">Serviço → AI Services. Produto digital → Digital Products. Conteúdo → Faceless. Afiliado → Evergreen. E-commerce → Commerce ou Print Studio.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">04 · NÍVEL DE EXPERIÊNCIA</div>
-<div class="selector-answer">Iniciante completo → Digital Products ou Print Studio. Tem alguma experiência → qualquer stack com suporte dos workflows.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">05 · TOLERÂNCIA A RISCO</div>
-<div class="selector-answer">Risco mínimo → Serviços ou Produtos Digitais. Risco médio → Print Studio ou Faceless. Risco maior → Commerce.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">06 · RETORNO ESPERADO</div>
-<div class="selector-answer">Precisa de retorno rápido (dias) → Serviços. Aceita esperar semanas → Digital Products ou Print. Aceita meses → Afiliados ou Faceless Content.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">07 · CRIAR CONTEÚDO</div>
-<div class="selector-answer">Gosta de escrever → Afiliados ou Produtos Digitais. Prefere visual → Print Studio. Indiferente → Faceless Content com IA.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">08 · MORA NA EUROPA</div>
-<div class="selector-answer">Sim → Print Studio (Printify EU), AI Commerce (CJ EU), Afiliados (Awin EU) têm vantagem operacional real.</div>
-</div>
-<div class="selector-item">
-<div class="selector-question">09 · DIGITAL vs E-COMMERCE</div>
-<div class="selector-answer">100% digital → Serviços, Afiliados, Produtos, Faceless. Com operação física → Print Studio ou AI Commerce.</div>
-</div>
+<div class="selector-item"><div class="selector-question">01 · TEMPO DISPONÍVEL</div><div class="selector-answer">Você tem menos de 1h por dia → Serviços ou Afiliados. Mais de 2h → Commerce ou Faceless Content.</div></div>
+<div class="selector-item"><div class="selector-question">02 · QUER APARECER?</div><div class="selector-answer">Não quer aparecer → Faceless Content, Print Studio ou Produtos Digitais. Sem restrição → qualquer stack.</div></div>
+<div class="selector-item"><div class="selector-question">03 · PREFERÊNCIA DE MODELO</div><div class="selector-answer">Serviço → AI Services. Produto digital → Digital Products. Conteúdo → Faceless. Afiliado → Evergreen. E-commerce → Commerce ou Print Studio.</div></div>
+<div class="selector-item"><div class="selector-question">04 · NÍVEL DE EXPERIÊNCIA</div><div class="selector-answer">Iniciante completo → Digital Products ou Print Studio. Tem alguma experiência → qualquer stack com suporte dos workflows.</div></div>
+<div class="selector-item"><div class="selector-question">05 · TOLERÂNCIA A RISCO</div><div class="selector-answer">Risco mínimo → Serviços ou Produtos Digitais. Risco médio → Print Studio ou Faceless. Risco maior → Commerce.</div></div>
+<div class="selector-item"><div class="selector-question">06 · RETORNO ESPERADO</div><div class="selector-answer">Precisa de retorno rápido (dias) → Serviços. Aceita esperar semanas → Digital Products ou Print. Aceita meses → Afiliados ou Faceless Content.</div></div>
+<div class="selector-item"><div class="selector-question">07 · CRIAR CONTEÚDO</div><div class="selector-answer">Gosta de escrever → Afiliados ou Produtos Digitais. Prefere visual → Print Studio. Indiferente → Faceless Content com IA.</div></div>
+<div class="selector-item"><div class="selector-question">08 · MORA NA EUROPA</div><div class="selector-answer">Sim → Print Studio (Printify EU), AI Commerce (CJ EU), Afiliados (Awin EU) têm vantagem operacional real.</div></div>
+<div class="selector-item"><div class="selector-question">09 · DIGITAL vs E-COMMERCE</div><div class="selector-answer">100% digital → Serviços, Afiliados, Produtos, Faceless. Com operação física → Print Studio ou AI Commerce.</div></div>
 </div>
 <p style="font-size:13px;color:var(--text-2);margin-top:20px;font-family:'DM Mono',monospace">⚠️ Regra de ouro: escolha UM stack e execute por 30 dias completos antes de considerar mudar.</p>
 </div>
 </div>
 </section>
-
-<!-- 30-DAY EXECUTION OS -->
 <section id="30dias">
 <div class="container">
 <div class="section-eye">30-Day Execution OS</div>
 <h2 class="section-title">Um plano de 30 dias para sair da teoria<br>e entrar em execução real.</h2>
 <p class="section-desc">O FlowOS™ já tinha um plano de 5 dias por stack. A nova versão inclui o 30-Day Execution OS: uma camada de planejamento que guia você da escolha do stack até a primeira validação.</p>
 <div class="weeks">
-<div class="week-card">
-<div class="week-label">SEMANA 01 · DIAS 1–7</div>
-<div class="week-title">Setup e Escolha</div>
-<div class="week-tasks">
-<div class="week-task"><span class="week-dot">→</span><span>Usar o Stack Selector para definir o stack inicial</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Configurar todas as ferramentas necessárias do stack escolhido</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Entender o modelo de receita e os canais de distribuição</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Definir nicho específico e público-alvo</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Criar os primeiros ativos usando os workflows do Claude AI</span></div>
-</div>
-</div>
-<div class="week-card">
-<div class="week-label">SEMANA 02 · DIAS 8–14</div>
-<div class="week-title">Produção de Ativos</div>
-<div class="week-tasks">
-<div class="week-task"><span class="week-dot">→</span><span>Produzir os ativos principais: produto, conteúdo, página, perfil ou serviço</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Montar a oferta inicial com copy gerada pelos workflows</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Preparar imagens, textos e materiais de suporte</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Revisar e testar tudo antes de publicar</span></div>
-</div>
-</div>
-<div class="week-card">
-<div class="week-label">SEMANA 03 · DIAS 15–21</div>
-<div class="week-title">Publicação e Ativação</div>
-<div class="week-tasks">
-<div class="week-task"><span class="week-dot">→</span><span>Publicar, listar produtos, enviar propostas ou gerar tráfego orgânico</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Prospectar clientes ou ativar distribuição conforme o stack</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Manter consistência mínima de execução diária (45 a 90 minutos)</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Documentar o que está funcionando e o que não está</span></div>
-</div>
-</div>
-<div class="week-card">
-<div class="week-label">SEMANA 04 · DIAS 22–30</div>
-<div class="week-title">Medição e Validação</div>
-<div class="week-tasks">
-<div class="week-task"><span class="week-dot">→</span><span>Medir resultados com as métricas definidas para o stack</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Corrigir o que não está funcionando com base nos dados</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Melhorar a oferta, o conteúdo ou a abordagem</span></div>
-<div class="week-task"><span class="week-dot">→</span><span>Buscar a primeira venda, o primeiro lead ou a primeira validação real</span></div>
-</div>
-</div>
+<div class="week-card"><div class="week-label">SEMANA 01 · DIAS 1–7</div><div class="week-title">Setup e Escolha</div><div class="week-tasks"><div class="week-task"><span class="week-dot">→</span><span>Usar o Stack Selector para definir o stack inicial</span></div><div class="week-task"><span class="week-dot">→</span><span>Configurar todas as ferramentas necessárias do stack escolhido</span></div><div class="week-task"><span class="week-dot">→</span><span>Entender o modelo de receita e os canais de distribuição</span></div><div class="week-task"><span class="week-dot">→</span><span>Definir nicho específico e público-alvo</span></div><div class="week-task"><span class="week-dot">→</span><span>Criar os primeiros ativos usando os workflows do Claude AI</span></div></div></div>
+<div class="week-card"><div class="week-label">SEMANA 02 · DIAS 8–14</div><div class="week-title">Produção de Ativos</div><div class="week-tasks"><div class="week-task"><span class="week-dot">→</span><span>Produzir os ativos principais: produto, conteúdo, página, perfil ou serviço</span></div><div class="week-task"><span class="week-dot">→</span><span>Montar a oferta inicial com copy gerada pelos workflows</span></div><div class="week-task"><span class="week-dot">→</span><span>Preparar imagens, textos e materiais de suporte</span></div><div class="week-task"><span class="week-dot">→</span><span>Revisar e testar tudo antes de publicar</span></div></div></div>
+<div class="week-card"><div class="week-label">SEMANA 03 · DIAS 15–21</div><div class="week-title">Publicação e Ativação</div><div class="week-tasks"><div class="week-task"><span class="week-dot">→</span><span>Publicar, listar produtos, enviar propostas ou gerar tráfego orgânico</span></div><div class="week-task"><span class="week-dot">→</span><span>Prospectar clientes ou ativar distribuição conforme o stack</span></div><div class="week-task"><span class="week-dot">→</span><span>Manter consistência mínima de execução diária (45 a 90 minutos)</span></div><div class="week-task"><span class="week-dot">→</span><span>Documentar o que está funcionando e o que não está</span></div></div></div>
+<div class="week-card"><div class="week-label">SEMANA 04 · DIAS 22–30</div><div class="week-title">Medição e Validação</div><div class="week-tasks"><div class="week-task"><span class="week-dot">→</span><span>Medir resultados com as métricas definidas para o stack</span></div><div class="week-task"><span class="week-dot">→</span><span>Corrigir o que não está funcionando com base nos dados</span></div><div class="week-task"><span class="week-dot">→</span><span>Melhorar a oferta, o conteúdo ou a abordagem</span></div><div class="week-task"><span class="week-dot">→</span><span>Buscar a primeira venda, o primeiro lead ou a primeira validação real</span></div></div></div>
 </div>
 <p style="font-size:13px;color:var(--text-2);margin-top:20px;font-family:'DM Mono',monospace">Objetivo: clareza operacional e rotina de execução — não promessa de dinheiro garantido.</p>
 </div>
 </section>
-<!-- WORKFLOWS -->
 <section id="workflows">
 <div class="container">
 <div class="section-eye">Biblioteca de Workflows</div>
@@ -469,51 +306,25 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <p style="font-size:13px;color:var(--text-2);margin-top:16px;font-family:'DM Mono',monospace">+ 37 workflows adicionais organizados por stack e função dentro da área de membros.</p>
 </div>
 </section>
-
-<!-- BONUS -->
 <section id="bonus">
 <div class="container">
 <div class="section-eye">Bônus Incluídos</div>
 <h2 class="section-title">Materiais complementares que fazem parte do sistema.</h2>
 <p class="section-desc">Não são bônus genéricos de enchimento. Cada material resolve um problema específico do processo de execução.</p>
 <div class="bonus-grid">
-<div class="bonus-card">
-<div class="bonus-icon">📈</div>
-<div class="bonus-name">Stack Expansion Guide</div>
-<div class="bonus-desc">Como expandir cada stack após o primeiro ciclo de 30 dias. Escala, novos canais, novos produtos e como combinar dois stacks de forma complementar sem perder foco.</div>
-</div>
-<div class="bonus-card">
-<div class="bonus-icon">✅</div>
-<div class="bonus-name">Pre-Launch Checklist</div>
-<div class="bonus-desc">Lista de verificação completa antes de publicar qualquer stack. Evite os erros mais comuns de configuração que atrasam os primeiros resultados.</div>
-</div>
-<div class="bonus-card">
-<div class="bonus-icon">🌍</div>
-<div class="bonus-name">European Traffic Playbook</div>
-<div class="bonus-desc">Guia de canais e estratégias de tráfego adaptados ao contexto europeu. Plataformas, programas de afiliados, fornecedores e particularidades do mercado da UE.</div>
-</div>
-<div class="bonus-card">
-<div class="bonus-icon">⚠️</div>
-<div class="bonus-name">Critical Failure Analysis</div>
-<div class="bonus-desc">Os erros mais comuns em cada stack, por que acontecem e como evitá-los. Documentação baseada nos pontos de abandono mais frequentes para cada modelo.</div>
-</div>
+<div class="bonus-card"><div class="bonus-icon">📈</div><div class="bonus-name">Stack Expansion Guide</div><div class="bonus-desc">Como expandir cada stack após o primeiro ciclo de 30 dias. Escala, novos canais, novos produtos e como combinar dois stacks de forma complementar sem perder foco.</div></div>
+<div class="bonus-card"><div class="bonus-icon">✅</div><div class="bonus-name">Pre-Launch Checklist</div><div class="bonus-desc">Lista de verificação completa antes de publicar qualquer stack. Evite os erros mais comuns de configuração que atrasam os primeiros resultados.</div></div>
+<div class="bonus-card"><div class="bonus-icon">🌍</div><div class="bonus-name">European Traffic Playbook</div><div class="bonus-desc">Guia de canais e estratégias de tráfego adaptados ao contexto europeu. Plataformas, programas de afiliados, fornecedores e particularidades do mercado da UE.</div></div>
+<div class="bonus-card"><div class="bonus-icon">⚠️</div><div class="bonus-name">Critical Failure Analysis</div><div class="bonus-desc">Os erros mais comuns em cada stack, por que acontecem e como evitá-los. Documentação baseada nos pontos de abandono mais frequentes para cada modelo.</div></div>
 </div>
 </div>
 </section>
-
-<!-- COMPARAÇÃO -->
 <section id="comparacao">
 <div class="container">
 <div class="section-eye">Comparação</div>
 <h2 class="section-title">FlowOS™ vs. cursos tradicionais<br>de ganhar dinheiro online.</h2>
 <table class="compare-table">
-<thead>
-<tr>
-<th>Critério</th>
-<th>FlowOS™</th>
-<th>Cursos Tradicionais</th>
-</tr>
-</thead>
+<thead><tr><th>Critério</th><th>FlowOS™</th><th>Cursos Tradicionais</th></tr></thead>
 <tbody>
 <tr><td>Formato</td><td><span class="compare-check">✓</span> Sistema + documentação operacional</td><td><span class="compare-x">✗</span> Aulas longas e teoria</td></tr>
 <tr><td>Ponto de partida</td><td><span class="compare-check">✓</span> Stack Selector define o modelo certo pra você</td><td><span class="compare-x">✗</span> Você decide sem diagnóstico</td></tr>
@@ -527,7 +338,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 </table>
 </div>
 </section>
-<!-- OFERTA -->
 <section id="oferta">
 <div class="container">
 <div class="section-eye">Founding Access</div>
@@ -558,13 +368,8 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <a href="https://pay.kiwify.com.br/Btg1xGX" class="offer-cta" target="_blank">Acessar o FlowOS™ por R$147 →</a>
 <div class="offer-guarantee">🔒 Garantia de 7 dias sem perguntas · Acesso imediato após compra</div>
 </div>
-<div style="margin-top:24px;background:var(--bg-1);border:1px solid var(--border);border-radius:var(--radius);padding:20px">
-<p style="font-size:13px;color:var(--text-1);line-height:1.75"><strong style="color:var(--text-0)">Por que R$147 e não R$297?</strong><br>O FlowOS™ está passando por um reposicionamento. O preço de Founding Access existe por um motivo real: queremos validar a nova versão com os primeiros compradores, coletar feedback e ajustar antes do lançamento definitivo. Você acessa o sistema completo com condição de lançamento — e todas as atualizações futuras já estão incluídas. Quando o Founding Access encerrar (nas primeiras 10 vendas), o preço volta para R$297.</p>
-</div>
 </div>
 </section>
-
-<!-- GARANTIA -->
 <section id="garantia">
 <div class="container">
 <div class="section-eye">Garantia</div>
@@ -578,57 +383,23 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 </div>
 </div>
 </section>
-
-<!-- FAQ -->
 <section id="faq">
 <div class="container">
 <div class="section-eye">FAQ</div>
 <h2 class="section-title">Perguntas frequentes.</h2>
 <div class="faq-list">
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Isso funciona para brasileiros que moram no Brasil? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">Sim. O produto foi criado para brasileiros — tanto os que moram no Brasil quanto os que estão na Europa. Os stacks de Digital Products, Faceless Content e Serviços funcionam sem nenhuma adaptação local. Os stacks de Print Studio e Commerce têm vantagens específicas para quem mora na Europa (fornecedores EU, Printify Express, Awin), mas podem ser usados do Brasil com ajuste de fornecedores.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Preciso aparecer em câmera ou ter seguidores? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">Não para a maioria dos stacks. O Faceless Content foi desenvolvido especificamente para quem não quer aparecer. O Digital Products, Print Studio e Afiliados não exigem presença pessoal. O Serviços exige apresentação profissional no perfil, mas não câmera. Somente o Commerce pode se beneficiar de conteúdo pessoal, mas não é obrigatório.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Preciso pagar ferramentas caras para começar? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">Não. A infraestrutura de 5 dos 6 stacks começa com €0. O único stack com custo inicial é o AI Commerce, que usa o trial do Shopify (€1/mês no primeiro mês). Claude AI tem plano gratuito suficiente para começar. Etsy, Gumroad, Fiverr, Upwork, Redbubble e Beehiiv têm acesso gratuito. O FlowOS™ foi desenhado para quem quer validar antes de investir.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Preciso de experiência prévia com IA ou marketing? <span class="faq-chavron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">Não. Os workflows são copiados e colados diretamente no Claude AI. A documentação explica cada passo. O Stack Selector ajuda a escolher o modelo mais adequado para iniciantes. Você precisa de disposição para executar — não de experiência técnica prévia.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Quanto tempo por dia preciso dedicar? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">O plano de 30 dias foi desenhado para funcionar com 45 a 90 minutos por dia. Alguns stacks (como Serviços) podem exigir um pouco mais nas primeiras semanas de prospecção. Outros (como Afiliados) funcionam bem com sessões de 60 minutos. O Stack Selector considera sua disponibilidade diária na hora de recomendar o stack ideal.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Isso é curso ou sistema? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">É um sistema — não um curso de aulas. O FlowOS™ é documentação operacional, workflows prontos, checklists e um plano de execução. Não há vídeos longos, módulos teóricos ou conteúdo pra consumir passivamente. Você acessa, escolhe o stack, segue o plano e executa. É mais parecido com um manual de operação do que com um curso.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Isso garante que vou ganhar dinheiro? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">Não. O FlowOS™ entrega estrutura, workflows e plano de execução — não resultados garantidos. Os resultados dependem da execução, da consistência, do nicho escolhido e de variáveis fora do nosso controle. O objetivo é te ajudar a testar e validar um modelo de renda de forma organizada, não prometer dinheiro automático.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Por que R$147 e não o preço normal de R$297? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">O FlowOS™ está em fase de validação da nova versão (Founding Access). O preço promocional existe para conseguir os primeiros compradores, coletar feedback real e ajustar antes do lançamento definitivo. Você entra com condição de lançamento e recebe todas as atualizações futuras sem custo adicional. Quando as primeiras 10 vendas forem concluídas, o preço volta para R$297.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Posso começar mesmo trabalhando em tempo integral? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">Sim. O plano foi desenhado para ser executado em blocos de 45 a 90 minutos por dia. Para quem tem pouco tempo, o Stack Selector recomenda os stacks de menor demanda operacional diária. A ideia é criar rotina — não exigir dedicação em período integral desde o início.</div></div>
-</div>
-<div class="faq-item">
-<div class="faq-q" onclick="toggleFaq(this)">Preciso abrir empresa para usar os stacks? <span class="faq-chevron">›</span></div>
-<div class="faq-a"><div class="faq-a-inner">Não para começar a testar. Mas você é responsável por verificar as regras fiscais e legais do país onde atua — especialmente se mora na Europa. Plataformas como Etsy, Gumroad, Fiverr e Upwork permitem cadastro como pessoa física para começar. Quando houver receita consistente, recomendamos buscar orientação contábil local.</div></div>
-</div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Isso funciona para brasileiros que moram no Brasil? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">Sim. O produto foi criado para brasileiros — tanto os que moram no Brasil quanto os que estão na Europa. Os stacks de Digital Products, Faceless Content e Serviços funcionam sem nenhuma adaptação local. Os stacks de Print Studio e Commerce têm vantagens específicas para quem mora na Europa (fornecedores EU, Printify Express, Awin), mas podem ser usados do Brasil com ajuste de fornecedores.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Preciso aparecer em câmera ou ter seguidores? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">Não para a maioria dos stacks. O Faceless Content foi desenvolvido especificamente para quem não quer aparecer. O Digital Products, Print Studio e Afiliados não exigem presença pessoal. O Serviços exige apresentação profissional no perfil, mas não câmera. Somente o Commerce pode se beneficiar de conteúdo pessoal, mas não é obrigatório.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Preciso pagar ferramentas caras para começar? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">Não. A infraestrutura de 5 dos 6 stacks começa com €0. O único stack com custo inicial é o AI Commerce, que usa o trial do Shopify (€1/mês no primeiro mês). Claude AI tem plano gratuito suficiente para começar. Etsy, Gumroad, Fiverr, Upwork, Redbubble e Beehiiv têm acesso gratuito. O FlowOS™ foi desenhado para quem quer validar antes de investir.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Preciso de experiência prévia com IA ou marketing? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">Não. Os workflows são copiados e colados diretamente no Claude AI. A documentação explica cada passo. O Stack Selector ajuda a escolher o modelo mais adequado para iniciantes. Você precisa de disposição para executar — não de experiência técnica prévia.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Quanto tempo por dia preciso dedicar? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">O plano de 30 dias foi desenhado para funcionar com 45 a 90 minutos por dia. Alguns stacks (como Serviços) podem exigir um pouco mais nas primeiras semanas de prospecção. Outros (como Afiliados) funcionam bem com sessões de 60 minutos. O Stack Selector considera sua disponibilidade diária na hora de recomendar o stack ideal.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Isso é curso ou sistema? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">É um sistema — não um curso de aulas. O FlowOS™ é documentação operacional, workflows prontos, checklists e um plano de execução. Não há vídeos longos, módulos teóricos ou conteúdo pra consumir passivamente. Você acessa, escolhe o stack, segue o plano e executa. É mais parecido com um manual de operação do que com um curso.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Isso garante que vou ganhar dinheiro? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">Não. O FlowOS™ entrega estrutura, workflows e plano de execução — não resultados garantidos. Os resultados dependem da execução, da consistência, do nicho escolhido e de variáveis fora do nosso controle. O objetivo é te ajudar a testar e validar um modelo de renda de forma organizada, não prometer dinheiro automático.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Posso começar mesmo trabalhando em tempo integral? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">Sim. O plano foi desenhado para ser executado em blocos de 45 a 90 minutos por dia. Para quem tem pouco tempo, o Stack Selector recomenda os stacks de menor demanda operacional diária. A ideia é criar rotina — não exigir dedicação em período integral desde o início.</div></div></div>
+<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Preciso abrir empresa para usar os stacks? <span class="faq-chevron">›</span></div><div class="faq-a"><div class="faq-a-inner">Não para começar a testar. Mas você é responsável por verificar as regras fiscais e legais do país onde atua — especialmente se mora na Europa. Plataformas como Etsy, Gumroad, Fiverr e Upwork permitem cadastro como pessoa física para começar. Quando houver receita consistente, recomendamos buscar orientação contábil local.</div></div></div>
 </div>
 </div>
 </section>
-<!-- DISCLAIMER -->
 <section id="disclaimer">
 <div class="container">
 <div class="disclaimer-box">
@@ -637,8 +408,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 </div>
 </div>
 </section>
-
-<!-- CTA FINAL -->
 <section id="cta-final" style="padding:80px 0;text-align:center;border-top:1px solid var(--border)">
 <div class="container">
 <div class="section-eye">Comece agora</div>
@@ -653,8 +422,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <div style="margin-top:16px;font-size:12px;color:var(--text-2);font-family:'DM Mono',monospace">🔒 Garantia de 7 dias · Acesso imediato · Sem mensalidade · Atualizações incluídas</div>
 </div>
 </section>
-
-<!-- FOOTER -->
 <footer>
 <div class="container">
 <div class="footer-logo">Flow<em>OS</em>™</div>
@@ -662,7 +429,6 @@ footer{padding:40px 0;border-top:1px solid var(--border);text-align:center}
 <div class="footer-sub">Sistema de execução para renda online com IA · Produto educativo em português brasileiro</div>
 </div>
 </footer>
-
 <script>
 function toggleFaq(el) {
   var item = el.closest('.faq-item');
